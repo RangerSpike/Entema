@@ -1,0 +1,301 @@
+.contianer{
+    width: 100%;
+    height: auto;
+    overflow:scroll;
+    background-color: whitesmoke;
+} 
+.scroll {
+    margin:-1px;
+    padding:-1px;
+   
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;}
+/*.custom-select{
+    border-color: #01d231;
+width:290px
+}
+    
+.input{
+    border-color: #259c41;
+    width: 290px;
+    border-radius: 5px;
+    overflow: visible;
+    height: 41px;
+}
+.content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - 123px);
+    margin-top: 10px;
+    width:100%;
+    overflow: auto;
+    
+}
+
+.row1{
+
+    display: flex;
+    
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+@media (min-width: 768px){
+.col-md-12 {
+    -webkit-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}}
+
+
+
+@media (min-width: 768px){
+.col-md-12 {
+    -webkit-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}}
+.col-12 {
+    -webkit-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+ .col-12{
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.card {
+    border: 0;
+    border-radius: .1875rem;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 15px 1px rgb(39 39 39 / 10%);
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    height: 100%;
+}
+.card .card-header:not([data-background-color]) {
+    background-color: transparent;
+}
+.card .card-header {
+    padding: 15px 15px 0;
+    border: 0;
+}
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.card .card-header .card-title {
+    margin-top: 10px;
+}
+.card-title {
+    margin-bottom: .75rem;
+}
+.h4, h4 {
+    font-size: 1.714em;
+    line-height: 1.45em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+.card .card-body {
+    padding: 15px 15px 10px;
+}
+.card-body {
+  
+    flex: 1 1 auto;
+    min-height: 1px;
+    
+}
+.ReactTable {
+    position: relative;
+    
+    display: flex;
+    
+    flex-direction: column;
+    background-color: transparent;
+}
+
+.ReactTable .-pagination {
+    z-index: 1;
+    
+    display: flex;
+
+    justify-content: space-between;
+    
+    align-items: stretch;
+    
+    flex-wrap: wrap;
+    padding: 3px;
+}
+
+.ReactTable .-pagination .-next, .ReactTable .-pagination .-previous {
+    -webkit-flex: 1 1;
+    flex: 1 1;
+    text-align: center;
+}
+.ReactTable .-pagination .-btn[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+}
+.ReactTable .-pagination .-btn {
+   
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 1em;
+    color: rgba(0,0,0,.6);
+    background: rgba(0,0,0,.1);
+    transition: all .1s ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.ReactTable .-pagination .-center {
+  
+    flex: 1.5 1;
+    text-align: center;
+    margin-bottom: 0;
+    display: -webkit-flex;
+    display: flex;
+   
+    flex-direction: row;
+
+    flex-wrap: wrap;
+    
+    align-items: center;
+
+    justify-content: space-around;
+}
+
+
+
+.justify-content-center {
+    justify-content: center!important;
+}
+@media (min-width: 768px){
+.col-md-4 {
+    -webkit-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}}
+@media (min-width: 576px){
+.col-sm-6 {
+    -webkit-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}}
+.col-12 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    flex: 0 0 100%;
+}
+.css-2b097c-container {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.css-7pg0cj-a11yText {
+    z-index: 9999;
+    border: 0px;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    overflow: hidden;
+    padding: 0px;
+    white-space: nowrap;
+}
+.react-select .react-select__control, .react-select .react-select__control:hover {
+    border: 1px solid #e3e3e3;
+    box-shadow: none;
+    background-color: transparent;
+}
+.react-select .react-select__control {
+    border-radius: 19px;
+    min-height: 37px;
+    height: 37px;
+    box-sizing: border-box;
+    border-collapse: separate;
+    display: table;
+    width: 100%;
+}
+.css-yk16xz-control {
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(204, 204, 204);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 38px;
+    position: relative;
+    transition: all 100ms ease 0s;
+    box-sizing: border-box;
+    outline: 0px !important;
+}
+
+.css-1hwfws3 {
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    flex: 1 1 0%;
+    flex-wrap: wrap;
+    padding: 2px 8px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.react-select.primary .react-select__control .react-select__value-container--has-value .react-select__multi-value__label, .react-select.primary .react-select__control .react-select__value-container--has-value .react-select__single-value {
+    color: #f96332;
+}
+.react-select .react-select__control .react-select__value-container--has-value .react-select__single-value {
+    top: 48%;
+}
+
+.css-1uccc91-singleValue {
+    
+    margin-left: 2px;
+    margin-right: 2px;
+    max-width: calc(100% - 8px);
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+   
+    transform: translateY(-50%);
+    box-sizing: border-box;
+}
+
+.css-1g6gooi {
+    margin: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    visibility: visible;
+    color: rgb(51, 51, 51);
+    box-sizing: border-box;
+} */
+.textarea{
+    white-space: break-spaces;
+
+}

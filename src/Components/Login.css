@@ -1,0 +1,107 @@
+/* Made with love by Mutiullah Samim*/
+ 
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+
+ 
+.container8{
+height: 200px;
+width:100%;
+/* background-image: url("../assets/Login.jpg"); */
+ 
+}
+ 
+.card8{
+height: 300px;
+margin-top:100px ;
+width: 300px;
+background-color: rgba(134, 59, 59, 0.5) !important;
+}
+ 
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+ 
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+ 
+.card-header h3{
+color: white;
+}
+ 
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+ 
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+ 
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+ 
+}
+ 
+.remember{
+color: white;
+}
+ 
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+ 
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+ 
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+ 
+.links{
+color: white;
+}
+ 
+.links a{
+margin-left: 4px;
+}
+ 
+.body1 {
+    background-image: url("../assets/Login.jpg");
+    background-position:center;
+    background-size:cover;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    font: normal 14px Roboto,arial,sans-serif;
+    font-family: 'Dancing Script', cursive!important;
+  }
+  .brand_logo_container {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: 140px;
+    padding: 10px;
+    text-align: center;
+}
+.brand_logo {
+    height: 70px;
+    width: 270px;
+ margin-left: 20px;
+}
