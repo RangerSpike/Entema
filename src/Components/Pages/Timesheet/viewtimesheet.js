@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useMemo } from "react";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import { TableHeader, Pagination, Search } from "../../DataTable";
+import PopupPdf from "./TimeSheetPdf";
 import axios from "axios";
 import { IconButton, Button } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import PopupTS from "./timeSheetModal";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
-
 
 const DataTable = () => {
   const [comments, setComments] = useState([]);
@@ -23,7 +24,7 @@ const DataTable = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [id, setId] = useState(null);
   const [myID, setMyID] = useState("");
-  
+  const [openpdfPopup, setOpenpdfPopup] = useState(false);
 
   const ITEMS_PER_PAGE = 10;
 
@@ -95,6 +96,7 @@ const DataTable = () => {
     { name: "Status", field: "Status", sortable: false },
     { name: "Delete", field: "Delete", sortable: false },
     { name: "Operation", field: "Operation", sortable: false },
+    { name: "PDF", field: "PDF", sortable: false },
   ];
 
   const getData = () => {
@@ -155,11 +157,7 @@ const DataTable = () => {
 
     //console.log("TimeSheet ID : ", tsId);
   };
-
-  const test = (data) => {
-    alert("hurrray :" + data);
-  };
-
+  
   const monthDispValue = (value) => {
     let output;
 
@@ -202,6 +200,11 @@ const DataTable = () => {
     }
     //console.log("switch value : ", output);
     return output;
+  };
+
+  const openPdfPopup = (item) => {
+    setOpenpdfPopup(true);
+    setId(item);
   };
 
   const commentsData = useMemo(() => {
@@ -256,68 +259,71 @@ const DataTable = () => {
 
   return (
     <>
-    <div class="scrollbar square scrollbar-lady-lips thin">
-      <div class="container" style={{ paddingTop: "3px", paddingLeft: "5px" }}>
-        <div className="heading-layout1">
-          <div className="item-title">
-            <h3 style={{ padding: "50px" }}>List of Timesheet's</h3>
+      <div class="scrollbar square scrollbar-lady-lips thin">
+        <div
+          class="container"
+          style={{ paddingTop: "3px", paddingLeft: "5px" }}
+        >
+          <div className="heading-layout1">
+            <div className="item-title">
+              <h3 style={{ padding: "50px" }}>List of Timesheet's</h3>
+            </div>
           </div>
-        </div>
 
-        <div className="row w-100">
-          <div className="col mb-3 col-12 text-center">
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div class="col-md-4 mb-3">
-                  <label for="userRole">Month</label>
-                  <select
-                    class="form-control is-valid"
-                    value={tsMonth}
-                    id="tsMonth"
-                    name="tsMonth"
-                    onChange={(e) => {
-                      settsMont(e.target.value);
-                    }}
-                    required
+          <div className="row w-100">
+            <div className="col mb-3 col-12 text-center">
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div class="col-md-4 mb-3">
+                    <label for="userRole">Month</label>
+                    <select
+                      class="form-control is-valid"
+                      value={tsMonth}
+                      id="tsMonth"
+                      name="tsMonth"
+                      onChange={(e) => {
+                        settsMont(e.target.value);
+                      }}
+                      required
+                    >
+                      {MonthLov.map((data) => (
+                        <option key={data.key} value={data.key}>
+                          {data.value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="userRole">Years</label>
+                    <select
+                      class="form-control is-valid"
+                      value={tsYear}
+                      id="tsYear"
+                      name="tsYear"
+                      onChange={(e) => {
+                        settsYear(e.target.value);
+                      }}
+                      required
+                    >
+                      <option value="">Select Years</option>
+                      {yearLov.map((data) => (
+                        <option key={data.ID} value={data.ID}>
+                          {data.YEAR}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {/* <button type="submit" class="btn btn-outline-success"  >Filter</button> */}
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: "31px", marginBottom: "40px" }}
                   >
-                    {MonthLov.map((data) => (
-                      <option key={data.key} value={data.key}>
-                        {data.value}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="userRole">Years</label>
-                  <select
-                    class="form-control is-valid"
-                    value={tsYear}
-                    id="tsYear"
-                    name="tsYear"
-                    onChange={(e) => {
-                      settsYear(e.target.value);
-                    }}
-                    required
-                  >
-                    <option value="">Select Years</option>
-                    {yearLov.map((data) => (
-                      <option key={data.ID} value={data.ID}>
-                        {data.YEAR}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {/* <button type="submit" class="btn btn-outline-success"  >Filter</button> */}
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: "31px", marginBottom: "40px" }}
-                >
-                  Filter
-                </Button>
+                    Filter
+                  </Button>
 
-                {/* <div className="col-md-6 d-flex flex-row-reverse" style={{marginBottom:'30px',marginLeft:'340px'}}>
+                  {/* <div className="col-md-6 d-flex flex-row-reverse" style={{marginBottom:'30px',marginLeft:'340px'}}>
                             <Search
                                 onSearch={value => {
                                     setSearch(value);
@@ -325,104 +331,110 @@ const DataTable = () => {
                                 }}
                             />
                         </div> */}
-              </div>
-            </form>
-            <table className="table table-striped">
-              <TableHeader
-                headers={headers}
-                onSorting={(field, order) => setSorting({ field, order })}
-              />
-              <tbody>
-                {commentsData.map((comment) => (
-                  <tr>
-                    <th
-                      scope="row"
-                      key={comment.VTS_ID}
-                      onClick={() => openInPopup(comment.VTS_ID)}
-                      style={{cursor:'pointer'}}
-                    >
-                      {comment.VTS_ID}
-                    </th>
-                    <td >
-                      {comment.TS_VENDOR_DISP_NAME}
-                    </td>
-                    <td>{monthDispValue(comment.TS_MONTH)}</td>
-                    <td>{comment.TS_YEAR}</td>
-                    {/* <td>{comment.TS_DESCRIPTION}</td>
+                </div>
+              </form>
+              <table className="table table-striped">
+                <TableHeader
+                  headers={headers}
+                  onSorting={(field, order) => setSorting({ field, order })}
+                />
+                <tbody>
+                  {commentsData.map((comment) => (
+                    <tr>
+                      <th
+                        scope="row"
+                        key={comment.VTS_ID}
+                        onClick={() => openInPopup(comment.VTS_ID)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {comment.VTS_ID}
+                      </th>
+                      <td>{comment.TS_VENDOR_DISP_NAME}</td>
+                      <td>{monthDispValue(comment.TS_MONTH)}</td>
+                      <td>{comment.TS_YEAR}</td>
+                      {/* <td>{comment.TS_DESCRIPTION}</td>
                                     <td>{comment.TS_PLOT}</td> */}
-                    <td>{comment.TS_OP_NAME}</td>
-                    {/* <td>{comment.TS_EXP_HOURS}</td> */}
-                    {/* <td>{comment.TS_MONTH_RATE}</td> */}
-                    {/* <td>{comment.TS_OT_RATE}</td>
+                      <td>{comment.TS_OP_NAME}</td>
+                      {/* <td>{comment.TS_EXP_HOURS}</td> */}
+                      {/* <td>{comment.TS_MONTH_RATE}</td> */}
+                      {/* <td>{comment.TS_OT_RATE}</td>
                     <td>{comment.TS_HR_RATE}</td> */}
-                    <td>{comment.TS_TOTAL_HOUR}</td>
-                    <td>{comment.TS_TOTAL_OT}</td>
-                    <td>{comment.TS_TOTAL}</td>
-                    {/* <td>{comment.TS_GRID}</td> */}
-                    <td>{comment.CREATED_DATE}</td>
-                    <td>{comment.CREATED_BY}</td>
-                    <td>{comment.TS_STATUS}</td>
-                    <td>
-                      <IconButton color="secondary">
-                        <DeleteOutlineIcon
-                          onClick={() => removeTimeSheet(comment.VTS_ID)}
-                        />
-                      </IconButton>
-                    </td>
-                    <td onClick={() => buttonClick(comment.VTS_ID)}>
-                      <div>
-                        <Button
-                          aria-controls="simple-menu"
-                          aria-haspopup="true"
-                          onClick={handleClick}
-                        >
-                          <MenuOpenIcon />
-                        </Button>
-                        <Menu
-                          id="simple-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={handleClose}
-                        >
-                          <MenuItem
-                            onClick={() => {
-                              approvedClose();
-                            }}
+                      <td>{comment.TS_TOTAL_HOUR}</td>
+                      <td>{comment.TS_TOTAL_OT}</td>
+                      <td>{comment.TS_TOTAL}</td>
+                      {/* <td>{comment.TS_GRID}</td> */}
+                      <td>{comment.CREATED_DATE}</td>
+                      <td>{comment.CREATED_BY}</td>
+                      <td>{comment.TS_STATUS}</td>
+                      <td>
+                        <IconButton color="secondary">
+                          <DeleteOutlineIcon
+                            onClick={() => removeTimeSheet(comment.VTS_ID)}
+                          />
+                        </IconButton>
+                      </td>
+                      <td onClick={() => buttonClick(comment.VTS_ID)}>
+                        <div>
+                          <Button
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
                           >
-                            Approved
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              notApproveClose();
-                            }}
+                            <MenuOpenIcon />
+                          </Button>
+                          <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
                           >
-                            Not Approved
-                          </MenuItem>
-                        </Menu>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <PopupTS
-              id={id}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            ></PopupTS>
-          </div>
-          <div className="col-md-6">
-            <Pagination
-              total={totalItems}
-              itemsPerPage={ITEMS_PER_PAGE}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
+                            <MenuItem
+                              onClick={() => {
+                                approvedClose();
+                              }}
+                            >
+                              Approved
+                            </MenuItem>
+                            <MenuItem
+                              onClick={() => {
+                                notApproveClose();
+                              }}
+                            >
+                              Not Approved
+                            </MenuItem>
+                          </Menu>
+                        </div>
+                      </td>
+                      <td onClick={() => openPdfPopup(comment.VTS_ID)}>
+                        <PictureAsPdfIcon style={{ color: "green" }} />
+                        PDF FILE
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <PopupTS
+                id={id}
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+              ></PopupTS>
+              <PopupPdf
+                id={id}
+                openPopup={openpdfPopup}
+                setOpenPopup={setOpenpdfPopup}
+              ></PopupPdf>
+            </div>
+            <div className="col-md-6">
+              <Pagination
+                total={totalItems}
+                itemsPerPage={ITEMS_PER_PAGE}
+                currentPage={currentPage}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
+            </div>
           </div>
         </div>
-        </div>
-        
       </div>
       {loader}
     </>

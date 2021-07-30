@@ -78,7 +78,42 @@ function Createtimesheet() {
     days31: "",
   });
 
+  let [oTSheet, setOtSheet] = useState({
+    oTdays1: "",
+    oTdays2: "",
+    oTdays3: "",
+    oTdays4: "",
+    oTdays5: "",
+    oTdays6: "",
+    oTdays7: "",
+    oTdays8: "",
+    oTdays9: "",
+    oTdays10: "",
+    oTdays11: "",
+    oTdays12: "",
+    oTdays13: "",
+    oTdays14: "",
+    oTdays15: "",
+    oTdays16: "",
+    oTdays17: "",
+    oTdays18: "",
+    oTdays19: "",
+    oTdays20: "",
+    oTdays21: "",
+    oTdays22: "",
+    oTdays23: "",
+    oTdays24: "",
+    oTdays25: "",
+    oTdays26: "",
+    oTdays27: "",
+    oTdays28: "",
+    oTdays29: "",
+    oTdays30: "",
+    oTdays31: "",
+  });
+
   const [users, setUsers] = useState([]);
+  const [oTData, setOtData] = useState([]);
 
   const [isInputHidden29, setIsInputHidden29] = useState(false);
   const [isInputHidden30, setIsInputHidden30] = useState(false);
@@ -104,6 +139,7 @@ function Createtimesheet() {
   const addUser = () => {
     if (tsMonth != "" && tsYear != "") {
       setUsers([taskList]);
+      setOtData([oTSheet]);
       setIsDisabled(!isDisabled);
       setisDisabledRemove(true);
     }
@@ -155,6 +191,11 @@ function Createtimesheet() {
     filteredUsers.splice(index, 1);
 
     setUsers(filteredUsers);
+
+    const filteredOtSheet = [...oTData];
+    filteredOtSheet.splice(index, 1);
+
+    setOtData(filteredOtSheet);
   };
 
   const checkCalendarDays = (month, year) => {
@@ -171,6 +212,17 @@ function Createtimesheet() {
     //console.log("newnew:", e.target.value);
 
     setUsers(updatedUsers);
+  };
+
+  const changeOtHandler = (e, index) => {
+    const updatedSheet = oTData.map((item, i) =>
+      index === i
+        ? Object.assign(item, { [e.target.name]: e.target.value })
+        : item
+    );
+    //console.log("newnew:", e.target.value);
+
+    setOtData(updatedSheet);
   };
 
   const handleChangeEvent = (e, index) => {
@@ -245,9 +297,45 @@ function Createtimesheet() {
     ) {
       //console.log("exceptional handling");
       changeHandler(e, index);
+    } else if (
+      [
+        "oTdays1",
+        "oTdays2",
+        "oTdays3",
+        "oTdays4",
+        "oTdays5",
+        "oTdays6",
+        "oTdays7",
+        "oTdays8",
+        "oTdays9",
+        "oTdays10",
+        "oTdays11",
+        "oTdays12",
+        "oTdays13",
+        "oTdays14",
+        "oTdays15",
+        "oTdays16",
+        "oTdays17",
+        "oTdays18",
+        "oTdays19",
+        "oTdays20",
+        "oTdays21",
+        "oTdays22",
+        "oTdays23",
+        "oTdays24",
+        "oTdays25",
+        "oTdays26",
+        "oTdays27",
+        "oTdays28",
+        "oTdays29",
+        "oTdays30",
+        "oTdays31",
+      ].includes(input)
+    ) {
+      //console.log("exceptional handling");
+      changeOtHandler(e, index);
     }
 
-    
     //console.log("log of order Items : ", users);
     if (tsMonth && tsYear != "") {
       setIsDisabled(false);
@@ -583,15 +671,14 @@ function Createtimesheet() {
                 />
               </div>
             </div>
-            <div>
-              <Container className={classes.root}>
+            <div className="row">
+              <div className="col-md-12">
                 <ButtonGroup
                   disableElevation
                   variant="contained"
                   color="primary"
                 >
                   <Button
-                    hidden
                     color="default"
                     onClick={addUser}
                     disabled={isDisabled}
@@ -599,7 +686,6 @@ function Createtimesheet() {
                     Show
                   </Button>
                   <Button
-                    hidden
                     color="default"
                     onClick={removeUsers}
                     disabled={!isDisabledRemove}
@@ -607,391 +693,784 @@ function Createtimesheet() {
                     Remove
                   </Button>
                 </ButtonGroup>
-                {users.map((task, i) => (
-                  <Grid
-                    container
-                    spacing={2}
-                    key={i}
-                    className={classes.inputGroup}
-                  >
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 1"
-                        name="days1"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days1}
-                        fullWidth
-                      />
+              </div>
+              <div className="col-md-6">
+              
+                <Container className={classes.root}>
+                  {users.map((task, i) => (
+                    <Grid
+                      container
+                      spacing={2}
+                      key={i}
+                      className={classes.inputGroup}
+                    >                    
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 1"
+                          name="days1"
+                          type="number"                           
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days1}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 2"
+                          name="days2"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days2}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 3"
+                          name="days3"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days3}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 4"
+                          name="days4"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days4}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 5"
+                          name="days5"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days5}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 6"
+                          name="days6"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days6}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 7"
+                          name="days7"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days7}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 8"
+                          name="days8"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days8}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 9"
+                          name="days9"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days9}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 10"
+                          name="days10"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days10}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 11"
+                          name="days11"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days11}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 12"
+                          name="days12"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days12}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 13"
+                          name="days13"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days13}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 14"
+                          name="days14"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days14}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day15"
+                          name="days15"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days15}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 16"
+                          name="days16"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days16}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 17"
+                          name="days17"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days17}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 18"
+                          name="days18"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days18}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 19"
+                          name="days19"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days19}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 20"
+                          name="days20"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days20}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 21"
+                          name="days21"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days21}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 22"
+                          name="days22"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days22}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 23"
+                          name="days23"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days23}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 24"
+                          name="days24"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days24}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 25"
+                          name="days25"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days25}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 26"
+                          name="days26"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days26}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 27"
+                          name="days27"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days27}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 28"
+                          name="days28"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days28}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 29"
+                          name="days29"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days29}
+                          fullWidth
+                          disabled={isInputHidden29}
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 30"
+                          name="days30"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days30}
+                          fullWidth
+                          disabled={isInputHidden30}
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 31"
+                          name="days31"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days31}
+                          fullWidth
+                          disabled={isInputHidden31}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 2"
-                        name="days2"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days2}
-                        fullWidth
-                      />
+                  ))}
+                </Container>
+              </div>
+              <div className="col-md-6">
+                <Container className={classes.root}>
+                  {oTData.map((task, i) => (
+                    <Grid
+                      container
+                      spacing={2}
+                      key={i}
+                      className={classes.inputGroup}
+                    >
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 1"
+                          name="oTdays1"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days1}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 2"
+                          name="oTdays2"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days2}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 3"
+                          name="oTdays3"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days3}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 4"
+                          name="oTdays4"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days4}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 5"
+                          name="oTdays5"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days5}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 6"
+                          name="oTdays6"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days6}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 7"
+                          name="oTday7"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days7}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 8"
+                          name="oTdays8"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days8}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 9"
+                          name="oTdays9"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days9}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 10"
+                          name="oTdays10"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days10}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 11"
+                          name="oTdays11"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days11}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 12"
+                          name="oTdays12"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days12}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 13"
+                          name="oTdays13"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days13}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 14"
+                          name="oTdays14"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days14}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day15"
+                          name="oTdays15"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days15}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 16"
+                          name="oTdays16"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days16}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 17"
+                          name="oTdays17"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days17}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 18"
+                          name="oTdays18"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days18}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 19"
+                          name="oTdays19"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days19}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 20"
+                          name="oTdays20"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days20}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 21"
+                          name="oTdays21"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days21}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 22"
+                          name="oTdays22"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days22}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 23"
+                          name="oTdays23"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days23}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 24"
+                          name="oTdays24"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days24}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 25"
+                          name="oTdays25"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days25}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 26"
+                          name="oTdays26"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days26}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 27"
+                          name="oTdays27"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days27}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 28"
+                          name="oTdays28"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days28}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 29"
+                          name="oTdays29"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days29}
+                          fullWidth
+                          disabled={isInputHidden29}
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 30"
+                          name="oTdays30"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days30}
+                          fullWidth
+                          disabled={isInputHidden30}
+                        />
+                      </Grid>
+                      <Grid item md={2}>
+                        <TextField
+                          label="Day 31"
+                          name="oTdays31"
+                          type="number"
+                          //placeholder="Enter Your Name"
+                          variant="outlined"
+                          onChange={(e) => handleChangeEvent(e, i)}
+                          value={task.days31}
+                          fullWidth
+                          disabled={isInputHidden31}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 3"
-                        name="days3"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days3}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 4"
-                        name="days4"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days4}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 5"
-                        name="days5"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days5}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 6"
-                        name="days6"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days6}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 7"
-                        name="day7"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days7}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 8"
-                        name="days8"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days8}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 9"
-                        name="days9"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days9}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 10"
-                        name="days10"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days10}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 11"
-                        name="days11"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days11}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 12"
-                        name="days12"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days12}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 13"
-                        name="days13"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days13}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 14"
-                        name="days14"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days14}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day15"
-                        name="days15"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days15}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 16"
-                        name="days16"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days16}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 17"
-                        name="days17"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days17}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 18"
-                        name="days18"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days18}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 19"
-                        name="days19"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days19}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 20"
-                        name="days20"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days20}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 21"
-                        name="days21"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days21}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 22"
-                        name="days22"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days22}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 23"
-                        name="days23"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days23}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 24"
-                        name="days24"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days24}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 25"
-                        name="days25"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days25}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 26"
-                        name="days26"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days26}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 27"
-                        name="days27"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days27}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 28"
-                        name="days28"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days28}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 29"
-                        name="days29"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days29}
-                        fullWidth
-                        disabled={isInputHidden29}
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 30"
-                        name="days30"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days30}
-                        fullWidth
-                        disabled={isInputHidden30}
-                      />
-                    </Grid>
-                    <Grid item md={2}>
-                      <TextField
-                        label="Day 31"
-                        name="days31"
-                        type="days"
-                        //placeholder="Enter Your Name"
-                        variant="outlined"
-                        onChange={(e) => handleChangeEvent(e, i)}
-                        value={task.days31}
-                        fullWidth
-                        disabled={isInputHidden31}
-                      />
-                    </Grid>
-                  </Grid>
-                ))}
-              </Container>
+                  ))}
+                </Container>
+              </div>
             </div>
             <button
               type="submit"

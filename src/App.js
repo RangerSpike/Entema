@@ -1,5 +1,4 @@
 import React,{useState, useEffect} from 'react';
-
 import MainApp from "./MainApp";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
