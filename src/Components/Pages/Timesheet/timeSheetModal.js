@@ -681,19 +681,15 @@ export default function PopupTS(props) {
 
   const ValidateCalculations = (whtot, otTot) => {
     if (id > 0) {
-
       if (parseInt(whtot) === parseInt(tsExpectedWorkingHours)) {
         alert("Values Match!");
       } else {
         alert(
-          "Expected Hours And Regular Hours Do Not Match Please Verify Expected Hours :" +
-            tsExpectedWorkingHours +
-            " & Working Hours :" +
-            whtot + " Are Correct"
+          tsExpectedWorkingHours + " & Working Hours :" + whtot + " Do Not Match !"
         );
       }
-      if( whtot+otTot > tsExpectedWorkingHours){
-        alert("Total Hours Exceeds the Expected Hours ")
+      if (tsTotalHours > whtot + otTot) {
+        alert("Total Hours Do Not Match With OT and Regular Hours, Please Verify!");
       }
       if (!tsTotalHours || tsTotalHours == 0) {
         console.log("hi this is tstotal");
@@ -701,7 +697,6 @@ export default function PopupTS(props) {
         testing();
       }
     }
-
   };
   useEffect(() => {
     testing();
