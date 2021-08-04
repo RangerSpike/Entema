@@ -40,19 +40,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -63,7 +50,7 @@ function getStyles(name, personName, theme) {
 }
 
 export default function Popup(props) {
-  const {setId, id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   //console.log("MODAL ID ", id);
 
@@ -75,6 +62,26 @@ export default function Popup(props) {
   const [DnOrderDate, setDnOrderDate] = useState();
   const [DnDispatchDate, setDnDispatchDate] = useState();
   const [DnNotice, setDnNotice] = useState();
+  const [clientLov, setClientLov] = useState([]);
+
+  const getClientLovData = () => {
+    fetch("https://mssoftware.xyz/getClientData", {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setClientLov(response);
+        //console.log("My API data : ", response);
+      });
+    return clientLov;
+  };
+
+  useEffect(() => {
+    getClientLovData();
+  }, []);
 
   const handleChangeEvent = (e) => {
     //console.log("e : ", e);
@@ -139,10 +146,10 @@ export default function Popup(props) {
 
     setOpenPopup(false);
   };
-  const onClosePopup =()=>{
+  const onClosePopup = () => {
     setId(0);
-    setOpenPopup(false)
-  }
+    setOpenPopup(false);
+  };
 
   return (
     <Dialog
@@ -158,115 +165,115 @@ export default function Popup(props) {
             onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
-            X
+            Close
           </Button>
         </div>
       </DialogTitle>
       <DialogContent dividers>
-        
-          <div
-            class="container"
-            style={{ paddingTop: "30px", paddingLeft: "50px" }}
-          >
-            <div className="heading-layout1">
-              <div className="item-title">
-                <h3 style={{ padding: "50px" }}>Add Delivery Note</h3>
+        <div
+          class="container"
+          style={{ paddingTop: "30px", paddingLeft: "50px" }}
+        >
+          <div className="heading-layout1">
+            <div className="item-title">
+              <h3 style={{ padding: "50px" }}>Add Delivery Note</h3>
+            </div>
+          </div>
+
+          <form>
+            <div className="row">
+              <div class="col-md-6 mb-3">
+                <label for="userName">Client</label>
+                <select
+                  class="form-control is-valid"
+                  value={DnClient}
+                  id="DnClient"
+                  name="DnClient"
+                  required
+                >
+                  <option value="">Client Name</option>
+                  {clientLov.map((data) => (
+                    <option key={data.CLIENT_ID} value={data.CLIENT_ID}>
+                      {data.CLIENT_CPNAME}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="row">
+              <div class="col-md-6 mb-3">
+                <label for="userFname">Address</label>
+                <textarea
+                  type="text"
+                  class="form-control is-valid"
+                  value={DnAddress}
+                  id="DnAddress"
+                  name="DnAddress"
+                  required
+                  onChange={handleChangeEvent}
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="userFname">Shipping Address</label>
+                <textarea
+                  type="text"
+                  class="form-control is-valid"
+                  value={DnShippingAddress}
+                  id="DnShippingAddress"
+                  name="DnShippingAddress"
+                  required
+                  onChange={handleChangeEvent}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div class="col-md-6 mb-3">
+                <label for="userName">Order Date</label>
+                <input
+                  type="Date"
+                  class="form-control is-valid"
+                  value={DnOrderDate}
+                  id="DnOrderDate"
+                  name="DnOrderDate"
+                  required
+                  onChange={handleChangeEvent}
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="userName">Dispatch Date</label>
+                <input
+                  type="Date"
+                  class="form-control is-valid"
+                  value={DnDispatchDate}
+                  id="DnDispatchDate"
+                  name="DnDispatchDate"
+                  required
+                  onChange={handleChangeEvent}
+                />
               </div>
             </div>
 
-            <form>
-              <div className="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userName">Client</label>
-                  <select
-                    class="form-control is-valid"
-                    value={DnClient}
-                    id="DnClient"
-                    name="DnClient"
-                    required
-                    onChange={handleChangeEvent}
-                  >
-                    <option value="">Client Name</option>
-                    <option value="1">Zeeshan</option>
-                    <option value="2">shabaz</option>
-                  </select>
-                </div>
+            <div className="row">
+              <div class="col-md-9 mb-3">
+                <label for="userFname">Notice</label>
+                <textarea
+                  type="text"
+                  class="form-control is-valid"
+                  value={DnNotice}
+                  id="DnNotice"
+                  name="DnNotice"
+                  required
+                  onChange={handleChangeEvent}
+                />
               </div>
-              <div className="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userFname">Address</label>
-                  <textarea
-                    type="text"
-                    class="form-control is-valid"
-                    value={DnAddress}
-                    id="DnAddress"
-                    name="DnAddress"
-                    required
-                    onChange={handleChangeEvent}
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="userFname">Shipping Address</label>
-                  <textarea
-                    type="text"
-                    class="form-control is-valid"
-                    value={DnShippingAddress}
-                    id="DnShippingAddress"
-                    name="DnShippingAddress"
-                    required
-                    onChange={handleChangeEvent}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userName">Order Date</label>
-                  <input
-                    type="Date"
-                    class="form-control is-valid"
-                    value={DnOrderDate}
-                    id="DnOrderDate"
-                    name="DnOrderDate"
-                    required
-                    onChange={handleChangeEvent}
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="userName">Dispatch Date</label>
-                  <input
-                    type="Date"
-                    class="form-control is-valid"
-                    value={DnDispatchDate}
-                    id="DnDispatchDate"
-                    name="DnDispatchDate"
-                    required
-                    onChange={handleChangeEvent}
-                  />
-                </div>
-              </div>
-
-              <div className="row">
-                <div class="col-md-9 mb-3">
-                  <label for="userFname">Notice</label>
-                  <textarea
-                    type="text"
-                    class="form-control is-valid"
-                    value={DnNotice}
-                    id="DnNotice"
-                    name="DnNotice"
-                    required
-                    onChange={handleChangeEvent}
-                  />
-                </div>
-              </div>
-              <div>
-                <button type="button" onClick={handleSubmit}>
-                  UPDATE
-                </button>
-              </div>
-            </form>
-          </div>
-       
+            </div>
+            <div>
+              <button type="button" onClick={handleSubmit}>
+                UPDATE
+              </button>
+            </div>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   );
