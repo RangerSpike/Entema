@@ -398,6 +398,7 @@ const DataTable = () => {
               </tbody>
             </table>
             <Popup
+              setId={setId}
               id={id}
               openPopup={openPopup}
               setOpenPopup={setOpenPopup}

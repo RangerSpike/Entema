@@ -216,7 +216,6 @@ export default function Popup(props) {
                   mobAnddemob: newData[i].TAB_MAD,
                   amount: newData[i].TAB_AMOUNT,
                   totalAmount: newData[i].TAB_TOTAL_AMT,
-
                 };
               }
               setMultiSet(test);
@@ -515,17 +514,6 @@ export default function Popup(props) {
                     {xSts ? (
                       <Grid item md={2}>
                         <TextField
-                          label="Mob And Demob"
-                          name="mobAnddemob"
-                          variant="outlined"
-                          value={item.mobAnddemob}
-                          onChange={(e) => handleChangeEvent(e, index)}
-                          fullWidth
-                        />
-                      </Grid>
-                    ) : (
-                      <Grid item md={2}>
-                        <TextField
                           type="number"
                           label="Total Amount"
                           name="totalAmount"
@@ -533,6 +521,17 @@ export default function Popup(props) {
                           //placeholder="Enter Your address"
                           variant="outlined"
                           value={item.totalAmount}
+                          onChange={(e) => handleChangeEvent(e, index)}
+                          fullWidth
+                        />
+                      </Grid>
+                    ) : (
+                      <Grid item md={2}>
+                        <TextField
+                          label="Mob And Demob"
+                          name="mobAnddemob"
+                          variant="outlined"
+                          value={item.mobAnddemob}
                           onChange={(e) => handleChangeEvent(e, index)}
                           fullWidth
                         />
@@ -584,28 +583,31 @@ export default function Popup(props) {
                   <div className="col-sm-6">
                     <div className="bot-cl2">
                       <div className="row">
-                        <div className="col-sm-4 col-xs-8 bot-left">
-                          Name
+                        <div className="col-sm-4 col-xs-8 bot-left">Name</div>
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {" "}
+                          {cqname}
                         </div>
-                        <div className="col-sm-8 col-xs-8 bot-right"> {cqname}</div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-4 col-xs-8 bot-left">Title</div>
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {clientDispValue}{" "}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-4 col-xs-8 bot-left">Date</div>
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {quotDate}
+                        </div>
                       </div>
                       <div className="row">
                         <div className="col-sm-4 col-xs-8 bot-left">
-                          Title 
+                          Signature
                         </div>
-                        <div className="col-sm-8 col-xs-8 bot-right">{clientDispValue}{" "}</div>
-                      </div>
-                      <div className="row">
-                        <div className="col-sm-4 col-xs-8 bot-left">
-                          Date 
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {cqname}
                         </div>
-                        <div className="col-sm-8 col-xs-8 bot-right">{quotDate}</div>
-                      </div>
-                      <div className="row">
-                        <div className="col-sm-4 col-xs-8 bot-left">
-                          Signature  
-                        </div>
-                        <div className="col-sm-8 col-xs-8 bot-right">{cqname}</div>
                       </div>
                     </div>
                   </div>

@@ -228,19 +228,7 @@ export default function PopupPdf(props) {
           </button>
         </div>
       </DialogTitle>
-      <DialogContent>
-        <div className="box wide hidden-on-narrow">
-          <div className="box-col">
-            <Button
-              primary={true}
-              onClick={() => handleExportWithComponent()}
-              style={{ borderColor: "blue" }}
-            >
-              Download
-            </Button>
-          </div>
-        </div>
-
+      <DialogContent>       
         <div className="page-container hidden-on-narrow">
           <PDFExport ref={pdfExportComponent}>
             <div className="pdf-page">

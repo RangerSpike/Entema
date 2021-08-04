@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId,id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
 
@@ -242,7 +242,7 @@ export default function Popup(props) {
       });
 
     setOpenPopup(false);
-
+    setId(0);
     //console.log("test submit");
   };
 
@@ -258,7 +258,10 @@ export default function Popup(props) {
       setMpTotalAmount(otAmount + hrAmount);
     }
   };
-
+const onclosePopup = ()=>{
+  setOpenPopup(false);
+  setId(0);
+}
   return (
     <Dialog
       open={openPopup}

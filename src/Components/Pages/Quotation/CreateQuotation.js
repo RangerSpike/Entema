@@ -74,7 +74,7 @@ function CreateQuotation() {
       setCqtypes("Equipment");
     } else {
       setCqtypes("Man Power");
-    }
+    }    
   };
 
   let taskList = {
@@ -438,17 +438,6 @@ function CreateQuotation() {
                     {ischeked ? (
                       <Grid item md={2}>
                         <TextField
-                          label="Mob And Demob"
-                          name="mobAnddemob"
-                          variant="outlined"
-                          value={item.mobAnddemob}
-                          onChange={(e) => handleChangeEvent(e, index)}
-                          fullWidth
-                        />
-                      </Grid>
-                    ) : (
-                      <Grid item md={2}>
-                        <TextField
                           type="number"
                           label="Total Amount"
                           name="totalAmount"
@@ -456,6 +445,17 @@ function CreateQuotation() {
                           //placeholder="Enter Your address"
                           variant="outlined"
                           value={item.totalAmount}
+                          onChange={(e) => handleChangeEvent(e, index)}
+                          fullWidth
+                        />
+                      </Grid>
+                    ) : (
+                      <Grid item md={2}>
+                        <TextField
+                          label="Mob And Demob"
+                          name="mobAnddemob"
+                          variant="outlined"
+                          value={item.mobAnddemob}
                           onChange={(e) => handleChangeEvent(e, index)}
                           fullWidth
                         />
@@ -507,28 +507,31 @@ function CreateQuotation() {
                   <div className="col-sm-6">
                     <div className="bot-cl2">
                       <div className="row">
-                        <div className="col-sm-8 col-xs-8 bot-left">
-                          Name 
+                        <div className="col-sm-8 col-xs-8 bot-left">Name</div>
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {cqname}
                         </div>
-                        <div className="col-sm-8 col-xs-8 bot-right">{cqname}</div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-8 col-xs-8 bot-left">Title</div>
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {clientDispValue}{" "}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-8 col-xs-8 bot-left">Date</div>
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {" "}
+                          {quotDate}
+                        </div>
                       </div>
                       <div className="row">
                         <div className="col-sm-8 col-xs-8 bot-left">
-                          Title
+                          Signature
                         </div>
-                        <div className="col-sm-8 col-xs-8 bot-right">{clientDispValue}{" "}</div>
-                      </div>
-                      <div className="row">
-                        <div className="col-sm-8 col-xs-8 bot-left">
-                          Date
+                        <div className="col-sm-8 col-xs-8 bot-right">
+                          {cqname}
                         </div>
-                        <div className="col-sm-8 col-xs-8 bot-right"> {quotDate}</div>
-                      </div>
-                      <div className="row">
-                        <div className="col-sm-8 col-xs-8 bot-left">
-                          Signature  
-                        </div>
-                        <div className="col-sm-8 col-xs-8 bot-right">{cqname}</div>
                       </div>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
-import { TableHeader, Pagination, Search } from "../../DataTable";
-import PopupPdf from "./TimeSheetPdf";
+import { TableHeader, Pagination } from "../../DataTable";
+import CachedIcon from "@material-ui/icons/Cached";
 import axios from "axios";
 import { IconButton, Button } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
@@ -138,6 +138,10 @@ const DataTable = () => {
         //console.log("My API data Year: ", response);
       });
     return yearLov;
+  };
+
+  const refreshView = () => {
+    getYearLovData();
   };
 
   useEffect(() => {
@@ -280,6 +284,10 @@ const DataTable = () => {
               <h3 style={{ padding: "50px" }}>List of Timesheet's</h3>
             </div>
           </div>
+          <CachedIcon
+            onClick={() => refreshView()}
+            style={{ marginRight: "10px", marginTop: "10px" }}
+          />
 
           <div className="row w-100">
             <div className="col mb-3 col-12 text-center">
@@ -431,11 +439,6 @@ const DataTable = () => {
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
               ></PopupTS>
-              <PopupPdf
-                id={id}
-                openPopup={openpdfPopup}
-                setOpenPopup={setOpenpdfPopup}
-              ></PopupPdf>
             </div>
             <div className="col-md-6">
               <Pagination

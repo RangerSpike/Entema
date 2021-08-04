@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   // const algorithm = "aes-256-cbc";
 
@@ -226,6 +226,10 @@ export default function Popup(props) {
     }
   };
 
+  const onClosePopup = () => {
+    setId(0);
+    setOpenPopup(false);
+  };
   return (
     <Dialog
       open={openPopup}
@@ -237,7 +241,7 @@ export default function Popup(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "End" }}
           >
             Close
@@ -342,7 +346,6 @@ export default function Popup(props) {
                   name="userDesignation"
                   value={userDesignation}
                   onChange={handleChangeEvent}
-                 
                 />
               </div>
               <div class="col-md-4 mb-3">
@@ -403,22 +406,22 @@ export default function Popup(props) {
                   class="form-control is-valid"
                   id="userDactdate"
                   name="userDactdate"
-                  onChange={handleChangeEvent}               
+                  onChange={handleChangeEvent}
                   value={userDactdate}
                 />
               </div>
             </div>
             <div>
-            <button
-              type="submit"
-              class="btn btn-outline-success"
-              style={{ marginTop: "20px", marginBottom: "20px" }}
-              onClick={handleSubmit}
-            >
-            Update
-            </button>
+              <button
+                type="submit"
+                class="btn btn-outline-success"
+                style={{ marginTop: "20px", marginBottom: "20px" }}
+                onClick={handleSubmit}
+              >
+                Update
+              </button>
             </div>
-                    </form>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

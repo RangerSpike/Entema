@@ -145,6 +145,7 @@ export default function Popup(props) {
       });
 
     setOpenPopup(false);
+    setId(0);
   };
   const onClosePopup = () => {
     setId(0);

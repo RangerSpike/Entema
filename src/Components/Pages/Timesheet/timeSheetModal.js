@@ -674,30 +674,32 @@ export default function PopupTS(props) {
       parseInt(oTData[0].oTdays31);
 
     setoTtotal(otTot);
-    console.log("WH HOURS :", parseInt(whtot));
-    console.log("OT HOURS :", parseInt(otTot));
     ValidateCalculations(whtot, otTot);
   };
 
   const ValidateCalculations = (whtot, otTot) => {
+    var tot = whtot + otTot;
+
     if (id > 0) {
-      if (parseInt(whtot) === parseInt(tsExpectedWorkingHours)) {
-        alert("Values Match!");
-      } else {
+      if (parseInt(whtot) !== parseInt(tsExpectedWorkingHours)) {
         alert(
-          tsExpectedWorkingHours + " & Working Hours :" + whtot + " Do Not Match !"
+          "Expected Working Hours " + tsExpectedWorkingHours +" & Working Hours :" +whtot +" Do Not Match !"
         );
+      }else if (parseInt(tsTotalHours) != parseInt(tot)) {
+        alert("Total Hours Do Not Match With Calculated Hours(" +tot+"), Please Verify!"
+        );
+      }else{
+        alert("All fields are validated!");
       }
-      if (tsTotalHours > whtot + otTot) {
-        alert("Total Hours Do Not Match With OT and Regular Hours, Please Verify!");
-      }
+
       if (!tsTotalHours || tsTotalHours == 0) {
-        console.log("hi this is tstotal");
-        settsTotalHours(whtot + otTot);
+        settsTotalHours(tot);
         testing();
       }
     }
+    return tot;
   };
+
   useEffect(() => {
     testing();
   }, [tsTotalHours]);
