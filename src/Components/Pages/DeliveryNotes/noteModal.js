@@ -63,7 +63,7 @@ function getStyles(name, personName, theme) {
 }
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const {setId, id, openPopup, setOpenPopup } = props;
 
   //console.log("MODAL ID ", id);
 
@@ -139,6 +139,10 @@ export default function Popup(props) {
 
     setOpenPopup(false);
   };
+  const onClosePopup =()=>{
+    setId(0);
+    setOpenPopup(false)
+  }
 
   return (
     <Dialog
@@ -151,7 +155,7 @@ export default function Popup(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             X

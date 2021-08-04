@@ -1,4 +1,3 @@
-import React from "react";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import {
   Dialog,
@@ -7,9 +6,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
-
 import { Container, Grid, TextField, Button } from "@material-ui/core";
-
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupTS(props) {
-  const { id, openPopup, setOpenPopup } = props;
-
+  const { setId, id, openPopup, setOpenPopup } = props;
   const classes = useStyles();
 
+  const [isCalculated, setIsCalculated] = useState(true);
   const [tsVendor, settsVendor] = useState();
   const [tsMonth, settsMont] = useState();
   const [tsYear, settsYear] = useState();
@@ -50,7 +47,11 @@ export default function PopupTS(props) {
   const [tsTotalHours, settsTotalHours] = useState();
   const [tsTotalOt, settsTotalOt] = useState();
   const [tsTotal, settsTotal] = useState();
+
   const [tsExpectedWorkingHours, settsExpectedWorkingHours] = useState(260);
+  const [tsId, setTsid] = useState();
+  const [whTotal, setwhTotal] = useState(0);
+  const [oTtotal, setoTtotal] = useState(0);
 
   const [vendorLov, setVendorLov] = useState([]);
   const [yearLov, setYearLov] = useState([]);
@@ -58,102 +59,99 @@ export default function PopupTS(props) {
   const [vendorDispValue, setVendorDispValue] = useState();
 
   let [taskList, setTasklist] = useState({
-    days1: "",
-    days2: "",
-    days3: "",
-    days4: "",
-    days5: "",
-    days6: "",
-    days7: "",
-    days8: "",
-    days9: "",
-    days10: "",
-    days11: "",
-    days12: "",
-    days13: "",
-    days14: "",
-    days15: "",
-    days16: "",
-    days17: "",
-    days18: "",
-    days19: "",
-    days20: "",
-    days21: "",
-    days22: "",
-    days23: "",
-    days24: "",
-    days25: "",
-    days26: "",
-    days27: "",
-    days28: "",
-    days29: "",
-    days30: "",
-    days31: "",
+    days1: 0,
+    days2: 0,
+    days3: 0,
+    days4: 0,
+    days5: 0,
+    days6: 0,
+    days7: 0,
+    days8: 0,
+    days9: 0,
+    days10: 0,
+    days11: 0,
+    days12: 0,
+    days13: 0,
+    days14: 0,
+    days15: 0,
+    days16: 0,
+    days17: 0,
+    days18: 0,
+    days19: 0,
+    days20: 0,
+    days21: 0,
+    days22: 0,
+    days23: 0,
+    days24: 0,
+    days25: 0,
+    days26: 0,
+    days27: 0,
+    days28: 0,
+    days29: 0,
+    days30: 0,
+    days31: 0,
   });
 
-  let [oTSheet, setOtSheet] = useState({
-    oTdays1: "",
-    oTdays2: "",
-    oTdays3: "",
-    oTdays4: "",
-    oTdays5: "",
-    oTdays6: "",
-    oTdays7: "",
-    oTdays8: "",
-    oTdays9: "",
-    oTdays10: "",
-    oTdays11: "",
-    oTdays12: "",
-    oTdays13: "",
-    oTdays14: "",
-    oTdays15: "",
-    oTdays16: "",
-    oTdays17: "",
-    oTdays18: "",
-    oTdays19: "",
-    oTdays20: "",
-    oTdays21: "",
-    oTdays22: "",
-    oTdays23: "",
-    oTdays24: "",
-    oTdays25: "",
-    oTdays26: "",
-    oTdays27: "",
-    oTdays28: "",
-    oTdays29: "",
-    oTdays30: "",
-    oTdays31: "",
+  let [oTList, setOtList] = useState({
+    oTdays1: 0,
+    oTdays2: 0,
+    oTdays3: 0,
+    oTdays4: 0,
+    oTdays5: 0,
+    oTdays6: 0,
+    oTdays7: 0,
+    oTdays8: 0,
+    oTdays9: 0,
+    oTdays10: 0,
+    oTdays11: 0,
+    oTdays12: 0,
+    oTdays13: 0,
+    oTdays14: 0,
+    oTdays15: 0,
+    oTdays16: 0,
+    oTdays17: 0,
+    oTdays18: 0,
+    oTdays19: 0,
+    oTdays20: 0,
+    oTdays21: 0,
+    oTdays22: 0,
+    oTdays23: 0,
+    oTdays24: 0,
+    oTdays25: 0,
+    oTdays26: 0,
+    oTdays27: 0,
+    oTdays28: 0,
+    oTdays29: 0,
+    oTdays30: 0,
+    oTdays31: 0,
   });
 
   const [users, setUsers] = useState([]);
+  const [oTData, setOtData] = useState([]);
 
   const [isInputHidden29, setIsInputHidden29] = useState(false);
   const [isInputHidden30, setIsInputHidden30] = useState(false);
   const [isInputHidden31, setIsInputHidden31] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isDisabledRemove, setisDisabledRemove] = useState(false);
-
-  const optionUnit = [
-    { key: "Select Unit", value: "" },
-    { key: "Month", value: "Month" },
-    { key: "Week", value: "Week" },
-    { key: "Day", value: "Day" },
-    { key: "Hour", value: "Hour" },
-  ];
+  const [isDisabledRemove, setisDisabledRemove] = useState(true);
 
   let newData = [];
+  let test = [];
 
   //console.log(taskList);
 
   let noOfDays = 0;
+
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataBasedonId", {
+      .post("http://localhost:3009/getVenTimesheetDataListBasedonId", {
         vtsId: id,
       })
       .then((res) => {
         if (res.data.length > 0) {
+          console.log(res.data);
+          setTsid(res.data[0].VTS_ID);
           settsVendor(res.data[0].TS_VENDOR);
           settsMont(res.data[0].TS_MONTH);
           settsYear(res.data[0].TS_YEAR);
@@ -167,19 +165,84 @@ export default function PopupTS(props) {
           settsTotalOt(res.data[0].TS_TOTAL_OT);
           settsTotal(res.data[0].TS_TOTAL);
           settsExpectedWorkingHours(res.data[0].TS_EXP_HOURS);
+          test[0] = {
+            days1: res.data[0].RDAY_1,
+            days2: res.data[0].RDAY_2,
+            days3: res.data[0].RDAY_3,
+            days4: res.data[0].RDAY_4,
+            days5: res.data[0].RDAY_5,
+            days6: res.data[0].RDAY_6,
+            days7: res.data[0].RDAY_7,
+            days8: res.data[0].RDAY_8,
+            days9: res.data[0].RDAY_9,
+            days10: res.data[0].RDAY_10,
+            days11: res.data[0].RDAY_11,
+            days12: res.data[0].RDAY_12,
+            days13: res.data[0].RDAY_13,
+            days14: res.data[0].RDAY_14,
+            days15: res.data[0].RDAY_15,
+            days16: res.data[0].RDAY_16,
+            days17: res.data[0].RDAY_17,
+            days18: res.data[0].RDAY_18,
+            days19: res.data[0].RDAY_19,
+            days20: res.data[0].RDAY_20,
+            days21: res.data[0].RDAY_21,
+            days22: res.data[0].RDAY_22,
+            days23: res.data[0].RDAY_23,
+            days24: res.data[0].RDAY_24,
+            days25: res.data[0].RDAY_25,
+            days26: res.data[0].RDAY_26,
+            days27: res.data[0].RDAY_27,
+            days28: res.data[0].RDAY_28,
+            days29: res.data[0].RDAY_29,
+            days30: res.data[0].RDAY_30,
+            days31: res.data[0].RDAY_31,
+          };
+          newData[0] = {
+            oTdays1: res.data[0].ODAY_1,
+            oTdays2: res.data[0].ODAY_2,
+            oTdays3: res.data[0].ODAY_3,
+            oTdays4: res.data[0].ODAY_4,
+            oTdays5: res.data[0].ODAY_5,
+            oTdays6: res.data[0].ODAY_6,
+            oTdays7: res.data[0].ODAY_7,
+            oTdays8: res.data[0].ODAY_8,
+            oTdays9: res.data[0].ODAY_9,
+            oTdays10: res.data[0].ODAY_10,
+            oTdays11: res.data[0].ODAY_11,
+            oTdays12: res.data[0].ODAY_12,
+            oTdays13: res.data[0].ODAY_13,
+            oTdays14: res.data[0].ODAY_14,
+            oTdays15: res.data[0].ODAY_15,
+            oTdays16: res.data[0].ODAY_16,
+            oTdays17: res.data[0].ODAY_17,
+            oTdays18: res.data[0].ODAY_18,
+            oTdays19: res.data[0].ODAY_19,
+            oTdays20: res.data[0].ODAY_20,
+            oTdays21: res.data[0].ODAY_21,
+            oTdays22: res.data[0].ODAY_22,
+            oTdays23: res.data[0].ODAY_23,
+            oTdays24: res.data[0].ODAY_24,
+            oTdays25: res.data[0].ODAY_25,
+            oTdays26: res.data[0].ODAY_26,
+            oTdays27: res.data[0].ODAY_27,
+            oTdays28: res.data[0].ODAY_28,
+            oTdays29: res.data[0].ODAY_29,
+            oTdays30: res.data[0].ODAY_30,
+            oTdays31: res.data[0].ODAY_31,
+          };
+          setUsers(test);
+          setOtData(newData);
         }
       });
   }, [id]);
+  const [isHidden, setisHidden] = useState(true);
 
   const addUser = () => {
-    if (tsMonth != "" && tsYear != "") {
-      setUsers([taskList]);
-      setIsDisabled(!isDisabled);
-      setisDisabledRemove(true);
-    }
-
+    setIsDisabled(!isDisabled);
+    setIsCalculated(false);
     noOfDays = checkCalendarDays(tsMonth, tsYear);
-
+    setisHidden(false);
     //console.log("returned value of calendar : ", noOfDays);
 
     if (noOfDays === 28) {
@@ -213,18 +276,11 @@ export default function PopupTS(props) {
   };
 
   const removeUsers = (index) => {
-    if (tsMonth != "" && tsYear != "") {
-      setIsDisabled(false);
-      setisDisabledRemove(!isDisabledRemove);
-    }
-
     setIsDisabled(!isDisabled);
-    setisDisabledRemove(!isDisabledRemove);
-    //console.log("index value :", index);
-    const filteredUsers = [...users];
-    filteredUsers.splice(index, 1);
-
-    setUsers(filteredUsers);
+    setIsCalculated(true);
+    setisHidden(true);
+    //setIsDisabled(!isDisabled);
+    //setisDisabledRemove(!isDisabledRemove);
   };
 
   const checkCalendarDays = (month, year) => {
@@ -241,6 +297,17 @@ export default function PopupTS(props) {
     //console.log("newnew:", e.target.value);
 
     setUsers(updatedUsers);
+  };
+
+  const changeOtHandler = (e, index) => {
+    const updatedSheet = oTData.map((item, i) =>
+      index === i
+        ? Object.assign(item, { [e.target.name]: e.target.value })
+        : item
+    );
+    //console.log("newnew:", e.target.value);
+
+    setOtData(updatedSheet);
   };
 
   const handleChangeEvent = (e, index) => {
@@ -274,6 +341,7 @@ export default function PopupTS(props) {
       settsHrRate(e.target.value);
     } else if (input === "tsTotalHours") {
       settsTotalHours(e.target.value);
+      testing();
     } else if (input === "tsTotalOt") {
       settsTotalOt(e.target.value);
     } else if (input === "tsTotal") {
@@ -315,6 +383,43 @@ export default function PopupTS(props) {
     ) {
       //console.log("exceptional handling");
       changeHandler(e, index);
+    } else if (
+      [
+        "oTdays1",
+        "oTdays2",
+        "oTdays3",
+        "oTdays4",
+        "oTdays5",
+        "oTdays6",
+        "oTdays7",
+        "oTdays8",
+        "oTdays9",
+        "oTdays10",
+        "oTdays11",
+        "oTdays12",
+        "oTdays13",
+        "oTdays14",
+        "oTdays15",
+        "oTdays16",
+        "oTdays17",
+        "oTdays18",
+        "oTdays19",
+        "oTdays20",
+        "oTdays21",
+        "oTdays22",
+        "oTdays23",
+        "oTdays24",
+        "oTdays25",
+        "oTdays26",
+        "oTdays27",
+        "oTdays28",
+        "oTdays29",
+        "oTdays30",
+        "oTdays31",
+      ].includes(input)
+    ) {
+      //console.log("exceptional handling");
+      changeOtHandler(e, index);
     }
 
     //console.log("log of order Items : ", users);
@@ -326,26 +431,47 @@ export default function PopupTS(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post("https://mssoftware.xyz/updateVenTsData", {
-        tsid: id,
-        tsdescription: tsDescription,
-        tsplot: tsPlotNo,
-        tsopname: tsOperatorName,
-        tsexphours: tsExpectedWorkingHours,
-        tsmonthrate: tsMonthlyRate,
-        tsotrate: tsOtRate,
-        tshrrate: tsHrRate,
-        tstotalhour: tsTotalHours,
-        tstotalot: tsTotalOt,
-        tstotal: tsTotal,
-      })
-      .then((res) => {
-        //console.log("updated Values Successfully : ", res.data);
-      });
-
-    setOpenPopup(false);
-    //console.log("test submit");
+    if (isCalculated) {
+      axios
+        .post("http://localhost:3009/removeVenTsRGHDataonId", {
+          TSID: id,
+        })
+        .then((res) => {
+          axios
+            .post("http://localhost:3009/removeVenTsOTHDataonId", {
+              TSID: id,
+            })
+            .then((res) => {});
+          axios
+            .post("http://localhost:3009/updateVenTsData", {
+              tsvenId: id,
+              tsid: id,
+              tsdescription: tsDescription,
+              tsplot: tsPlotNo,
+              tsopname: tsOperatorName,
+              tsexphours: tsExpectedWorkingHours,
+              tsmonthrate: tsMonthlyRate,
+              tsotrate: tsOtRate,
+              tshrrate: tsHrRate,
+              tstotalhour: tsTotalHours,
+              tstotalot: tsTotalOt,
+              tstotal: tsTotal,
+              tsrhdata: users,
+              tsotdata: oTData,
+            })
+            .then((res) => {
+              //console.log("updated Values Successfully : ", res.data);
+            });
+        });
+      setwhTotal(0);
+      setoTtotal(0);
+      setOpenPopup(false);
+      setIsDisabled(false);
+      setisHidden(true);
+      setId(0);
+    } else {
+      alert("TimeSheet Has Not Been Calculated");
+    }
   };
 
   const onYearChange = (value) => {
@@ -433,6 +559,9 @@ export default function PopupTS(props) {
   };
 
   const testing = () => {
+    // if(!tsTotalHours){
+    //   settsTotal(whTotal+oTtotal);
+    // }
     //console.log("testing bluee event");
     let Ottime = 0;
     let RHtime = 0;
@@ -462,6 +591,122 @@ export default function PopupTS(props) {
     }
   };
 
+  const onClosePopup = () => {
+    setisHidden(true);
+    setOpenPopup(false);
+    setisDisabledRemove(true);
+    setwhTotal(0);
+    setoTtotal(0);
+    setIsDisabled(false);
+    setId(0);
+  };
+
+  const calculateTimesheet = () => {
+    setIsCalculated(true);
+    console.log("CAlculated Timesheet");
+
+    let whtot =
+      parseInt(users[0].days1) +
+      parseInt(users[0].days2) +
+      parseInt(users[0].days3) +
+      parseInt(users[0].days4) +
+      parseInt(users[0].days5) +
+      parseInt(users[0].days6) +
+      parseInt(users[0].days7) +
+      parseInt(users[0].days8) +
+      parseInt(users[0].days9) +
+      parseInt(users[0].days10) +
+      parseInt(users[0].days11) +
+      parseInt(users[0].days12) +
+      parseInt(users[0].days13) +
+      parseInt(users[0].days14) +
+      parseInt(users[0].days15) +
+      parseInt(users[0].days16) +
+      parseInt(users[0].days17) +
+      parseInt(users[0].days18) +
+      parseInt(users[0].days19) +
+      parseInt(users[0].days20) +
+      parseInt(users[0].days21) +
+      parseInt(users[0].days22) +
+      parseInt(users[0].days23) +
+      parseInt(users[0].days24) +
+      parseInt(users[0].days25) +
+      parseInt(users[0].days26) +
+      parseInt(users[0].days27) +
+      parseInt(users[0].days28) +
+      parseInt(users[0].days29) +
+      parseInt(users[0].days30) +
+      parseInt(users[0].days31);
+
+    setwhTotal(whtot);
+
+    let otTot =
+      parseInt(oTData[0].oTdays1) +
+      parseInt(oTData[0].oTdays2) +
+      parseInt(oTData[0].oTdays3) +
+      parseInt(oTData[0].oTdays4) +
+      parseInt(oTData[0].oTdays5) +
+      parseInt(oTData[0].oTdays6) +
+      parseInt(oTData[0].oTdays7) +
+      parseInt(oTData[0].oTdays8) +
+      parseInt(oTData[0].oTdays9) +
+      parseInt(oTData[0].oTdays10) +
+      parseInt(oTData[0].oTdays11) +
+      parseInt(oTData[0].oTdays12) +
+      parseInt(oTData[0].oTdays13) +
+      parseInt(oTData[0].oTdays14) +
+      parseInt(oTData[0].oTdays15) +
+      parseInt(oTData[0].oTdays16) +
+      parseInt(oTData[0].oTdays17) +
+      parseInt(oTData[0].oTdays18) +
+      parseInt(oTData[0].oTdays19) +
+      parseInt(oTData[0].oTdays20) +
+      parseInt(oTData[0].oTdays21) +
+      parseInt(oTData[0].oTdays22) +
+      parseInt(oTData[0].oTdays23) +
+      parseInt(oTData[0].oTdays24) +
+      parseInt(oTData[0].oTdays25) +
+      parseInt(oTData[0].oTdays26) +
+      parseInt(oTData[0].oTdays27) +
+      parseInt(oTData[0].oTdays28) +
+      parseInt(oTData[0].oTdays29) +
+      parseInt(oTData[0].oTdays30) +
+      parseInt(oTData[0].oTdays31);
+
+    setoTtotal(otTot);
+    console.log("WH HOURS :", parseInt(whtot));
+    console.log("OT HOURS :", parseInt(otTot));
+    ValidateCalculations(whtot, otTot);
+  };
+
+  const ValidateCalculations = (whtot, otTot) => {
+    if (id > 0) {
+
+      if (parseInt(whtot) === parseInt(tsExpectedWorkingHours)) {
+        alert("Values Match!");
+      } else {
+        alert(
+          "Expected Hours And Regular Hours Do Not Match Please Verify Expected Hours :" +
+            tsExpectedWorkingHours +
+            " & Working Hours :" +
+            whtot + " Are Correct"
+        );
+      }
+      if( whtot+otTot > tsExpectedWorkingHours){
+        alert("Total Hours Exceeds the Expected Hours ")
+      }
+      if (!tsTotalHours || tsTotalHours == 0) {
+        console.log("hi this is tstotal");
+        settsTotalHours(whtot + otTot);
+        testing();
+      }
+    }
+
+  };
+  useEffect(() => {
+    testing();
+  }, [tsTotalHours]);
+
   return (
     <Dialog
       open={openPopup}
@@ -473,7 +718,7 @@ export default function PopupTS(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             Close
@@ -493,7 +738,7 @@ export default function PopupTS(props) {
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div class="col-md-4 mb-3">
-                <label for="userRole">Vendor</label>
+                <label htmlfor="userRole">Vendor</label>
                 <select
                   class="form-control is-valid"
                   value={tsVendor}
@@ -514,7 +759,7 @@ export default function PopupTS(props) {
                 </select>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="userRole">Month</label>
+                <label htmlfor="userRole">Month</label>
                 <select
                   class="form-control is-valid"
                   value={tsMonth}
@@ -532,7 +777,7 @@ export default function PopupTS(props) {
                 </select>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="userRole">Years</label>
+                <label htmlfor="userRole">Years</label>
                 <select
                   class="form-control is-valid"
                   value={tsYear}
@@ -554,7 +799,7 @@ export default function PopupTS(props) {
             </div>
             <div className="row">
               <div class="col-md-8 mb-3">
-                <label for="userFname">Description</label>
+                <label htmlfor="userFname">Description</label>
                 <textarea
                   type="text"
                   class="form-control is-valid"
@@ -568,7 +813,7 @@ export default function PopupTS(props) {
             </div>
             <div className="row">
               <div class="col-md-4 mb-3">
-                <label for="userName">Plot No</label>
+                <label htmlfor="userName">Plot No</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -579,7 +824,7 @@ export default function PopupTS(props) {
                 />
               </div>
               <div class="col-md-4 mb-3">
-                <label for="userName">Operator Name</label>
+                <label htmlfor="userName">Operator Name</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -590,7 +835,7 @@ export default function PopupTS(props) {
                 />
               </div>{" "}
               <div class="col-md-4 mb-3">
-                <label for="userName">Expected Working Hours</label>
+                <label htmlfor="userName">Expected Working Hours</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -604,7 +849,7 @@ export default function PopupTS(props) {
             </div>
             <div className="row">
               <div class="col-md-4 mb-3">
-                <label for="userName">Monthly Rate</label>
+                <label htmlfor="userName">Monthly Rate</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -617,7 +862,7 @@ export default function PopupTS(props) {
               </div>
 
               <div class="col-md-4 mb-3">
-                <label for="userName">OT Rate</label>
+                <label htmlfor="userName">OT Rate</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -629,7 +874,7 @@ export default function PopupTS(props) {
                 />
               </div>
               <div class="col-md-4 mb-3">
-                <label for="userName">HR Rate</label>
+                <label htmlfor="userName">HR Rate</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -641,7 +886,7 @@ export default function PopupTS(props) {
                 />
               </div>
               <div class="col-md-4 mb-3">
-                <label for="userName">Total Hours</label>
+                <label htmlfor="userName">Total Hours</label>
                 <input
                   type="number"
                   class="form-control is-valid"
@@ -654,7 +899,7 @@ export default function PopupTS(props) {
                 />
               </div>
               <div class="col-md-4 mb-3">
-                <label for="userName">Total OT</label>
+                <label htmlfor="userName">Total OT</label>
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -681,29 +926,39 @@ export default function PopupTS(props) {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-6">
-                <Container className={classes.root}>
-                  <ButtonGroup
-                    disableElevation
-                    variant="contained"
-                    color="primary"
-                    style={{marginBottom:"10px"}}
+              <div className="col-md-12">
+                <ButtonGroup
+                  disableElevation
+                  variant="contained"
+                  color="primary"
+                  style={{ marginBottom: "10px" }}
+                >
+                  <Button
+                    color="default"
+                    onClick={() => addUser()}
+                    disabled={isDisabled}
                   >
-                    <Button
-                      color="default"
-                      onClick={addUser}
-                      disabled={isDisabled}
-                    >
-                      Show
-                    </Button>
-                    <Button
-                      color="default"
-                      onClick={removeUsers}
-                      disabled={!isDisabledRemove}
-                    >
-                      Remove
-                    </Button>
-                  </ButtonGroup>
+                    Show
+                  </Button>
+                  <Button
+                    color="default"
+                    onClick={() => removeUsers()}
+                    disabled={!isDisabled}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Remove
+                  </Button>
+                </ButtonGroup>
+              </div>
+              <div className="col-md-12">
+                <span style={{ color: "red" }}>
+                  NOTE : Please Click On Calculate Button In Case of Adding Data
+                  In Grid
+                </span>
+              </div>
+              <div className="col-md-6" hidden={isHidden}>
+                <lable>REGULAR HOURS</lable>
+                <Container className={classes.root}>
                   {users.map((task, i) => (
                     <Grid
                       container
@@ -715,7 +970,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 1"
                           name="days1"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -727,7 +982,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 2"
                           name="days2"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -739,7 +994,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 3"
                           name="days3"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -751,7 +1006,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 4"
                           name="days4"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -763,7 +1018,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 5"
                           name="days5"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -775,7 +1030,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 6"
                           name="days6"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -787,7 +1042,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 7"
                           name="day7"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -799,7 +1054,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 8"
                           name="days8"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -811,7 +1066,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 9"
                           name="days9"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -823,7 +1078,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 10"
                           name="days10"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -835,7 +1090,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 11"
                           name="days11"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -847,7 +1102,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 12"
                           name="days12"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -859,7 +1114,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 13"
                           name="days13"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -871,7 +1126,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 14"
                           name="days14"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -883,7 +1138,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day15"
                           name="days15"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -895,7 +1150,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 16"
                           name="days16"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -907,7 +1162,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 17"
                           name="days17"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -919,7 +1174,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 18"
                           name="days18"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -931,7 +1186,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 19"
                           name="days19"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -943,7 +1198,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 20"
                           name="days20"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -955,7 +1210,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 21"
                           name="days21"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -967,7 +1222,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 22"
                           name="days22"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -979,7 +1234,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 23"
                           name="days23"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -991,7 +1246,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 24"
                           name="days24"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1003,7 +1258,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 25"
                           name="days25"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1015,7 +1270,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 26"
                           name="days26"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1027,7 +1282,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 27"
                           name="days27"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1039,7 +1294,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 28"
                           name="days28"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1051,7 +1306,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 29"
                           name="days29"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1064,7 +1319,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 30"
                           name="days30"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1077,7 +1332,7 @@ export default function PopupTS(props) {
                         <TextField
                           label="Day 31"
                           name="days31"
-                          type="days"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1090,30 +1345,10 @@ export default function PopupTS(props) {
                   ))}
                 </Container>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6" hidden={isHidden}>
+                <lable>OT HOURS</lable>
                 <Container className={classes.root}>
-                  <ButtonGroup
-                    disableElevation
-                    variant="contained"
-                    color="primary"
-                    style={{marginBottom:"10px"}}
-                  >
-                    <Button
-                      color="default"
-                      onClick={addUser}
-                      disabled={isDisabled}
-                    >
-                      Show
-                    </Button>
-                    <Button
-                      color="default"
-                      onClick={removeUsers}
-                      disabled={!isDisabledRemove}
-                    >
-                      Remove
-                    </Button>
-                  </ButtonGroup>
-                  {users.map((task, i) => (
+                  {oTData.map((task, i) => (
                     <Grid
                       container
                       spacing={2}
@@ -1123,348 +1358,348 @@ export default function PopupTS(props) {
                       <Grid item md={4}>
                         <TextField
                           label="Day 1"
-                          name="days1"
-                          type="days"
+                          name="oTdays1"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days1}
+                          value={task.oTdays1}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 2"
-                          name="days2"
-                          type="days"
+                          name="oTdays2"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days2}
+                          value={task.oTdays2}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 3"
-                          name="days3"
-                          type="days"
+                          name="oTdays3"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days3}
+                          value={task.oTdays3}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 4"
-                          name="days4"
-                          type="days"
+                          name="oTdays4"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days4}
+                          value={task.oTdays4}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 5"
-                          name="days5"
-                          type="days"
+                          name="oTdays5"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days5}
+                          value={task.oTdays5}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 6"
-                          name="days6"
-                          type="days"
+                          name="oTdays6"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days6}
+                          value={task.oTdays6}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 7"
-                          name="day7"
-                          type="days"
+                          name="oTday7"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days7}
+                          value={task.oTdays7}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 8"
-                          name="days8"
-                          type="days"
+                          name="oTdays8"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days8}
+                          value={task.oTdays8}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 9"
-                          name="days9"
-                          type="days"
+                          name="oTdays9"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days9}
+                          value={task.oTdays9}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 10"
-                          name="days10"
-                          type="days"
+                          name="oTdays10"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days10}
+                          value={task.oTdays10}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 11"
-                          name="days11"
-                          type="days"
+                          name="oTdays11"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days11}
+                          value={task.oTdays11}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 12"
-                          name="days12"
-                          type="days"
+                          name="oTdays12"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days12}
+                          value={task.oTdays12}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 13"
-                          name="days13"
-                          type="days"
+                          name="oTdays13"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days13}
+                          value={task.oTdays13}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 14"
-                          name="days14"
-                          type="days"
+                          name="oTdays14"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days14}
+                          value={task.oTdays14}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day15"
-                          name="days15"
-                          type="days"
+                          name="oTdays15"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days15}
+                          value={task.oTdays15}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 16"
-                          name="days16"
-                          type="days"
+                          name="oTdays16"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days16}
+                          value={task.oTdays16}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 17"
-                          name="days17"
-                          type="days"
+                          name="oTdays17"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days17}
+                          value={task.oTdays17}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 18"
-                          name="days18"
-                          type="days"
+                          name="oTdays18"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days18}
+                          value={task.oTdays18}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 19"
-                          name="days19"
-                          type="days"
+                          name="oTdays19"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days19}
+                          value={task.oTdays19}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 20"
-                          name="days20"
-                          type="days"
+                          name="oTdays20"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days20}
+                          value={task.oTdays20}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 21"
-                          name="days21"
-                          type="days"
+                          name="oTdays21"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days21}
+                          value={task.oTdays21}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 22"
-                          name="days22"
-                          type="days"
+                          name="oTdays22"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days22}
+                          value={task.oTdays22}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 23"
-                          name="days23"
-                          type="days"
+                          name="oTdays23"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days23}
+                          value={task.oTdays23}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 24"
-                          name="days24"
-                          type="days"
+                          name="oTdays24"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days24}
+                          value={task.oTdays24}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 25"
-                          name="days25"
-                          type="days"
+                          name="oTdays25"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days25}
+                          value={task.oTdays25}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 26"
-                          name="days26"
-                          type="days"
+                          name="oTdays26"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days26}
+                          value={task.oTdays26}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 27"
-                          name="days27"
-                          type="days"
+                          name="oTdays27"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days27}
+                          value={task.oTdays27}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 28"
-                          name="days28"
-                          type="days"
+                          name="oTdays28"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days28}
+                          value={task.oTdays28}
                           fullWidth
                         />
                       </Grid>
                       <Grid item md={4}>
                         <TextField
                           label="Day 29"
-                          name="days29"
-                          type="days"
+                          name="oTdays29"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days29}
+                          value={task.oTdays29}
                           fullWidth
                           disabled={isInputHidden29}
                         />
@@ -1472,12 +1707,12 @@ export default function PopupTS(props) {
                       <Grid item md={4}>
                         <TextField
                           label="Day 30"
-                          name="days30"
-                          type="days"
+                          name="oTdays30"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days30}
+                          value={task.oTdays30}
                           fullWidth
                           disabled={isInputHidden30}
                         />
@@ -1485,18 +1720,30 @@ export default function PopupTS(props) {
                       <Grid item md={4}>
                         <TextField
                           label="Day 31"
-                          name="days31"
-                          type="days"
+                          name="oTdays31"
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days31}
+                          value={task.oTdays31}
                           fullWidth
                           disabled={isInputHidden31}
                         />
                       </Grid>
                     </Grid>
                   ))}
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    style={{
+                      marginTop: "20px",
+                      marginBottom: "40px",
+                      marginLeft: "246px",
+                    }}
+                    onClick={calculateTimesheet}
+                  >
+                    Calculate
+                  </button>
                 </Container>
               </div>
             </div>

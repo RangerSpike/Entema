@@ -114,7 +114,7 @@ const DataTable = () => {
     //console.log("year : ", tsYear);
 
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataonYearMonth", {
+      .post("http://localhost:3009/getVenTimesheetDataonYearMonth", {
         venMonth: tsMonth,
         venYear: tsYear,
       })
@@ -151,13 +151,24 @@ const DataTable = () => {
         TSID: tsId,
       })
       .then((res) => {
-        //console.log("recsuccessfully deleted user ", tsId);
+        axios
+          .post("https://mssoftware.xyz/removeVenTsRGHDataonId", {
+            TSID: tsId,
+          })
+          .then((res) => {
+            axios
+              .post("https://mssoftware.xyz/removeVenTsOTHDataonId", {
+                TSID: tsId,
+              })
+              .then((res) => {});
+          });
+
         getData();
       });
 
     //console.log("TimeSheet ID : ", tsId);
   };
-  
+
   const monthDispValue = (value) => {
     let output;
 
@@ -415,6 +426,7 @@ const DataTable = () => {
                 </tbody>
               </table>
               <PopupTS
+                setId={setId}
                 id={id}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}

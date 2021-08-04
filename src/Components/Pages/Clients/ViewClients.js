@@ -95,81 +95,85 @@ const DataTable = () => {
 
   return (
     <>
-    <div class="scrollbar square scrollbar-lady-lips thin">
-      <div
-        class="container"
-        style={{ paddingTop: "3px", paddingLeft: "5px", width: "100%" }}
-      >
-        <div className="heading-layout1">
-          <div className="item-title">
-            <h3 style={{ padding: "50px" }}>List Of Clients</h3>
-          </div>
-        </div>
-        <CachedIcon
-          onClick={() => getData()}
-          style={{ marginRight: "10px", marginTop: "10px" }}
-        />
-
-        <div className="row w-100">
-          <div className="col mb-3 col-12 text-center">
-            <div className="row">
-              <div
-                className="col-md-6 d-flex flex-row-reverse"
-                style={{ marginBottom: "30px", marginLeft: "340px" }}
-              >
-                <Search
-                  onSearch={(value) => {
-                    setSearch(value);
-                    setCurrentPage(1);
-                  }}
-                />
-              </div>
+      <div class="scrollbar square scrollbar-lady-lips thin">
+        <div
+          class="container"
+          style={{ paddingTop: "3px", paddingLeft: "5px", width: "100%" }}
+        >
+          <div className="heading-layout1">
+            <div className="item-title">
+              <h3 style={{ padding: "50px" }}>List Of Clients</h3>
             </div>
-
-            <table className="table table-striped">
-              <TableHeader
-                headers={headers}
-                onSorting={(field, order) => setSorting({ field, order })}
-              />
-              <tbody>
-                {commentsData.map((comment) => (
-                  <tr>
-                    <th scope="row" key={comment.CLIENT_ID}>
-                      {comment.CLIENT_ID}
-                    </th>
-                    <td onClick={() => openInPopup(comment.CLIENT_ID)} style={{cursor:'pointer'}}>
-                      {comment.CLIENT_CPNAME}
-                    </td>
-                    <td >{comment.CLIENT_COMP_NAME} </td>
-                    <td>{comment.CLIENT_PHONE}</td>
-                    <td>{comment.CLIENT_EMAIL}</td>
-                    <td>
-                      <IconButton color="secondary">
-                        <DeleteOutlineIcon
-                          onClick={() => removeClient(comment.CLIENT_ID)}
-                        />
-                      </IconButton>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <Popup
-              id={id}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            ></Popup>
           </div>
-          <div className="col-md-6">
-            <Pagination
-              total={totalItems}
-              itemsPerPage={ITEMS_PER_PAGE}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
+          <CachedIcon
+            onClick={() => getData()}
+            style={{ marginRight: "10px", marginTop: "10px" }}
+          />
+
+          <div className="row w-100">
+            <div className="col mb-3 col-12 text-center">
+              <div className="row">
+                <div
+                  className="col-md-6 d-flex flex-row-reverse"
+                  style={{ marginBottom: "30px", marginLeft: "340px" }}
+                >
+                  <Search
+                    onSearch={(value) => {
+                      setSearch(value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <table className="table table-striped">
+                <TableHeader
+                  headers={headers}
+                  onSorting={(field, order) => setSorting({ field, order })}
+                />
+                <tbody>
+                  {commentsData.map((comment) => (
+                    <tr>
+                      <th scope="row" key={comment.CLIENT_ID}>
+                        {comment.CLIENT_ID}
+                      </th>
+                      <td
+                        onClick={() => openInPopup(comment.CLIENT_ID)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {comment.CLIENT_CPNAME}
+                      </td>
+                      <td>{comment.CLIENT_COMP_NAME} </td>
+                      <td>{comment.CLIENT_PHONE}</td>
+                      <td>{comment.CLIENT_EMAIL}</td>
+                      <td>
+                        <IconButton color="secondary">
+                          <DeleteOutlineIcon
+                            onClick={() => removeClient(comment.CLIENT_ID)}
+                          />
+                        </IconButton>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Popup
+                setId={setId}
+                id={id}
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+              ></Popup>
+            </div>
+            <div className="col-md-6">
+              <Pagination
+                total={totalItems}
+                itemsPerPage={ITEMS_PER_PAGE}
+                currentPage={currentPage}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
+            </div>
           </div>
         </div>
-      </div>
       </div>
       {loader}
     </>

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   // console.log("FROM MODAL WINDOW ", id);
   const classes = useStyles();
@@ -34,14 +34,13 @@ export default function Popup(props) {
   const [clientadd, setClientadd] = useState();
   const [createdby, setCreatedby] = useState();
 
-
   useEffect(() => {
     axios
       .post("https://mssoftware.xyz/getClientBasedOnId", {
         clientID: id,
       })
       .then((res) => {
-        // console.log("records received ", res.data[0]);    
+        // console.log("records received ", res.data[0]);
 
         if (id > 0) {
           setClientcpname(res.data[0].CLIENT_CPNAME);
@@ -84,11 +83,16 @@ export default function Popup(props) {
         clientadd: clientadd,
       })
       .then((res) => {
+        setId(0);
         // setData(res.data);
         //  setDupData(res.data);
         // console.log("result set in effect: ", res);
       });
 
+    setOpenPopup(false);
+  };
+  const onClosePopup = () => {
+    setId(0);
     setOpenPopup(false);
   };
 
@@ -103,7 +107,7 @@ export default function Popup(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             Close
@@ -111,7 +115,6 @@ export default function Popup(props) {
         </div>
       </DialogTitle>
       <DialogContent dividers>
-      
         <div
           class="container"
           style={{ paddingTop: "30px", paddingLeft: "50px" }}
@@ -200,7 +203,6 @@ export default function Popup(props) {
             </form>
           </div>
         </div>
-
       </DialogContent>
     </Dialog>
   );

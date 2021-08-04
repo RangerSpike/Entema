@@ -45,71 +45,71 @@ function Createtimesheet() {
   const [vendorDispValue, setVendorDispValue] = useState();
 
   let [taskList, setTasklist] = useState({
-    days1: "",
-    days2: "",
-    days3: "",
-    days4: "",
-    days5: "",
-    days6: "",
-    days7: "",
-    days8: "",
-    days9: "",
-    days10: "",
-    days11: "",
-    days12: "",
-    days13: "",
-    days14: "",
-    days15: "",
-    days16: "",
-    days17: "",
-    days18: "",
-    days19: "",
-    days20: "",
-    days21: "",
-    days22: "",
-    days23: "",
-    days24: "",
-    days25: "",
-    days26: "",
-    days27: "",
-    days28: "",
-    days29: "",
-    days30: "",
-    days31: "",
+    days1: 0,
+    days2: 0,
+    days3: 0,
+    days4: 0,
+    days5: 0,
+    days6: 0,
+    days7: 0,
+    days8: 0,
+    days9: 0,
+    days10: 0,
+    days11: 0,
+    days12: 0,
+    days13: 0,
+    days14: 0,
+    days15: 0,
+    days16: 0,
+    days17: 0,
+    days18: 0,
+    days19: 0,
+    days20: 0,
+    days21: 0,
+    days22: 0,
+    days23: 0,
+    days24: 0,
+    days25: 0,
+    days26: 0,
+    days27: 0,
+    days28: 0,
+    days29: 0,
+    days30: 0,
+    days31: 0,
   });
 
   let [oTSheet, setOtSheet] = useState({
-    oTdays1: "",
-    oTdays2: "",
-    oTdays3: "",
-    oTdays4: "",
-    oTdays5: "",
-    oTdays6: "",
-    oTdays7: "",
-    oTdays8: "",
-    oTdays9: "",
-    oTdays10: "",
-    oTdays11: "",
-    oTdays12: "",
-    oTdays13: "",
-    oTdays14: "",
-    oTdays15: "",
-    oTdays16: "",
-    oTdays17: "",
-    oTdays18: "",
-    oTdays19: "",
-    oTdays20: "",
-    oTdays21: "",
-    oTdays22: "",
-    oTdays23: "",
-    oTdays24: "",
-    oTdays25: "",
-    oTdays26: "",
-    oTdays27: "",
-    oTdays28: "",
-    oTdays29: "",
-    oTdays30: "",
-    oTdays31: "",
+    oTdays1: 0,
+    oTdays2: 0,
+    oTdays3: 0,
+    oTdays4: 0,
+    oTdays5: 0,
+    oTdays6: 0,
+    oTdays7: 0,
+    oTdays8: 0,
+    oTdays9: 0,
+    oTdays10: 0,
+    oTdays11: 0,
+    oTdays12: 0,
+    oTdays13: 0,
+    oTdays14: 0,
+    oTdays15: 0,
+    oTdays16: 0,
+    oTdays17: 0,
+    oTdays18: 0,
+    oTdays19: 0,
+    oTdays20: 0,
+    oTdays21: 0,
+    oTdays22: 0,
+    oTdays23: 0,
+    oTdays24: 0,
+    oTdays25: 0,
+    oTdays26: 0,
+    oTdays27: 0,
+    oTdays28: 0,
+    oTdays29: 0,
+    oTdays30: 0,
+    oTdays31: 0,
   });
 
   const [users, setUsers] = useState([]);
@@ -341,12 +341,34 @@ function Createtimesheet() {
       setIsDisabled(false);
     }
   };
+  const [timesheetId, setTimesheetid] = useState();
+
+  const generateUniqueId = () => {
+    let currentDate = new Date();
+    let uniqueValue =
+      "" +
+      currentDate.getFullYear() +
+      (currentDate.getMonth() + 1) +
+      currentDate.getDate() +
+      currentDate.getHours() +
+      currentDate.getMinutes() +
+      currentDate.getSeconds() +
+      currentDate.getMilliseconds();
+
+    setTimesheetid(uniqueValue);
+    console.log("My unique Values :", uniqueValue);
+    return uniqueValue;
+  };
+  useEffect(() => {
+    generateUniqueId();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertVenTimesheetData", {
+      .post("http://localhost:3009/insertVenTimesheetData", {
+        tsvenId: timesheetId,
         tsvendor: tsVendor,
         tsmonth: tsMonth,
         tsyear: tsYear,
@@ -362,6 +384,8 @@ function Createtimesheet() {
         tstotal: tsTotal,
         tsgrid: true,
         vendorDispValue: vendorDispValue,
+        tsrhdata: users,
+        tsotdata: oTData,
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
@@ -373,7 +397,7 @@ function Createtimesheet() {
 
   const onYearChange = (value) => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetValidation", {
+      .post("https://localhost:3009/getVenTimesheetValidation", {
         pVendor: tsVendor,
         pMonth: tsMonth,
         pYear: value,
@@ -695,20 +719,20 @@ function Createtimesheet() {
                 </ButtonGroup>
               </div>
               <div className="col-md-6">
-              
                 <Container className={classes.root}>
+                  <h5>Working Hours</h5>
                   {users.map((task, i) => (
                     <Grid
                       container
                       spacing={2}
                       key={i}
                       className={classes.inputGroup}
-                    >                    
+                    >
                       <Grid item md={2}>
                         <TextField
                           label="Day 1"
                           name="days1"
-                          type="number"                           
+                          type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
@@ -1085,6 +1109,7 @@ function Createtimesheet() {
               </div>
               <div className="col-md-6">
                 <Container className={classes.root}>
+                  <h5>Over Time</h5>
                   {oTData.map((task, i) => (
                     <Grid
                       container
@@ -1100,7 +1125,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days1}
+                          value={task.oTdays1}
                           fullWidth
                         />
                       </Grid>
@@ -1112,7 +1137,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days2}
+                          value={task.oTdays2}
                           fullWidth
                         />
                       </Grid>
@@ -1124,7 +1149,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days3}
+                          value={task.oTdays3}
                           fullWidth
                         />
                       </Grid>
@@ -1136,7 +1161,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days4}
+                          value={task.oTdays4}
                           fullWidth
                         />
                       </Grid>
@@ -1148,7 +1173,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days5}
+                          value={task.oTdays5}
                           fullWidth
                         />
                       </Grid>
@@ -1160,7 +1185,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days6}
+                          value={task.oTdays6}
                           fullWidth
                         />
                       </Grid>
@@ -1172,7 +1197,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days7}
+                          value={task.oTdays7}
                           fullWidth
                         />
                       </Grid>
@@ -1184,7 +1209,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days8}
+                          value={task.oTdays8}
                           fullWidth
                         />
                       </Grid>
@@ -1196,7 +1221,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days9}
+                          value={task.oTdays9}
                           fullWidth
                         />
                       </Grid>
@@ -1208,7 +1233,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days10}
+                          value={task.oTdays10}
                           fullWidth
                         />
                       </Grid>
@@ -1220,7 +1245,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days11}
+                          value={task.oTdays11}
                           fullWidth
                         />
                       </Grid>
@@ -1232,7 +1257,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days12}
+                          value={task.oTdays12}
                           fullWidth
                         />
                       </Grid>
@@ -1244,7 +1269,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days13}
+                          value={task.oTdays13}
                           fullWidth
                         />
                       </Grid>
@@ -1256,7 +1281,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days14}
+                          value={task.oTdays14}
                           fullWidth
                         />
                       </Grid>
@@ -1268,7 +1293,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days15}
+                          value={task.oTdays15}
                           fullWidth
                         />
                       </Grid>
@@ -1280,7 +1305,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days16}
+                          value={task.oTdays16}
                           fullWidth
                         />
                       </Grid>
@@ -1292,7 +1317,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days17}
+                          value={task.oTdays17}
                           fullWidth
                         />
                       </Grid>
@@ -1304,7 +1329,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days18}
+                          value={task.oTdays18}
                           fullWidth
                         />
                       </Grid>
@@ -1316,7 +1341,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days19}
+                          value={task.oTdays19}
                           fullWidth
                         />
                       </Grid>
@@ -1328,7 +1353,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days20}
+                          value={task.oTdays20}
                           fullWidth
                         />
                       </Grid>
@@ -1340,7 +1365,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days21}
+                          value={task.oTdays21}
                           fullWidth
                         />
                       </Grid>
@@ -1352,7 +1377,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days22}
+                          value={task.oTdays22}
                           fullWidth
                         />
                       </Grid>
@@ -1364,7 +1389,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days23}
+                          value={task.oTdays23}
                           fullWidth
                         />
                       </Grid>
@@ -1376,7 +1401,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days24}
+                          value={task.oTdays24}
                           fullWidth
                         />
                       </Grid>
@@ -1388,7 +1413,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days25}
+                          value={task.oTdays25}
                           fullWidth
                         />
                       </Grid>
@@ -1400,7 +1425,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days26}
+                          value={task.oTdays26}
                           fullWidth
                         />
                       </Grid>
@@ -1412,7 +1437,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days27}
+                          value={task.oTdays27}
                           fullWidth
                         />
                       </Grid>
@@ -1424,7 +1449,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days28}
+                          value={task.oTdays28}
                           fullWidth
                         />
                       </Grid>
@@ -1436,7 +1461,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days29}
+                          value={task.oTdays29}
                           fullWidth
                           disabled={isInputHidden29}
                         />
@@ -1449,7 +1474,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days30}
+                          value={task.oTdays30}
                           fullWidth
                           disabled={isInputHidden30}
                         />
@@ -1462,7 +1487,7 @@ function Createtimesheet() {
                           //placeholder="Enter Your Name"
                           variant="outlined"
                           onChange={(e) => handleChangeEvent(e, i)}
-                          value={task.days31}
+                          value={task.oTdays31}
                           fullWidth
                           disabled={isInputHidden31}
                         />
