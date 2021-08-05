@@ -1,4 +1,3 @@
-
 import { Switch, Route } from "react-router-dom";
 
 import Dashboard from "./Components/Dashboard/Dashboard";
@@ -13,6 +12,7 @@ import Statement from "./Components/Pages/Vendors/Statement";
 
 import AddClients from './Components/Pages/Clients/AddClients';
 import ViewClients from "./Components/Pages/Clients/ViewClients";
+import ClientStatement from "./Components/Pages/Clients/ClientStatement";
 
 import Createpurchaseorder from './Components/Pages/PurchaseOrder/Createpurchaseorder';
 import Viewpurchaseorder from './Components/Pages/PurchaseOrder/Viewpurchaseorder';
@@ -42,6 +42,7 @@ import Activities from "./Components/Pages/Users/Activities";
 import Roles from "./Components/Pages/Users/Roles";
 import ViewRoles from "./Components/Pages/Users/ViewRoles";
 
+import AddVat from "./Components/Pages/Vat/AddVat";
 
 const Routes = (props) => {
  
@@ -64,6 +65,7 @@ const Routes = (props) => {
     
     <Route path="/addClients" component={AddClients} />
     <Route path="/ViewClients" component={ViewClients} />
+    <Route path="/ClientStatement/:cid" component={ClientStatement} />
 
     <Route path="/Createpurchaseorder" component={Createpurchaseorder} />
     <Route path="/Viewpurchaseorder" component={Viewpurchaseorder} />
@@ -88,6 +90,8 @@ const Routes = (props) => {
 
     <Route path="/CreateNote" component={CreateNote} />
     <Route path="/ViewNotes" component={ViewNotes} />
+
+    <Route path="/AddVat" component={AddVat} />
    </Switch>
 
 

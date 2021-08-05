@@ -93,16 +93,16 @@ function Createpurchaseorder() {
   ];
 
   const onChangeVendorDetails = (vendorID) => {
-    axios
-      .post("https://mssoftware.xyz/getVatDataOnID", {
-        vendorID: vendorID,
-      })
-      .then((res) => {
-        if (vendorID > 0) {
-          console.log("VENDOR VAT :", res.data[0].VAT);
-          setPogst(res.data[0].VAT);
-        }
-      });
+    // axios
+    //   .post("https://mssoftware.xyz/getVatDataOnID", {
+    //     vendorID: vendorID,
+    //   })
+    //   .then((res) => {
+    //     if (vendorID > 0) {
+    //       console.log("VENDOR VAT :", res.data[0].VAT);
+    //       setPogst(res.data[0].VAT);
+    //     }
+    //   });
 
     //console.log("onchange value is : ", vendorID);
     let computedComments = vendorLov;
@@ -124,8 +124,8 @@ function Createpurchaseorder() {
     // setSigNameNTitle(computedComments[0].VENDOR_CPERSON);
 
     if (computedComments[0].VENDOR_VAT) {
-      setPogst(5);
-      onChangeGST(5);
+      setPogst(15);
+      onChangeGST(15);
     } else {
       setPogst(0);
       onChangeGST(0);

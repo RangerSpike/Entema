@@ -6,8 +6,12 @@ import { TableHeader, Pagination, Search } from "../../DataTable";
 import axios from "axios";
 import { IconButton } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { History } from "history";
+import { useHistory } from "react-router-dom";
 
 const DataTable = () => {
+  const history= useHistory();
+  
   const [comments, setComments] = useState([]);
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const [totalItems, setTotalItems] = useState(0);
@@ -28,6 +32,7 @@ const DataTable = () => {
       getData();
     },1300);
   }, [id]);
+
   const headers = [
     { name: "Id", field: "Id", sortable: false },
     { name: "Name", field: "Name", sortable: false },
@@ -65,6 +70,13 @@ const DataTable = () => {
 
     // console.log("vendorID : ", clientId);
   };
+
+  const openInStatement = (clientID) => {
+    console.log("IDIDI: ", clientID);
+
+    history.push(`/ClientStatement/${clientID}`);
+  };
+
 
   const test = (data) => {
     alert("hurrray :" + data);
@@ -147,7 +159,7 @@ const DataTable = () => {
                       >
                         {comment.CLIENT_CPNAME}
                       </td>
-                      <td>{comment.CLIENT_COMP_NAME} </td>
+                      <td  onClick={() => openInStatement(comment.CLIENT_ID)} style={{ cursor: "pointer" }}>{comment.CLIENT_COMP_NAME} </td>
                       <td>{comment.CLIENT_PHONE}</td>
                       <td>{comment.CLIENT_EMAIL}</td>
                       <td>

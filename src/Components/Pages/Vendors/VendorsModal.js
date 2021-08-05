@@ -44,14 +44,14 @@ export default function Popup(props) {
   const [createdby, setCreatedby] = useState("Mazhar");
   const [vendorstatus, setVendorstatus] = useState("Active");
 
-  const vatTemplate = {
-    vatsdate: "",
-    vat: "",
-    vatedate: "",
-  };
-  const [data, setData] = useState([vatTemplate]);
-  let newData = [];
-  let test = [];
+  // const vatTemplate = {
+  //   vatsdate: "",
+  //   vat: "",
+  //   vatedate: "",
+  // };
+  // const [data, setData] = useState([vatTemplate]);
+  // let newData = [];
+  // let test = [];
 
   useEffect(() => {
     axios
@@ -76,40 +76,40 @@ export default function Popup(props) {
           setVendorvat(res.data[0].VENDOR_VAT);
           setVendordocno(res.data[0].VENDOR_DOC_NO);
         }
-        axios
-          .post("https://mssoftware.xyz/getVatDataOnID", {
-            vendorID: id,
-          })
-          .then((res) => {
-            console.log(res.data);
-            newData = res.data;
+        // axios
+        //   .post("https://mssoftware.xyz/getVatDataOnID", {
+        //     vendorID: id,
+        //   })
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     newData = res.data;
 
-            var x = newData.length;
-            var rows = [];
+        //     var x = newData.length;
+        //     var rows = [];
 
-            for (var i = 0; i < x; i++) {
-              rows.push(vatTemplate);
+        //     for (var i = 0; i < x; i++) {
+        //       rows.push(vatTemplate);
 
-              test[i] = {
-                vatsdate: newData[i].VEN_START_DATE,
-                vat: newData[i].VAT,
-                vatedate: newData[i].VEN_END_DATE,
-              };
-            }
-            setData(test);
-          });
+        //       test[i] = {
+        //         vatsdate: newData[i].VEN_START_DATE,
+        //         vat: newData[i].VAT,
+        //         vatedate: newData[i].VEN_END_DATE,
+        //       };
+        //     }
+        //     setData(test);
+        //   });
       });
   }, [id]);
 
-  const onChange = (e, index) => {
-    const updatedUsers = data.map((data, i) =>
-      index === i
-        ? Object.assign(data, { [e.target.name]: e.target.value })
-        : data
-    );
-    console.log("newnew:", e.target.value);
-    setData(updatedUsers);
-  };
+  // const onChange = (e, index) => {
+  //   const updatedUsers = data.map((data, i) =>
+  //     index === i
+  //       ? Object.assign(data, { [e.target.name]: e.target.value })
+  //       : data
+  //   );
+  //   console.log("newnew:", e.target.value);
+  //   setData(updatedUsers);
+  // };
 
   const handleChangeEvent = (e) => {
     // console.log("e.target.name : ", e.target.value);
@@ -147,56 +147,49 @@ export default function Popup(props) {
       setVendorstatus(e.target.value);
     }
   };
-  const removeUsers = (index) => {
-    console.log("index value :", index);
-    const filteredUsers = [...data];
-    filteredUsers.splice(index, 1);
+  // const removeUsers = (index) => {
+  //   console.log("index value :", index);
+  //   const filteredUsers = [...data];
+  //   filteredUsers.splice(index, 1);
 
-    setData(filteredUsers);
-  };
+  //   setData(filteredUsers);
+  // };
 
-  const addData = (data) => {
-    setData([...data, vatTemplate]);
-    // let x = data.length;
-    // let setDate = setDateFormat();
-    // if ((x = data.length)) {
-    //   data[x - 1].vatedate = setDate;
-  };
+  // const addData = (data) => {
+  //   setData([...data, vatTemplate]);
+  //   // let x = data.length;
+  //   // let setDate = setDateFormat();
+  //   // if ((x = data.length)) {
+  //   //   data[x - 1].vatedate = setDate;
+  // };
+
   const handleSubmit = (event) => {
     // event.preventDefault();
     // console.log("event : ", event);
     axios
-      .post("https://mssoftware.xyz/removeVendorVatDataonId", {
-        vendorID: id,
+      .post("https://mssoftware.xyz/updateVendorData", {
+        v_id: id,
+        vendorname: vendorname,
+        vendorcode: vendorcode,
+        vendorphone: vendorphone,
+        vendoradd: vendoradd,
+        vendorcperson: vendorcperson,
+        vendorfline: vendorfline,
+        vendoremail: vendoremail,
+        vendorbfname: vendorbfname,
+        vendorbankname: vendorbankname,
+        vendorbankacc: vendorbankacc,
+        vendoriban: vendoriban,
+        vendorvat: vendorvat,
+        vendordocno: vendordocno,
+        vendorstatus: vendorstatus,
       })
       .then((res) => {
-        axios
-          .post("https://mssoftware.xyz/updateVendorData1", {
-            vendorid: id,
-            vendorname: vendorname,
-            vendorcode: vendorcode,
-            vendorphone: vendorphone,
-            vendoradd: vendoradd,
-            vendorcperson: vendorcperson,
-            vendorfline: vendorfline,
-            vendoremail: vendoremail,
-            vendorbfname: vendorbfname,
-            vendorbankname: vendorbankname,
-            vendorbankacc: vendorbankacc,
-            vendoriban: vendoriban,
-            vendorvat: vendorvat,
-            vendordocno: vendordocno,
-            vendorstatus: vendorstatus,
-            vendorvatdetails: data,
-          })
-          .then((res) => {
-            console.log("hi THere from update", data);
-            // setData(res.data);
-            //  setDupData(res.data);
-            // console.log("result set in effect: ", res);
-          });
+        // console.log("hi THere from update", data);
+        // setData(res.data);
+        //  setDupData(res.data);
+        // console.log("result set in effect: ", res);
       });
-
     setOpenPopup(false);
   };
 
@@ -385,73 +378,7 @@ export default function Popup(props) {
           </form>
         </div>
         <div>
-          <div className="heading-layout1">
-            <div className="item-title">
-              <h3 style={{ padding: "10px" }}> VAT Details</h3>
-            </div>
-          </div>
-          <Container className={classes.root}>
-            {data.map((data, index) => (
-              <Grid
-                container
-                spacing={3}
-                key={index}
-                className={classes.inputGroup}
-              >
-                <Grid item md={4}>
-                  <TextField
-                    label="CreatedDate"
-                    name="vatsdate"
-                    placeholder=""
-                    type="date"
-                    variant="outlined"
-                    value={data.vatsdate}
-                    onChange={(e) => onChange(e, index)}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item md={3}>
-                  <TextField
-                    label="vat /in%"
-                    name="vat"
-                    placeholder="vat"
-                    variant="outlined"
-                    onChange={(e) => onChange(e, index)}
-                    value={data.vat}
-                    fullWidth
-                  />
-                </Grid>
-
-                <Grid item md={4}>
-                  <TextField
-                    label="End Date"
-                    name="vatedate"
-                    type="date"
-                    placeholder=""
-                    variant="outlined"
-                    value={data.vatedate}
-                    onChange={(e) => onChange(e, index)}
-                    fullWidth
-                  />
-                </Grid>
-
-                <Grid item md={1}>
-                  <IconButton color="secondary">
-                    <DeleteOutlineIcon onClick={() => removeUsers(index)} />
-                  </IconButton>
-                </Grid>
-              </Grid>
-            ))}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => addData(data)}
-            >
-              Add VAT Details
-            </Button>
-          </Container>
-
-          <div style={{marginTop:'30px'}}>
+          <div style={{ marginTop: "30px" }}>
             <button
               type="button"
               class="btn btn-outline-success"

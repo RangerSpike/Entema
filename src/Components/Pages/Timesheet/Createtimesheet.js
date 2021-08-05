@@ -367,7 +367,7 @@ function Createtimesheet() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3009/insertVenTimesheetData", {
+      .post("https://mssoftware.xyz/insertVenTimesheetData", {
         tsvenId: timesheetId,
         tsvendor: tsVendor,
         tsmonth: tsMonth,
@@ -397,7 +397,7 @@ function Createtimesheet() {
 
   const onYearChange = (value) => {
     axios
-      .post("https://localhost:3009/getVenTimesheetValidation", {
+      .post("https://mssoftware.xyz/getVenTimesheetValidation", {
         pVendor: tsVendor,
         pMonth: tsMonth,
         pYear: value,

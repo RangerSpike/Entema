@@ -176,8 +176,8 @@ export default function PopupPO(props) {
     // setSigNameNTitle(computedComments[0].VENDOR_CPERSON);
 
     if (computedComments[0].VENDOR_VAT) {
-      setPogst(5);
-      onChangeGST(5);
+      setPogst(15);
+      onChangeGST(15);
     } else {
       setPogst(0);
       onChangeGST(0);
@@ -333,6 +333,7 @@ export default function PopupPO(props) {
   };
 
   const onChangeGST = (gstValue) => {
+    let gt = 0;
     if (pototal > 0) {
       let test123 = 0;
 
@@ -341,7 +342,7 @@ export default function PopupPO(props) {
       }
 
       let gtt = 0;
-      let gt = 0;
+
       let cc = 0;
 
       if (gstValue > 0) {
@@ -353,8 +354,8 @@ export default function PopupPO(props) {
       } else {
         gt = test123;
       }
-      setPograndtotal(gt);
     }
+    setPograndtotal(gt);
   };
 
   const getArraySum = (a) => {
@@ -394,7 +395,30 @@ export default function PopupPO(props) {
 
     setOrderItem(filteredUsers);
 
-    calculationOnDeleteRow(index);
+    onDelete(filteredUsers);
+    //calculationOnDeleteRow(index);
+  };
+
+  const onDelete = (orderItem) => {
+    let xGrndTotal = 0;
+    let xTotal = 0;
+
+    if (pototal > 0) {
+      console.log(orderItem);
+      for (var i = 0; i < orderItem.length; i++) {
+        xTotal = xTotal + parseInt(orderItem[i].amount);        
+      }
+    }
+    if (pogst > 0) {
+      xGrndTotal = (pogst / 100) * xTotal;
+      xGrndTotal+=xTotal;
+      // xGrndTotal = xGrndTotal * pogst;
+    }else{
+      xGrndTotal=xTotal;
+    }
+    console.log("GRND TTAL: ", xGrndTotal);
+    setPograndtotal(xGrndTotal);
+    setPototal(xTotal);
   };
 
   const handleChangeEvent = (e, index) => {

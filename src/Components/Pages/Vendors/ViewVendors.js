@@ -59,13 +59,13 @@ const DataTable = () => {
         vendorID: vendorId,
       })
       .then((res) => {
-        axios
-          .post("https://mssoftware.xyz/removeVendorVatDataonId", {
-            vendorID: vendorId,
-          })
-          .then((res) => {
-            getData();
-          });
+        // axios
+        //   .post("https://mssoftware.xyz/removeVendorVatDataonId", {
+        //     vendorID: vendorId,
+        //   })
+        //   .then((res) => {
+        //     getData();
+        //   });
         getData();
       });
   };
@@ -90,7 +90,7 @@ const DataTable = () => {
     if (sorting.field) {
       const reversed = sorting.order === "asc" ? 1 : -1;
       computedComments = computedComments.sort(
-        (a, b) => reversed * a[sorting.field].localeCompare(b[sorting.field])
+        (a, b) => reversed * a[sorting.field].eCompare(b[sorting.field])
       );
     }
 

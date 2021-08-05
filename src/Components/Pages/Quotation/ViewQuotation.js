@@ -116,7 +116,7 @@ const DataTable = () => {
         >
           <div className="heading-layout1">
             <div className="item-title">
-              <h3 style={{ padding: "50px" }}>View Quatation Order</h3>
+              <h3 style={{ padding: "50px" }}>View Quotation Order</h3>
             </div>
           </div>
           <CachedIcon

@@ -73,7 +73,6 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
               <MenuItem>
                 <NavLink to="/ViewVendors">List of Vendors</NavLink>
               </MenuItem>
-              
             </SubMenu>
 
             <SubMenu
@@ -185,6 +184,11 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                 <NavLink to="/ViewNotes">List of Notes</NavLink>
               </MenuItem>
             </SubMenu>
+            <Menu iconShape="circle" style={{marginTop:"-5%"}}>
+              <MenuItem icon={<MdDashboard />}>
+                <NavLink to="/AddVat">Add Vat</NavLink>
+              </MenuItem>
+            </Menu>
           </Menu>
         </SidebarContent>
       </ProSidebar>

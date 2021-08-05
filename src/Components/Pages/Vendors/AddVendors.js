@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
-import {
-  Container,
-  Grid,
-  TextField,
-  IconButton,
-  Button,
-} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,53 +73,53 @@ function AddVendors() {
     }
   };
 
-  const vatTemplate = {
-    vatsdate: "",
-    vat: "",
-    vatedate:"",
-  };
-  
-  const [data, setData] = useState([vatTemplate]);
-
-  const onChange = (e, index) => {
-    const updatedUsers = data.map((data, i) =>
-      index === i
-        ? Object.assign(data, { [e.target.name]: e.target.value })
-        : data
-    );
-    console.log("newnew:", e.target.value);
-    setData(updatedUsers);
-  };
-
-  const removeUsers = (index) => {
-    console.log("index value :", index);
-    const filteredUsers = [...data];
-    filteredUsers.splice(index, 1);
-
-    setData(filteredUsers);
-  };
-
-  const addData = (data) => {
-    setData([...data, vatTemplate]);
-    // let x = data.length;
-    // let setDate = setDateFormat();
-    // if ((x = data.length)) {
-    //   data[x - 1].vatedate = setDate;      
-    }
-
-  //   console.log(data);
+  // const vatTemplate = {
+  //   vatsdate: "",
+  //   vat: "",
+  //   vatedate:"",
   // };
 
-  // const loadDate =()=>{
-  //   let x = data.length;
-  //   let setDate = setDateFormat();
-  //   if ((x = data.length)) {
-  //     data[x - 1].vatsdate = setDate;      
+  // const [data, setData] = useState([vatTemplate]);
+
+  // const onChange = (e, index) => {
+  //   const updatedUsers = data.map((data, i) =>
+  //     index === i
+  //       ? Object.assign(data, { [e.target.name]: e.target.value })
+  //       : data
+  //   );
+  //   console.log("newnew:", e.target.value);
+  //   setData(updatedUsers);
+  // };
+
+  // const removeUsers = (index) => {
+  //   console.log("index value :", index);
+  //   const filteredUsers = [...data];
+  //   filteredUsers.splice(index, 1);
+
+  //   setData(filteredUsers);
+  // };
+
+  // const addData = (data) => {
+  //   setData([...data, vatTemplate]);
+  //   // let x = data.length;
+  //   // let setDate = setDateFormat();
+  //   // if ((x = data.length)) {
+  //   //   data[x - 1].vatedate = setDate;
   //   }
-  // }
-  useEffect(()=>{    
+
+  // //   console.log(data);
+  // // };
+
+  // // const loadDate =()=>{
+  // //   let x = data.length;
+  // //   let setDate = setDateFormat();
+  // //   if ((x = data.length)) {
+  // //     data[x - 1].vatsdate = setDate;
+  // //   }
+  // // }
+  useEffect(() => {
     generateUniqueId();
-  },[])
+  }, []);
 
   const generateUniqueId = () => {
     let currentDate = new Date();
@@ -140,9 +132,9 @@ function AddVendors() {
       currentDate.getMinutes() +
       currentDate.getSeconds() +
       currentDate.getMilliseconds();
- 
-      setVendorId(uniqueValue);  
-    console.log('My unique Values :', uniqueValue);
+
+    setVendorId(uniqueValue);
+    console.log("My unique Values :", uniqueValue);
     return uniqueValue;
   };
 
@@ -177,13 +169,10 @@ function AddVendors() {
     return formatedDate;
   };
   const handleSubmit = (event) => {
-    console.log(data);
-
-
     event.preventDefault();
     console.log("event : ", event);
 
-    Axios.post("https://mssoftware.xyz/insertVendorData1", {
+    Axios.post("http://mssoftware.xyz/insertVendorData", {
       vendorid: vendorId,
       vendorname: vendorname,
       vendorcode: vendorcode,
@@ -200,7 +189,6 @@ function AddVendors() {
       vendordocno: vendordocno,
       createdby: createdby,
       vendorstatus: vendorstatus,
-      vendorvatdetails: data,
     }).then((res) => {
       console.log("result success : ", res);
     });
@@ -266,7 +254,6 @@ function AddVendors() {
                   id="vendoradd"
                   name="vendoradd"
                   onChange={handleChangeEvent}
-                  
                 />
               </div>
               <div className="row">
@@ -300,7 +287,6 @@ function AddVendors() {
                     id="vendoremail"
                     name="vendoremail"
                     onChange={handleChangeEvent}
-                    
                   />
                 </div>
               </div>
@@ -348,7 +334,6 @@ function AddVendors() {
                     id="vendoriban"
                     name="vendoriban"
                     onChange={handleChangeEvent}
-                   
                   />
                 </div>
                 <div class="col-md-4 mb-3">
@@ -368,80 +353,11 @@ function AddVendors() {
                     class="form-control is-valid"
                     id="vendordocno"
                     name="vendordocno"
-                    onChange={handleChangeEvent}                  
+                    onChange={handleChangeEvent}
                   />
                 </div>
               </div>
-
               <div>
-                <div className="heading-layout1">
-                  <div className="item-title">
-                    <h3 style={{ padding: "10px" }}> VAT Details</h3>
-                  </div>
-                </div>
-                <Container className={classes.root}>
-                  {data.map((data, index) => (
-                    <Grid
-                      container
-                      spacing={3}
-                      key={index}
-                      className={classes.inputGroup}
-                    >
-                      <Grid item md={4}>                      
-                        <TextField
-                          //label="CreatedDate"
-                          name="vatsdate"
-                          placeholder=""
-                          type="date"
-                          variant="outlined"
-                          value={data.vatsdate}
-                          onChange={(e) => onChange(e, index)}
-                          fullWidth                        
-                        />
-                      </Grid>
-                      <Grid item md={3}>
-                        <TextField
-                          label="vat /in%"
-                          name="vat"
-                          placeholder="vat"
-                          variant="outlined"
-                          onChange={(e) => onChange(e, index)}
-                          value={data.vat}
-                          fullWidth
-                        />
-                      </Grid>
-
-                      <Grid item md={4}>
-                        <TextField
-                          label="End Date"
-                          name="vatedate"
-                          type="date"
-                          placeholder=""
-                          variant="outlined"
-                          value={data.vatedate}
-                          onChange={(e) => onChange(e, index)}
-                          fullWidth
-                        />
-                      </Grid>
-
-                      <Grid item md={1}>
-                        <IconButton color="secondary">
-                          <DeleteOutlineIcon
-                            onClick={() => removeUsers(index)}
-                          />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
-                  ))}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => addData(data)}
-                  >
-                    Add VAT Details
-                  </Button>
-                </Container>
-
                 <button
                   type="submit"
                   class="btn btn-outline-success"

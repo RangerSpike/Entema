@@ -145,7 +145,7 @@ export default function PopupTS(props) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3009/getVenTimesheetDataListBasedonId", {
+      .post("https://mssoftware.xyz/getVenTimesheetDataListBasedonId", {
         vtsId: id,
       })
       .then((res) => {
@@ -433,17 +433,17 @@ export default function PopupTS(props) {
 
     if (isCalculated) {
       axios
-        .post("http://localhost:3009/removeVenTsRGHDataonId", {
+        .post("https://mssoftware.xyz/removeVenTsRGHDataonId", {
           TSID: id,
         })
         .then((res) => {
           axios
-            .post("http://localhost:3009/removeVenTsOTHDataonId", {
+            .post("https://mssoftware.xyz/removeVenTsOTHDataonId", {
               TSID: id,
             })
             .then((res) => {});
           axios
-            .post("http://localhost:3009/updateVenTsData", {
+            .post("https://mssoftware.xyz/updateVenTsData", {
               tsvenId: id,
               tsid: id,
               tsdescription: tsDescription,

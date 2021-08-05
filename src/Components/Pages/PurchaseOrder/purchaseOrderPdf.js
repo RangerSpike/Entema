@@ -223,17 +223,27 @@ export default function PopupPdf(props) {
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle>
-        <div>
-          <button
-            variant="contained"
-            color="primary"
-            onClick={() => onClosePopup()}
-          >
-            X
-          </button>
-        </div>
+      <div className="row">
+      <div className="col-md-6">
+        <text
+          onClick={() => onClosePopup()}
+          style={{ color: "red", cursor: "pointer", float: "left" }}
+        >
+          x
+        </text>
+      </div>
+      <div className="col-md-6">
+        <text
+          style={{ color: "blue", cursor: "pointer", float: "right" }}
+          onClick={handleExportWithComponent}
+        >
+          Print{" "}
+        </text>
+      </div>
+    </div>
       </DialogTitle>
       <DialogContent>
+      
         <div className="page-container hidden-on-narrow">
           <PDFExport ref={pdfExportComponent}>
             <div className="pdf-page">
@@ -659,7 +669,7 @@ export default function PopupPdf(props) {
                     </table>
                   </div>
                 </div>
-              </div>
+              </div>              
               <div className="row">
                 <div className="col-6">
                   <div className="row mt-2">
@@ -790,7 +800,8 @@ export default function PopupPdf(props) {
                   </div>
                 </div>
               </div>
-
+              <div class="pagebreak"></div>
+              
               <div className="row">
                 <div className="col-12" style={{ maxWidth: "97%" }}>
                   <div className="bot-cl5">

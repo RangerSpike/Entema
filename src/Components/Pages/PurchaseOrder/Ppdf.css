@@ -39,7 +39,7 @@
   color: #000;
   min-height: 147px;
   text-align: left;
-  width: 95%;
+  width: 100%;
 }
 
 .print-detail5 {
@@ -51,8 +51,8 @@
   text-align: left;
   height: 147px;
   overflow-wrap: break-word;
-  width: 115%;
-  margin-left: -30px;
+  width: 100%;
+  /* margin-left: -50px; */
 }
 .pvc {
   margin-left: 0px;

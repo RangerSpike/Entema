@@ -91,7 +91,8 @@ export default function PopupPdf(props) {
 
   const handleExportWithComponent = (event) => {
     // console.log("my props id value : ", id);
-    pdfExportComponent.current.save();
+    window.print();
+    // pdfExportComponent.current.save();
   };
 
   const updatePageLayout = (event) => {
@@ -101,18 +102,40 @@ export default function PopupPdf(props) {
   let xSts;
 
   const isEnabled = (sts) => {
-    if (sts === "Man Power") {
+    if (sts === "Equipment") {
       xSts = true;
     } else {
       xSts = false;
     }
     return xSts;
   };
+
   useEffect(() => {
     isEnabled(cqtypes);
   }, [cqtypes]);
 
   const onClosepopup = () => {
+    setId(0);
+    setOpenPopup(false);
+  };
+
+  const displayTitle = (cqtypes) => {
+    if (cqtypes === "Man Power") {
+      return <th>Total Amount</th>;
+    } else {
+      return <th>Mobilization & Demobilization</th>;
+    }
+  };
+
+  const displayData = (cqtypes,amt,mod) => {
+    if (cqtypes === "Man Power") {
+      return amt;
+    } else {
+      return mod;
+    }
+  };
+
+  const onClosePopup = () => {
     setId(0);
     setOpenPopup(false);
   };
@@ -124,18 +147,27 @@ export default function PopupPdf(props) {
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle>
-        <div>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => onClosepopup()}
-          >
-            Close
-          </Button>
+        <div className="row">
+          <div className="col-md-6">
+            <text
+              onClick={() => onClosePopup()}
+              style={{ color: "red", cursor: "pointer", float: "left" }}
+            >
+              x
+            </text>
+          </div>
+          <div className="col-md-6">
+            <text
+              style={{ color: "blue", cursor: "pointer", float: "right" }}
+              onClick={handleExportWithComponent}
+            >
+              Print{" "}
+            </text>
+          </div>
         </div>
       </DialogTitle>
       <DialogContent>
-        <div className="page-container hidden-on-narrow">
+        <div className="page-container hidden-on-narrow">      
           <PDFExport ref={pdfExportComponent}>
             <div className="pdf-page">
               <div className="col-sm-14 print-div">
@@ -295,11 +327,7 @@ export default function PopupPdf(props) {
                           <th>Description</th>
                           <th>QTY</th>
                           <th>Price</th>
-                          {xSts ? (
-                            <th>Total Amount</th>
-                          ) : (
-                            <th>mobilization &amp; demobilization </th>
-                          )}
+                          {displayTitle(cqtypes)}
                         </tr>
                       </thead>
                       <tbody>
@@ -311,11 +339,7 @@ export default function PopupPdf(props) {
                             <td>{comment.TAB_DESC}</td>
                             <td>{comment.TAB_QTY}</td>
                             <td>{comment.TAB_AMOUNT}</td>
-                            {xSts ? (
-                              <td>{comment.TAB_TOTAL_AMT}</td>
-                            ) : (
-                              <td>{comment.TAB_MOB_DEMOB} </td>
-                            )}
+                            <td>{displayData(cqtypes,comment.TAB_TOTAL_AMT,comment.TAB_MAD)}</td>
                           </tr>
                         ))}
                       </tbody>
