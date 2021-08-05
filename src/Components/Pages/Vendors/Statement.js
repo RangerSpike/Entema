@@ -143,7 +143,7 @@ const Statement = (props) => {
 
   const getPOData = (vendorId) => {
     axios
-      .post("http://mssoftware.xyz/getPODataBasedOnVenId", {
+      .post("https://mssoftware.xyz/getPODataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -156,7 +156,7 @@ const Statement = (props) => {
 
   const getTSdata = (vendorId) => {
     axios
-      .post("http://mssoftware.xyz/getTSDataBasedOnVenId", {
+      .post("https://mssoftware.xyz/getTSDataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -209,7 +209,7 @@ const Statement = (props) => {
 
   const removeVendor = (vendorId) => {
     axios
-      .post("http://localhost:3009/removeVendorDataonId", {
+      .post("https://mssoftware.xyz/removeVendorDataonId", {
         vendorID: vendorId,
       })
       .then((res) => {

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupPO(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
 
@@ -94,10 +94,7 @@ export default function PopupPO(props) {
   ];
 
   let newData = [];
-
   let test = [];
-  
-  const [multiSet, setMultiSet] = useState([]);
 
   useEffect(() => {
     axios
@@ -128,8 +125,8 @@ export default function PopupPO(props) {
           setPomobilizationdate(res.data[0].WS_MOB_DATE);
           setPodesc(res.data[0].WS_DESC);
           setPototal(parseInt(res.data[0].PO_TOTAL));
-          setPogst(res.data[0].PO_GST);
-          setPograndtotal(res.data[0].PO_GRANDTOTAL);          
+          setPogst(parseInt(res.data[0].PO_GST));
+          setPograndtotal(parseFloat(res.data[0].PO_GRANDTOTAL));
         }
       });
 
@@ -288,7 +285,8 @@ export default function PopupPO(props) {
     let test123 = 0;
 
     for (var i = 0; i < orderItem.length; i++) {
-      test123 = test123 + parseInt(orderItem[i].amount);    }
+      test123 = test123 + parseInt(orderItem[i].amount);
+    }
 
     let gtt = 0;
     let gt = 0;
@@ -315,8 +313,11 @@ export default function PopupPO(props) {
     console.log("calculationOnDeleteRow before if : ", value);
 
     if (orderItem.length > 0) {
-      if (orderItem[value].amount != "") {
+      if (orderItem[value].amount !== "") {
+        console.log("OH HELLO TEHE", orderItem[value].amount);
+
         let excludeValue = orderItem[value].amount;
+        console.log("OH excludeValue TEHE", excludeValue);
 
         let tempPoTotal = pototal - excludeValue;
 
@@ -459,7 +460,6 @@ export default function PopupPO(props) {
       changeHandler(e, index);
     }
 
-    
     //console.log("log of order Items : ", orderItem);
   };
 
@@ -521,6 +521,10 @@ export default function PopupPO(props) {
     setOpenPopup(false);
   };
 
+  const onClosePopup = () => {
+    setId(0);
+    setOpenPopup(false);
+  };
   return (
     <Dialog
       open={openPopup}
@@ -532,7 +536,7 @@ export default function PopupPO(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             Close
@@ -540,7 +544,6 @@ export default function PopupPO(props) {
         </div>
       </DialogTitle>
       <DialogContent dividers>
-    
         <div
           class="container"
           style={{ paddingTop: "30px", paddingLeft: "50px" }}
@@ -1017,14 +1020,15 @@ export default function PopupPO(props) {
                     <h3>{pocpperson}</h3>
                     <div className="row">
                       <div className="col-sm-8 col-xs-8 bot-left">
-                        Name &amp; Title 
+                        Name &amp; Title
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-sm-5 col-xs-6 bot-left">
-                        Date
+                      <div className="col-sm-5 col-xs-6 bot-left">Date</div>
+                      <div className="col-sm-7 col-xs-6 bot-right">
+                        {" "}
+                        {podate}
                       </div>
-                      <div className="col-sm-7 col-xs-6 bot-right"> {podate}</div>
                     </div>
                   </div>
                   <div className="col-sm-6">
@@ -1032,7 +1036,11 @@ export default function PopupPO(props) {
                     <h5>Authorised Signatory</h5>
                   </div>
                   <div className="col-sm-12 clearfix mt-3">
-                    <button type="buttom" className="btn btn-primary" onClick={handleSubmit}>
+                    <button
+                      type="buttom"
+                      className="btn btn-primary"
+                      onClick={handleSubmit}
+                    >
                       Update
                     </button>
                   </div>
@@ -1041,7 +1049,6 @@ export default function PopupPO(props) {
             </form>{" "}
           </div>
         </div>
-      
       </DialogContent>
     </Dialog>
   );

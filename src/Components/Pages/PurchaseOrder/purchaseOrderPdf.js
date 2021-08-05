@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupPdf(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
 
@@ -211,6 +211,11 @@ export default function PopupPdf(props) {
     setLayoutSelection(event.target.value);
   };
 
+  const onClosePopup = () => {
+    setId(0);
+    setOpenPopup(false);
+  };
+
   return (
     <Dialog
       open={openPopup}
@@ -222,13 +227,13 @@ export default function PopupPdf(props) {
           <button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
           >
             X
           </button>
         </div>
       </DialogTitle>
-      <DialogContent>       
+      <DialogContent>
         <div className="page-container hidden-on-narrow">
           <PDFExport ref={pdfExportComponent}>
             <div className="pdf-page">
@@ -292,93 +297,87 @@ export default function PopupPdf(props) {
                 </div>
 
                 <div className="col-sm-6 right1">
-                <div className="print-detail3 pd3">
-                <h4>Work Order</h4>
-                <div className="row pd8-det">
-                <div className="row ven-row">
-                <div
-                  className="col-sm-4 pri-field-head pv3"
-                  style={{ fontSize: "14px" }}
-                >
-                Number
-                </div>
-                <div
-                  className="col-sm-12"
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    marginLeft: "78px",
-                    marginTop: "-21px",
-                  }}
-                >
-                2021726175245875
-                </div>
-              </div>
-              <div className="row ven-row">
-              <div
-                className="col-sm-4 pri-field-head pv3"
-                style={{ fontSize: "14px" }}
-              >
-              Project
-              </div>
-              <div
-                className="col-sm-12"
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  marginLeft: "78px",
-                  marginTop: "-21px",
-                }}
-              >
-              {poproject}
-              </div>
-            </div>
-            <div className="row ven-row">
-                <div
-                  className="col-sm-6 pri-field-head pv3"
-                  style={{ fontSize: "14px" }}
-                >
-                Mode / Terms Payment
-                </div>
-                <div
-                  className="col-sm-12"
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    marginLeft: "165px",
-                    marginTop: "-21px",
-                  }}
-                >
-                {popaymentmode}
-                </div>
-              </div>
-              <div className="row ven-row">
-                <div
-                  className="col-sm-6 pri-field-head pv3"
-                  style={{ fontSize: "14px" }}
-                >
-                Quatation Ref
-                </div>
-                <div
-                  className="col-sm-12"
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    marginLeft: "121px",
-                    marginTop: "-21px",
-                  }}
-                >
-                {poquotationref}
-                </div>
-              </div>
-
-
-
-
-
-
-                </div>
-                </div>
+                  <div className="print-detail3 pd3">
+                    <h4>Work Order</h4>
+                    <div className="row pd8-det">
+                      <div className="row ven-row">
+                        <div
+                          className="col-sm-4 pri-field-head pv3"
+                          style={{ fontSize: "14px" }}
+                        >
+                          Number
+                        </div>
+                        <div
+                          className="col-sm-12"
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            marginLeft: "78px",
+                            marginTop: "-21px",
+                          }}
+                        >
+                          2021726175245875
+                        </div>
+                      </div>
+                      <div className="row ven-row">
+                        <div
+                          className="col-sm-4 pri-field-head pv3"
+                          style={{ fontSize: "14px" }}
+                        >
+                          Project
+                        </div>
+                        <div
+                          className="col-sm-12"
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            marginLeft: "78px",
+                            marginTop: "-21px",
+                          }}
+                        >
+                          {poproject}
+                        </div>
+                      </div>
+                      <div className="row ven-row">
+                        <div
+                          className="col-sm-6 pri-field-head pv3"
+                          style={{ fontSize: "14px" }}
+                        >
+                          Mode / Terms Payment
+                        </div>
+                        <div
+                          className="col-sm-12"
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            marginLeft: "165px",
+                            marginTop: "-21px",
+                          }}
+                        >
+                          {popaymentmode}
+                        </div>
+                      </div>
+                      <div className="row ven-row">
+                        <div
+                          className="col-sm-6 pri-field-head pv3"
+                          style={{ fontSize: "14px" }}
+                        >
+                          Quatation Ref
+                        </div>
+                        <div
+                          className="col-sm-12"
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            marginLeft: "121px",
+                            marginTop: "-21px",
+                          }}
+                        >
+                          {poquotationref}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               {status === "Not Approved" ? (
@@ -662,39 +661,44 @@ export default function PopupPdf(props) {
                 </div>
               </div>
               <div className="row">
-              <div className="col-6">
-                <div className="row mt-2">
-                  <div className="col-sm-6 pri-field-head">
-                    Mobilization Date
-                  </div>
-                  <div className="col-sm-9" style={{marginLeft:'180px',marginTop:'-24px'}}>{pomobilizationdate}</div>
-                </div>
-              </div>
-
-              <div className="col-6">
-                <div className="print-total row mr-0">
-                  <div className="col-6 tot-left tl1">TOTAL sar</div>
-                  <div className="col-6 tot-right tr1" id="total">
-                    {pototal}
-                  </div>
-
-                  <div className="col-6 col-xs-6 tot-left">
-                    s.tAX/vat/rgst {pogst} %
-                  </div>
-                  <div className="col-6 col-xs-6 tot-right">{pogst} </div>
-                  <div className="col-sm-6 col-xs-6 tot-left tl2">
-                    gRAND tOTAL (sAR)
-                  </div>
-                  <div
-                    className="col-sm-6 col-xs-6 tot-right tr2"
-                    id="grandtotal"
-                  >
-                    {pograndtotal}
+                <div className="col-6">
+                  <div className="row mt-2">
+                    <div className="col-sm-6 pri-field-head">
+                      Mobilization Date
+                    </div>
+                    <div
+                      className="col-sm-9"
+                      style={{ marginLeft: "180px", marginTop: "-24px" }}
+                    >
+                      {pomobilizationdate}
+                    </div>
                   </div>
                 </div>
-                <div className="clearfix"></div>
+
+                <div className="col-6">
+                  <div className="print-total row mr-0">
+                    <div className="col-6 tot-left tl1">TOTAL sar</div>
+                    <div className="col-6 tot-right tr1" id="total">
+                      {pototal}
+                    </div>
+
+                    <div className="col-6 col-xs-6 tot-left">
+                      s.tAX/vat/rgst {pogst} %
+                    </div>
+                    <div className="col-6 col-xs-6 tot-right">{pogst} </div>
+                    <div className="col-sm-6 col-xs-6 tot-left tl2">
+                      gRAND tOTAL (sAR)
+                    </div>
+                    <div
+                      className="col-sm-6 col-xs-6 tot-right tr2"
+                      id="grandtotal"
+                    >
+                      {pograndtotal}
+                    </div>
+                  </div>
+                  <div className="clearfix"></div>
+                </div>
               </div>
-            </div>
               <div className="row">
                 <div className="col-sm-12">
                   <div className="print-total7">

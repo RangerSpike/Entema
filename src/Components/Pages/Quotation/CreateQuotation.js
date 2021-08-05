@@ -267,7 +267,7 @@ function CreateQuotation() {
             <div className="row">
               <div class="col-md-4 mb-3">
                 <label for="cqdate" style={{ marginLeft: "0px" }}>
-                  Start Date
+                  Valid
                 </label>
                 <input
                   type="date"

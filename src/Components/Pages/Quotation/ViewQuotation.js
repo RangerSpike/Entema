@@ -58,6 +58,12 @@ const DataTable = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    },2000);
+  }, [id]);
+
   const removeQuotation = (QOId) => {
     axios
       .post("https://mssoftware.xyz/removeQODataonId", {
@@ -174,6 +180,7 @@ const DataTable = () => {
                 setOpenPopup={setOpenPopup}
               ></Popup>
               <PopupPdf
+                setId={setId}
                 id={pdfId}
                 openPopup={openpdfPopup}
                 setOpenPopup={setOpenpdfPopup}

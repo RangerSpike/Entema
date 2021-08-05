@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupPdf(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
   console.log(id);
 
   const classes = useStyles();
@@ -72,7 +72,7 @@ export default function PopupPdf(props) {
           setMyDataSet(response.data);
           console.log("MY DATA SET : ", myDataSet);
           setCqclient(response.data[0].CLIENT_DISP_NAME);
-          setCqtypes(response.data[0].QO_TYPE)
+          setCqtypes(response.data[0].QO_TYPE);
           setCqmobileNo(response.data[0].QO_COMP_MOB);
           setCqname(response.data[0].QO_COMP_NAME);
           setCqemail(response.data[0].QO_COMP_EMAIL);
@@ -98,6 +98,25 @@ export default function PopupPdf(props) {
     setLayoutSelection(event.target.value);
   };
 
+  let xSts;
+
+  const isEnabled = (sts) => {
+    if (sts === "Man Power") {
+      xSts = true;
+    } else {
+      xSts = false;
+    }
+    return xSts;
+  };
+  useEffect(() => {
+    isEnabled(cqtypes);
+  }, [cqtypes]);
+
+  const onClosepopup = () => {
+    setId(0);
+    setOpenPopup(false);
+  };
+
   return (
     <Dialog
       open={openPopup}
@@ -109,13 +128,13 @@ export default function PopupPdf(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosepopup()}
           >
             Close
           </Button>
         </div>
       </DialogTitle>
-      <DialogContent>        
+      <DialogContent>
         <div className="page-container hidden-on-narrow">
           <PDFExport ref={pdfExportComponent}>
             <div className="pdf-page">
@@ -276,8 +295,11 @@ export default function PopupPdf(props) {
                           <th>Description</th>
                           <th>QTY</th>
                           <th>Price</th>
-                          <th>mobilization &amp; demobilization </th>
-                          <th>Total Amount</th>
+                          {xSts ? (
+                            <th>Total Amount</th>
+                          ) : (
+                            <th>mobilization &amp; demobilization </th>
+                          )}
                         </tr>
                       </thead>
                       <tbody>
@@ -289,8 +311,11 @@ export default function PopupPdf(props) {
                             <td>{comment.TAB_DESC}</td>
                             <td>{comment.TAB_QTY}</td>
                             <td>{comment.TAB_AMOUNT}</td>
-                            <td>{comment.TAB_MAD ? comment.TAB_MAD : "N/A"}</td>
-                            <td>{comment.TAB_TOTAL_AMT ? comment.TAB_TOTAL_AMT : "N/A"}</td>
+                            {xSts ? (
+                              <td>{comment.TAB_TOTAL_AMT}</td>
+                            ) : (
+                              <td>{comment.TAB_MOB_DEMOB} </td>
+                            )}
                           </tr>
                         ))}
                       </tbody>

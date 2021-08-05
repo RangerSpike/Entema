@@ -16,7 +16,6 @@ import { IconButton } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 const DataTable = () => {
-
   const history = useHistory();
 
   const [comments, setComments] = useState([]);
@@ -105,9 +104,8 @@ const DataTable = () => {
 
   const openInStatement = (vendorId) => {
     console.log("IDIDI: ", vendorId);
-    
-    history.push(`/Statement/${vendorId}`);
 
+    history.push(`/Statement/${vendorId}`);
   };
   const notApproveClose = () => {
     // console.log(myID);
@@ -285,11 +283,13 @@ const DataTable = () => {
                   ))}
                 </tbody>
                 <PopupPO
+                  setId={setId}
                   id={id}
                   openPopup={openPopup}
                   setOpenPopup={setOpenPopup}
                 ></PopupPO>
                 <PopupPdf
+                  setId={setId}
                   id={id}
                   openPopup={openpdfPopup}
                   setOpenPopup={setOpenpdfPopup}
