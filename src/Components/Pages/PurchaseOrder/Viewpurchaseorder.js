@@ -87,7 +87,11 @@ const DataTable = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    }, 1300);
+  }, [id]);
   const approvedClose = () => {
     // console.log(myID);
     setAnchorEl(null);

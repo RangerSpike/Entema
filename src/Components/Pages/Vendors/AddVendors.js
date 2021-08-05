@@ -86,6 +86,7 @@ function AddVendors() {
     vat: "",
     vatedate:"",
   };
+  
   const [data, setData] = useState([vatTemplate]);
 
   const onChange = (e, index) => {

@@ -74,14 +74,14 @@ function CreateQuotation() {
       setCqtypes("Equipment");
     } else {
       setCqtypes("Man Power");
-    }    
+    }
   };
 
   let taskList = {
     description: "",
     unit: "",
     qty: "",
-    mobAnddemob: "",
+    mobAnddemob: "N/a",
     amount: "",
     totalAmount: "",
   };
@@ -220,6 +220,34 @@ function CreateQuotation() {
     //console.log("newnew:", e.target.value);
 
     setMultiSet(updatedDataSet);
+  };
+
+  const handleBlur = (e, index) => {
+    console.log("blurr on call e value : ", e);
+    console.log("blurr on call index value : ", index);
+
+    if (e.target.name === "amount") {
+      if (multiSet[index].qty != "") {
+        let calc = multiSet[index].qty * multiSet[index].amount;
+
+        const updatedUsers = multiSet.map((item, i) =>
+          index === i ? Object.assign(item, { ["totalAmount"]: calc }) : item
+        );
+
+        setMultiSet(updatedUsers);
+      }
+    } 
+    else if (e.target.name === "qty") {
+      if (multiSet[index].amount != "") {
+        let calc = multiSet[index].qty * multiSet[index].amount;
+
+        const updatedUsers = multiSet.map((item, i) =>
+          index === i ? Object.assign(item, { ["totalAmount"]: calc }) : item
+        );
+
+        setMultiSet(updatedUsers);
+      }
+    }
   };
 
   const handleSubmit = (e) => {
@@ -418,6 +446,7 @@ function CreateQuotation() {
                         //placeholder="Enter Your address"
                         variant="outlined"
                         value={item.qty}
+                        onBlur={(e) => handleBlur(e, index)}
                         onChange={(e) => handleChangeEvent(e, index)}
                         fullWidth
                       />
@@ -430,6 +459,7 @@ function CreateQuotation() {
                         //placeholder="Enter Your address"
                         variant="outlined"
                         value={item.amount}
+                        onBlur={(e) => handleBlur(e, index)}
                         onChange={(e) => handleChangeEvent(e, index)}
                         fullWidth
                       />
@@ -442,6 +472,7 @@ function CreateQuotation() {
                           label="Total Amount"
                           name="totalAmount"
                           id="totalAmount"
+                          disabled
                           //placeholder="Enter Your address"
                           variant="outlined"
                           value={item.totalAmount}
@@ -487,6 +518,7 @@ function CreateQuotation() {
                 type="text"
                 className="form-control is-valid textarea"
                 name="termCond"
+                onChange={(e) => handleChangeEvent(e)}
                 value={termCond}
                 rows="11"
               ></textarea>

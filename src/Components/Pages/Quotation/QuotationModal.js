@@ -179,7 +179,32 @@ export default function Popup(props) {
       changeHandler(e, index);
     }
   };
+  const handleBlur = (e, index) => {
+    console.log("blurr on call e value : ", e);
+    console.log("blurr on call index value : ", index);
 
+    if (e.target.name === "amount") {
+      if (multiSet[index].qty != "") {
+        let calc = multiSet[index].qty * multiSet[index].amount;
+
+        const updatedUsers = multiSet.map((item, i) =>
+          index === i ? Object.assign(item, { ["totalAmount"]: calc }) : item
+        );
+
+        setMultiSet(updatedUsers);
+      }
+    } else if (e.target.name === "qty") {
+      if (multiSet[index].amount != "") {
+        let calc = multiSet[index].qty * multiSet[index].amount;
+
+        const updatedUsers = multiSet.map((item, i) =>
+          index === i ? Object.assign(item, { ["totalAmount"]: calc }) : item
+        );
+
+        setMultiSet(updatedUsers);
+      }
+    }
+  };
   useEffect(() => {
     axios
       .post("https://mssoftware.xyz/getQuotDataBasedOnId", {
@@ -369,6 +394,7 @@ export default function Popup(props) {
                   name="cqclient"
                   value={cqclient}
                   required
+                  disabled
                   onChange={handleChangeEvent}
                 >
                   <option key="" value="">
@@ -495,6 +521,7 @@ export default function Popup(props) {
                         //placeholder="Enter Your address"
                         variant="outlined"
                         value={item.qty}
+                        onBlur={(e) => handleBlur(e, index)}
                         onChange={(e) => handleChangeEvent(e, index)}
                         fullWidth
                       />
@@ -507,6 +534,7 @@ export default function Popup(props) {
                         //placeholder="Enter Your address"
                         variant="outlined"
                         value={item.amount}
+                        onBlur={(e) => handleBlur(e, index)}
                         onChange={(e) => handleChangeEvent(e, index)}
                         fullWidth
                       />

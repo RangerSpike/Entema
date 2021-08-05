@@ -67,7 +67,11 @@ const DataTable = () => {
   useEffect(() => {
     getData();
   }, []);
-
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    },1300);
+  }, [id]);
   const test = (data) => {
     alert("hurrray :" + data);
   };

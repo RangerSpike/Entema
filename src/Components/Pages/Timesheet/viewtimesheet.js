@@ -124,7 +124,11 @@ const DataTable = () => {
         // hideLoader();
       });
   };
-
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    },1300);
+  }, [id]);
   const getYearLovData = () => {
     fetch("https://mssoftware.xyz/getYearLov", {
       method: "Get",

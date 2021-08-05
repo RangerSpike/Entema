@@ -50,7 +50,11 @@ const DataTable = () => {
   useEffect(() => {
     getData();
   }, []);
-
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    },1300);
+  }, [id]);
   const removeData = (pmntId) => {
     axios
       .post("https://mssoftware.xyz/removeVenPmntDataonId", {

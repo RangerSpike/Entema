@@ -61,7 +61,7 @@ const DataTable = () => {
   useEffect(() => {
     setTimeout(() => {
       getData();
-    },2000);
+    },1300);
   }, [id]);
 
   const removeQuotation = (QOId) => {

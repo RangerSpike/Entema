@@ -34,7 +34,11 @@ const DataTable = () => {
     { name: "Notice", field: "Notice", sortable: false },
     { name: "Delete", field: "Delete", sortable: false },
   ];
-
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    },1300);
+  }, [id]);
   const getData = () => {
     showLoader();
 

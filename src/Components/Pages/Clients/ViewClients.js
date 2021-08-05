@@ -23,7 +23,11 @@ const DataTable = () => {
     setId(item);
     setOpenPopup(true);
   };
-
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    },1300);
+  }, [id]);
   const headers = [
     { name: "Id", field: "Id", sortable: false },
     { name: "Name", field: "Name", sortable: false },
