@@ -216,7 +216,7 @@ const DataTable = () => {
                 />
                 <tbody>
                   {commentsData.map((comment) => (
-                    <tr>
+                    <tr key={comment.PO_ID}>
                       <th
                         scope="row"
                         key={comment.PO_ID}

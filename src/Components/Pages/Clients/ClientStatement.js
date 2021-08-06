@@ -83,8 +83,7 @@ const ClientStatement = (props) => {
   //     getQuotationData(cid);
   // },[id])
 
-  return (
-    <>
+  return (  
       <div class="scrollbar square scrollbar-lady-lips thin">
         <div
           class="container"
@@ -167,7 +166,6 @@ const ClientStatement = (props) => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 

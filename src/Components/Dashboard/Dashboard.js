@@ -8,6 +8,8 @@ import { RiUserSettingsFill } from "react-icons/ri";
 import { GoCalendar } from "react-icons/go";
 import { BiPurchaseTag } from "react-icons/bi";
 import axios from "axios";
+import { History } from "history";
+import { useHistory } from "react-router-dom";
 
 const useStyles = createUseStyles({
   cardsContainer: {
@@ -48,6 +50,8 @@ const useStyles = createUseStyles({
   },
 });
 function DashboardComponent() {
+  const history = useHistory();
+
   const [users, setUsers] = useState();
   const [vendors, setVendors] = useState();
   const [clients, setClients] = useState();
@@ -73,6 +77,9 @@ function DashboardComponent() {
     });
   };
 
+  const onClickNavigate = (toUrl) => {
+    history.push(`${toUrl}`);
+  };
   useEffect(() => {
     getDashboardData();
   }, []);
@@ -95,13 +102,13 @@ function DashboardComponent() {
                 className={classes.miniCardContainer}
                 title="Users"
                 value={users}
-                icon={<FaUsers />}
+                icon={<FaUsers onClick={() => onClickNavigate("/Viewuser")} />}
               />
-              <MiniCardComponent
+              <MiniCardComponent                
                 className={classes.miniCardContainer}
                 title="Vendors"
                 value={vendors}
-                icon={<RiUserSettingsFill />}
+                icon={<RiUserSettingsFill onClick={() => onClickNavigate("/ViewVendors")}/>}
               />
               <MiniCardComponent
                 className={classes.miniCardContainer}
@@ -112,7 +119,8 @@ function DashboardComponent() {
                     src="client1.png"
                     style={{ width: "40px", color: "black" }}
                     alt="logo"
-                  />
+                    onClick={() => onClickNavigate("/ViewClients")}
+                  />                  
                 }
               />{" "}
             </div>
@@ -125,20 +133,20 @@ function DashboardComponent() {
                 className={classes.miniCardContainer}
                 title="Purchase "
                 value={po}
-                icon={<BiPurchaseTag />}
+                icon={<BiPurchaseTag onClick={() => onClickNavigate("/Viewpurchaseorder")}/>}
               />
 
               <MiniCardComponent
                 className={classes.miniCardContainer}
                 title="Quotation"
                 value={qo}
-                icon={<BsBlockquoteRight />}
+                icon={<BsBlockquoteRight onClick={() => onClickNavigate("/ViewQuotation")}/>}
               />
               <MiniCardComponent
                 className={classes.miniCardContainer}
                 title="ManPower"
                 value={manpower}
-                icon={<GoCalendar />}
+                icon={<GoCalendar onClick={() => onClickNavigate("/ViewManpower")}/>}
               />
             </div>
 
@@ -159,6 +167,7 @@ function DashboardComponent() {
                     src="manpower1.png"
                     style={{ width: "40px", color: "white" }}
                     alt="logo"
+                    onClick={() => onClickNavigate("/ViewTimesheet")}
                   />
                 }
               />
@@ -167,7 +176,7 @@ function DashboardComponent() {
                 className={classes.miniCardContainer}
                 title="ManPower Time Sheet"
                 value={mts}
-                icon={<GoCalendar />}
+                icon={<GoCalendar onClick={() => onClickNavigate("/ViewTimesheetm")}/>}
               />
             </div>
           </Column>

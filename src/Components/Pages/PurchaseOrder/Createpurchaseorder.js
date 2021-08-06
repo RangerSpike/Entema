@@ -850,7 +850,7 @@ function Createpurchaseorder() {
                 {pototal}
               </div>
               <div class="col-md-3 mb-3">
-                <label htmlFor="pogst">GST</label>
+                <label htmlFor="pogst">VAT</label>
                 <input
                   type="number"
                   class="form-control is-valid"
