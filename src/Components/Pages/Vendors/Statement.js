@@ -112,7 +112,7 @@ const Statement = (props) => {
 
   const getVendorData = (vendorID) => {
     axios
-      .post("http://mssoftware.xyz/getVendorIDData", {
+      .post("https://mssoftware.xyz/getVendorIDData", {
         vendorID: vendorID,
       })
       .then((res) => {
@@ -127,15 +127,12 @@ const Statement = (props) => {
           setVenVat(res.data[0].VENDOR_VAT);
           setVenDOCNO(res.data[0].VENDOR_DOC_NO);
           setVenADD(res.data[0].VENDOR_ADD);
-          axios
-            .post("https://mssoftware.xyz/getVatDataOnID", {
-              vendorID: vendorID,
-            })
-            .then((res) => {
-              if (res.data.length > 0) {
-                setVatDetails(res.data[0].VAT);
-              }
-            });
+          axios.get("https://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+            if (res.data.length > 0) {
+              console.log(res.data);
+              setVatDetails(res.data[0].VAT);
+            }
+          });
         }
       });
     return vendorDetails;
@@ -375,10 +372,9 @@ const Statement = (props) => {
                   </tr>
                   <tbody>
                     {poDetails.map((data) => (
-                      <tr>
+                      <tr key={data.PO_ID}>
                         <th
                           scope="row"
-                          key={data.PO_ID}
                           // onClick={() => openInPopup(data.PMNT_ID)}
                         >
                           {data.CREATED_DATE}
@@ -431,10 +427,9 @@ const Statement = (props) => {
                 </tr>
                 <tbody>
                   {venTSDetails.map((data) => (
-                    <tr>
+                    <tr key={data.VTS_ID}>
                       <th
                         scope="row"
-                        key={data.VTS_ID}
                         onClick={() => {
                           openInTSPopup(data.VTS_ID);
                         }}
@@ -478,6 +473,7 @@ const Statement = (props) => {
                 </tbody>
               </table>
               <PopupTS
+                setId={setId}
                 id={id}
                 openPopup={openTSPopup}
                 setOpenPopup={setOpenTSPopup}
@@ -510,12 +506,8 @@ const Statement = (props) => {
                 </tr>
                 <tbody>
                   {venPaymentDetails.map((data) => (
-                    <tr>
-                      <th
-                        scope="row"
-                        key={data.PMNT_ID}
-                        style={{ cursor: "pointer" }}
-                      >
+                    <tr key={data.PMNT_ID}>
+                      <th scope="row" style={{ cursor: "pointer" }}>
                         {data.PMNT_ID}
                       </th>
                       <td>{data.PM_AMOUNT}</td>

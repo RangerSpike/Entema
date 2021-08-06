@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PopupPdf(props) {
   const { setId, id, openPopup, setOpenPopup } = props;
-  console.log(id);
+  // console.log(id);
 
   const classes = useStyles();
 
@@ -66,11 +66,11 @@ export default function PopupPdf(props) {
         QOID: id,
       })
       .then((response) => {
-        console.log("My API data : ", response.data);
+        // console.log("My API data : ", response.data);
 
         if (response.data.length > 0) {
           setMyDataSet(response.data);
-          console.log("MY DATA SET : ", myDataSet);
+          // console.log("MY DATA SET : ", myDataSet);
           setCqclient(response.data[0].CLIENT_DISP_NAME);
           setCqtypes(response.data[0].QO_TYPE);
           setCqmobileNo(response.data[0].QO_COMP_MOB);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import CachedIcon from "@material-ui/icons/Cached";
 import {
   Container,
   Grid,
@@ -35,6 +36,35 @@ function AddVat() {
     vatedate: "",
   };
   const [data, setData] = useState([vatTemplate]);
+  let newData = [];
+  let test = [];
+
+  const getVatData = () => {
+    Axios.get("https://mssoftware.xyz/getVatData", {}).then((res) => {
+      if (res.data.length > 0) {
+        console.log(res.data);
+        newData = res.data;
+
+        var x = newData.length;
+        var rows = [];
+
+        for (var i = 0; i < x; i++) {
+          rows.push(vatTemplate);
+
+          test[i] = {
+            vatsdate: newData[i].VEN_START_DATE,
+            vat: newData[i].VAT,
+            vatedate: newData[i].VEN_END_DATE,
+          };
+        }
+        setData(test);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getVatData();
+  }, []);
 
   const addData = (data) => {
     setData([...data, vatTemplate]);
@@ -42,9 +72,7 @@ function AddVat() {
     let setDate = setDateFormat();
     if ((x = data.length)) {
       data[x - 1].vatedate = setDate;
-    }
-
-    console.log(data);
+    }    
   };
 
   const loadDate = () => {
@@ -101,6 +129,12 @@ function AddVat() {
     const filteredUsers = [...data];
     filteredUsers.splice(index, 1);
 
+    let x = filteredUsers.length;
+      if ((x = filteredUsers.length)) {
+      console.log(filteredUsers[x - 1].vatedate);
+      filteredUsers[x - 1].vatedate = "";
+    }
+
     setData(filteredUsers);
   };
 
@@ -110,7 +144,9 @@ function AddVat() {
     event.preventDefault();
     console.log("event : ", event);
 
-    // Axios.post("https://mssoftware.xyz/removeVendorVat", {}).then((res) => {});
+    Axios.post("https://mssoftware.xyz/removeVendorVat").then((res) => {
+      console.log("deleted Successfully");
+    });
 
     Axios.post("https://mssoftware.xyz/insertVatData", {
       vendorvatdetails: data,
@@ -120,89 +156,99 @@ function AddVat() {
   };
 
   return (
-    <div>
-      <div className="heading-layout1">
-        <div className="item-title">
-          <h3 style={{ padding: "10px" }}> VAT Details</h3>
+    <div class="scrollbar square scrollbar-lady-lips thin">
+      <div>
+        <div className="heading-layout1">
+          <div className="item-title">
+            <h3 style={{ padding: "10px" }}> VAT Details</h3>
+          </div>
         </div>
-      </div>
+        <CachedIcon
+          onClick={() => getVatData()}
+          style={{ marginRight: "10px", marginTop: "10px" }}
+        />
 
-      <div className="row">
-        <div style={{ marginLeft: "8%" }}>Start Date</div>
-        <div style={{ marginLeft: "22%" }}>VAT</div>
-        <div style={{ marginLeft: "22%" }}>End Date</div>
-      </div>
+        <div className="row">
+          <div style={{ marginLeft: "8%" }}>Start Date</div>
+          <div style={{ marginLeft: "22%" }}>VAT</div>
+          <div style={{ marginLeft: "22%" }}>End Date</div>
+        </div>
 
-      <Container className={classes.root}>
-        {data.map((data, index) => (
-          <Grid
-            container
-            spacing={3}
-            key={index}
-            className={classes.inputGroup}
+        <Container className={classes.root}>
+          {data.map((data, index) => (
+            <Grid
+              container
+              spacing={3}
+              key={index}
+              className={classes.inputGroup}
+            >
+              <Grid item md={4}>
+                <TextField
+                  //label="CreatedDate"
+                  name="vatsdate"
+                  placeholder=""
+                  type="date"
+                  variant="outlined"
+                  value={data.vatsdate}
+                  onChange={(e) => onChange(e, index)}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item md={3}>
+                <TextField
+                  label="vat /in%"
+                  name="vat"
+                  placeholder="vat"
+                  variant="outlined"
+                  onChange={(e) => onChange(e, index)}
+                  value={data.vat}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item md={4}>
+                <TextField
+                  // label="End Date"
+                  name="vatedate"
+                  type="date"
+                  placeholder=""
+                  variant="outlined"
+                  value={data.vatedate}
+                  onChange={(e) => onChange(e, index)}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item md={1}>
+                <IconButton color="secondary">
+                  <DeleteOutlineIcon onClick={() => removeUsers(index)} />
+                </IconButton>
+              </Grid>
+            </Grid>
+          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => addData(data)}
           >
-            <Grid item md={4}>
-              <TextField
-                //label="CreatedDate"
-                name="vatsdate"
-                placeholder=""
-                type="date"
-                variant="outlined"
-                value={data.vatsdate}
-                onChange={(e) => onChange(e, index)}
-                fullWidth
-              />
-            </Grid>
+            Add VAT Details
+          </Button>
+        </Container>
 
-            <Grid item md={3}>
-              <TextField
-                label="vat /in%"
-                name="vat"
-                placeholder="vat"
-                variant="outlined"
-                onChange={(e) => onChange(e, index)}
-                value={data.vat}
-                fullWidth
-              />
-            </Grid>
-
-            <Grid item md={4}>
-              <TextField
-                // label="End Date"
-                name="vatedate"
-                type="date"
-                placeholder=""
-                variant="outlined"
-                value={data.vatedate}
-                onChange={(e) => onChange(e, index)}
-                fullWidth
-              />
-            </Grid>
-
-            <Grid item md={1}>
-              <IconButton color="secondary">
-                <DeleteOutlineIcon onClick={() => removeUsers(index)} />
-              </IconButton>
-            </Grid>
-          </Grid>
-        ))}
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => addData(data)}
+        <button
+          type="submit"
+          class="btn btn-outline-success"
+          onClick={handleSubmit}
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+            marginLeft: "30px",
+          }}
         >
-          Add VAT Details
-        </Button>
-      </Container>
-
-      <button
-        type="submit"
-        class="btn btn-outline-success"
-        onClick={handleSubmit}
-        style={{ marginTop: "20px", marginBottom: "20px", marginLeft: "30px" }}
-      >
-        Submit
-      </button>
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

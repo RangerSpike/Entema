@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PopupTS(props) {
   const { setId, id, openPopup, setOpenPopup } = props;
+  
   const classes = useStyles();
 
   const [isCalculated, setIsCalculated] = useState(true);
@@ -592,13 +593,14 @@ export default function PopupTS(props) {
   };
 
   const onClosePopup = () => {
+    setId(0)
     setisHidden(true);
     setOpenPopup(false);
     setisDisabledRemove(true);
     setwhTotal(0);
     setoTtotal(0);
     setIsDisabled(false);
-    setId(0);
+    
   };
 
   const calculateTimesheet = () => {

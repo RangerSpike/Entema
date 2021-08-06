@@ -180,8 +180,8 @@ export default function Popup(props) {
     }
   };
   const handleBlur = (e, index) => {
-    console.log("blurr on call e value : ", e);
-    console.log("blurr on call index value : ", index);
+    // console.log("blurr on call e value : ", e);
+    // console.log("blurr on call index value : ", index);
 
     if (e.target.name === "amount") {
       if (multiSet[index].qty != "") {

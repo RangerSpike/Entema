@@ -59,6 +59,7 @@ function Createpurchaseorder() {
   const [pototal, setPototal] = useState(0);
   const [pogst, setPogst] = useState(0);
   const [pograndtotal, setPograndtotal] = useState(0);
+  const [vatDetails, setVatDetails] = useState();
 
   const [instruction, setInstruction] = useState(
     "1. Payment shall be made for the quantities executed as per unit rates given above. \n2. Work Order number and date must be quoted on all correspondence. \n3. This order is subject to the terms and conditions set out on the face and Annexure -A \n4. The acceptance copy must be signed by vender or by its representative ( on vender’s behalf) on the face and Annexure - A \n 5. This Work Order is subject to the cancellation unless the subcontractor returns one copy signed with confirmation that all terms and conditions are accepted. \n 6. The following attachments form an integral part of this work Order."
@@ -124,8 +125,8 @@ function Createpurchaseorder() {
     // setSigNameNTitle(computedComments[0].VENDOR_CPERSON);
 
     if (computedComments[0].VENDOR_VAT) {
-      setPogst(15);
-      onChangeGST(15);
+      setPogst(vatDetails);
+      onChangeGST(vatDetails);
     } else {
       setPogst(0);
       onChangeGST(0);
@@ -184,7 +185,12 @@ function Createpurchaseorder() {
       .then((response) => response.json())
       .then((response) => {
         setVendorLov(response);
-        //console.log("My API data : ", response);
+        axios.get("https://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+          if (res.data.length > 0) {
+            console.log(res.data);
+            setVatDetails(res.data[0].VAT);
+          }
+        });
       });
     return vendorLov;
   };
@@ -198,7 +204,7 @@ function Createpurchaseorder() {
     setPodocno(uniqueId);
     setPorevno(uniqueId);
 
-    setPonumber('PO-'+uniqueId);
+    setPonumber("PO-" + uniqueId);
     // //console.log('turned : ', result);
   }, []);
 
@@ -509,8 +515,8 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="ponumber"
                     name="ponumber"
-                    value={ponumber}                  
-                    disabled                
+                    value={ponumber}
+                    disabled
                   />
                 </div>
                 <div class="col-md-6 mb-3">
@@ -923,10 +929,10 @@ function Createpurchaseorder() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-sm-5 col-xs-6 bot-left">
-                        Date  
+                      <div className="col-sm-5 col-xs-6 bot-left">Date</div>
+                      <div className="col-sm-7 col-xs-6 bot-right">
+                        {podate}
                       </div>
-                      <div className="col-sm-7 col-xs-6 bot-right">{podate}</div>
                     </div>
                   </div>
                   <div className="col-sm-6">
