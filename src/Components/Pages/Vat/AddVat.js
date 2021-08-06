@@ -42,7 +42,7 @@ function AddVat() {
   const getVatData = () => {
     Axios.get("https://mssoftware.xyz/getVatData", {}).then((res) => {
       if (res.data.length > 0) {
-        console.log(res.data);
+        // console.log(res.data);
         newData = res.data;
 
         var x = newData.length;
@@ -120,18 +120,18 @@ function AddVat() {
         ? Object.assign(data, { [e.target.name]: e.target.value })
         : data
     );
-    console.log("newnew:", e.target.value);
+    // console.log("newnew:", e.target.value);
     setData(updatedUsers);
   };
 
   const removeUsers = (index) => {
-    console.log("index value :", index);
+    // console.log("index value :", index);
     const filteredUsers = [...data];
     filteredUsers.splice(index, 1);
 
     let x = filteredUsers.length;
       if ((x = filteredUsers.length)) {
-      console.log(filteredUsers[x - 1].vatedate);
+      // console.log(filteredUsers[x - 1].vatedate);
       filteredUsers[x - 1].vatedate = "";
     }
 
@@ -139,13 +139,13 @@ function AddVat() {
   };
 
   const handleSubmit = (event) => {
-    console.log(data);
+    // console.log(data);
 
     event.preventDefault();
-    console.log("event : ", event);
+    // console.log("event : ", event);
 
     Axios.post("https://mssoftware.xyz/removeVendorVat").then((res) => {
-      console.log("deleted Successfully");
+      // console.log("deleted Successfully");
     });
 
     Axios.post("https://mssoftware.xyz/insertVatData", {

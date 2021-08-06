@@ -72,7 +72,7 @@ const DataTable = () => {
   };
 
   const openInStatement = (clientID) => {
-    console.log("IDIDI: ", clientID);
+    // console.log("IDIDI: ", clientID);
 
     history.push(`/ClientStatement/${clientID}`);
   };

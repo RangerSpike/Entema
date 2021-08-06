@@ -239,7 +239,7 @@ export default function PopupPO(props) {
         setVendorLov(response);
         axios.get("https://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
           if (res.data.length > 0) {
-            console.log(res.data);
+            // console.log(res.data);
             setVatDetails(res.data[0].VAT);
           }
         });
@@ -316,14 +316,14 @@ export default function PopupPO(props) {
   };
 
   const calculationOnDeleteRow = (value) => {
-    console.log("calculationOnDeleteRow before if : ", value);
+    // console.log("calculationOnDeleteRow before if : ", value);
 
     if (orderItem.length > 0) {
       if (orderItem[value].amount !== "") {
-        console.log("OH HELLO TEHE", orderItem[value].amount);
+        // console.log("OH HELLO TEHE", orderItem[value].amount);
 
         let excludeValue = orderItem[value].amount;
-        console.log("OH excludeValue TEHE", excludeValue);
+        // console.log("OH excludeValue TEHE", excludeValue);
 
         let tempPoTotal = pototal - excludeValue;
 
@@ -410,7 +410,7 @@ export default function PopupPO(props) {
     let xTotal = 0;
 
     if (pototal > 0) {
-      console.log(orderItem);
+      // console.log(orderItem);
       for (var i = 0; i < orderItem.length; i++) {
         xTotal = xTotal + parseInt(orderItem[i].amount);
       }
@@ -422,7 +422,7 @@ export default function PopupPO(props) {
     } else {
       xGrndTotal = xTotal;
     }
-    console.log("GRND TTAL: ", xGrndTotal);
+    // console.log("GRND TTAL: ", xGrndTotal);
     setPograndtotal(xGrndTotal);
     setPototal(xTotal);
   };

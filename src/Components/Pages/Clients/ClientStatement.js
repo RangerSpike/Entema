@@ -49,7 +49,7 @@ const ClientStatement = (props) => {
         clientId: clientId,
       })
       .then((res) => {
-        console.log("recsuccessfully deleted user ", res.data);
+        // console.log("recsuccessfully deleted user ", res.data);
         setComments(res.data);
       });
 
