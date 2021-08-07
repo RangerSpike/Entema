@@ -96,7 +96,7 @@ export default function Popup(props) {
   ];
 
   const getMpLovData = () => {
-    fetch("https://mssoftware.xyz/getManpowerData", {
+    fetch("http://mssoftware.xyz/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getManpowerPmntDataBasedOnId", {
+      .post("http://mssoftware.xyz/getManpowerPmntDataBasedOnId", {
         mppmid: id,
       })
       .then((res) => {
@@ -135,7 +135,7 @@ export default function Popup(props) {
 
   const getMPtimesheetLovData = (MMPID) => {
     axios
-      .post("https://mssoftware.xyz/getMPtimesheetdataBasedOnId", {
+      .post("http://mssoftware.xyz/getMPtimesheetdataBasedOnId", {
         mmtsid: MMPID,
       })
       .then((res) => {
@@ -243,7 +243,7 @@ export default function Popup(props) {
     e.preventDefault();
     //console.log("test submit", pmDisplayvalue);
     axios
-      .post("https://mssoftware.xyz/updateManpowerPaymentData", {
+      .post("http://mssoftware.xyz/updateManpowerPaymentData", {
         pmntid: id,      
         pmmode: PmManpowerMode,
         mppmbesc: PmManpowerDescription,

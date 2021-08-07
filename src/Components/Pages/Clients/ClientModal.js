@@ -36,7 +36,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getClientBasedOnId", {
+      .post("http://mssoftware.xyz/getClientBasedOnId", {
         clientID: id,
       })
       .then((res) => {
@@ -74,7 +74,7 @@ export default function Popup(props) {
     // console.log("event : ", event);
     // console.log("FROM SUBMIT", id);
     axios
-      .post("https://mssoftware.xyz/UpdateClientData", {
+      .post("http://mssoftware.xyz/UpdateClientData", {
         clientID: id,
         clientcpname: clientcpname,
         clientcompname: clientcompname,

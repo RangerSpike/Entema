@@ -73,7 +73,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getManpowerDataBasedOnId", {
+      .post("http://mssoftware.xyz/getManpowerDataBasedOnId", {
         mpid: id,
       })
       .then((res) => {
@@ -96,7 +96,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/updateManpowerData", {
+      .post("http://mssoftware.xyz/updateManpowerData", {
         mpid:id,
         mpname: MpName,
         mpiqamaid: MpIqamaId,
@@ -139,7 +139,7 @@ export default function Popup(props) {
         >
           <div className="heading-layout1">
             <div className="item-title">
-              <h3 style={{ padding: "50px" }}>Add Manpower</h3>
+              <h3 style={{ padding: "50px" }}>Update Manpower</h3>
             </div>
           </div>
           <form onSubmit={handleSubmit}>

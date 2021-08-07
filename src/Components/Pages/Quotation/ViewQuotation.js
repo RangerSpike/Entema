@@ -35,7 +35,7 @@ const DataTable = () => {
 
   const headers = [
     { name: "Quot Id", field: "Quot Id", sortable: false },
-    { name: "Date", field: "Date", sortable: false },
+    { name: "Valid Date", field: "Valid Date", sortable: false },
     { name: "Created By", field: "Created By", sortable: false },
     { name: "Contact Person", field: "Contact Person", sortable: false },
     { name: "Company", field: "Company", sortable: false },
@@ -46,7 +46,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getQuotData")
+    fetch("http://mssoftware.xyz/getQuotData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -61,22 +61,24 @@ const DataTable = () => {
   useEffect(() => {
     setTimeout(() => {
       getData();
-    },1300);
+    }, 1300);
   }, [id]);
 
   const removeQuotation = (QOId) => {
     axios
-      .post("https://mssoftware.xyz/removeQODataonId", {
+      .post("http://mssoftware.xyz/removeQODataonId", {
         QOID: QOId,
       })
       .then((res) => {
         axios
-          .post("https://mssoftware.xyz/removeQOMulDataonId", {
+          .post("http://mssoftware.xyz/removeQOMulDataonId", {
             QOID: QOId,
           })
           .then((res) => {});
       });
-    getData();
+    setTimeout(() => {
+      getData();
+    }, 1300);
   };
 
   const commentsData = useMemo(() => {
@@ -156,7 +158,7 @@ const DataTable = () => {
                       >
                         {comment.QO_ID}
                       </th>
-                      <td>{comment.CREATED_DATE}</td>
+                      <td>{comment.WO_STARTDATE}</td>
                       <td>{comment.CREATED_BY}</td>
                       <td>{comment.QO_COMP_NAME}</td>
                       <td>{comment.CLIENT_DISP_NAME}</td>

@@ -39,7 +39,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getRolesData")
+    fetch("http://mssoftware.xyz/getRolesData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -49,12 +49,12 @@ const DataTable = () => {
 
   const removeRole = (rolesid) => {
     axios
-      .post("https://mssoftware.xyz/removeRolesBasedOnId", {
+      .post("http://mssoftware.xyz/removeRolesBasedOnId", {
         rolesid: rolesid,
       })
       .then((res) => {
         axios
-          .post("https://mssoftware.xyz/removeRolesActDataBasedOnId", {
+          .post("http://mssoftware.xyz/removeRolesActDataBasedOnId", {
             rolesid: rolesid,
           })
           .then((res) => {

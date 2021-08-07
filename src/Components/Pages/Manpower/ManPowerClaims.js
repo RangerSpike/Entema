@@ -40,7 +40,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getManpowerPayment")
+    fetch("http://mssoftware.xyz/getManpowerPayment")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -55,7 +55,7 @@ const DataTable = () => {
 
   const removeData = (mppmid) => {
     axios
-      .post("https://mssoftware.xyz/removeMpPmntDataonId", {
+      .post("http://mssoftware.xyz/removeMpPmntDataonId", {
         mppmid: mppmid,
       })
       .then((res) => {

@@ -32,7 +32,7 @@ function Activities() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertActivitiesData", {
+      .post("http://mssoftware.xyz/insertActivitiesData", {
         actname: AcActivityName,
         actenddate: AcEndDate,
         actdescription: AcDescription,

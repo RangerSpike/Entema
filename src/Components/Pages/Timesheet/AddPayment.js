@@ -33,7 +33,7 @@ function AddPayment() {
   ];
 
   const getVendorLovData = () => {
-    fetch("https://mssoftware.xyz/getVendorData", {
+    fetch("http://mssoftware.xyz/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function AddPayment() {
 
   const getTimeSheetForVendor = (vendorID) => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataonVendorId", {
+      .post("http://mssoftware.xyz/getVenTimesheetDataonVendorId", {
         venId: vendorID,
       })
       .then((res) => {
@@ -184,7 +184,7 @@ function AddPayment() {
     // e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertVendorPaymentData", {
+      .post("http://mssoftware.xyz/insertVendorPaymentData", {
         pmvenname: pmVendorName,
         pmvendispname: vendorDispValue,
         pmvents: pmTimesheet,
@@ -200,12 +200,12 @@ function AddPayment() {
       });
     //console.log("test submit");
 
-    history.push("/VewVendorPayments");
+    history.push("/ViewVendorPayments");
   };
 
   const validatePayments = (value) => {
     axios
-      .post("https://mssoftware.xyz/venPmntValidation", {
+      .post("http://mssoftware.xyz/venPmntValidation", {
         pmvenname: pmVendorName,
         pmvents: value,
       })

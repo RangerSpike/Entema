@@ -65,7 +65,7 @@ export default function Popup(props) {
   const [clientLov, setClientLov] = useState([]);
 
   const getClientLovData = () => {
-    fetch("https://mssoftware.xyz/getClientData", {
+    fetch("http://mssoftware.xyz/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getDelNoteBasedOnId", {
+      .post("http://mssoftware.xyz/getDelNoteBasedOnId", {
         delId: id,
       })
       .then((res) => {
@@ -129,7 +129,7 @@ export default function Popup(props) {
     //console.log("FROM SUBMIT", id);
 
     axios
-      .post("https://mssoftware.xyz/UpdateDeliveryNote", {
+      .post("http://mssoftware.xyz/UpdateDeliveryNote", {
         delId: id,
         delclient: DnClient,
         deladd: DnAddress,

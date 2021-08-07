@@ -62,7 +62,7 @@ export default function PopupPdf(props) {
 
   const getData = () => {
     axios
-      .post("https://mssoftware.xyz/getQOMULDataonID", {
+      .post("http://mssoftware.xyz/getQOMULDataonID", {
         QOID: id,
       })
       .then((response) => {

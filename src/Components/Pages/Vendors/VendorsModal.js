@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const {setId, id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
   // console.log(id);
@@ -55,7 +55,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getVendorIDData", {
+      .post("http://mssoftware.xyz/getVendorIDData", {
         vendorID: id,
       })
       .then((res) => {
@@ -167,7 +167,7 @@ export default function Popup(props) {
     // event.preventDefault();
     // console.log("event : ", event);
     axios
-      .post("https://mssoftware.xyz/updateVendorData", {
+      .post("http://mssoftware.xyz/updateVendorData", {
         v_id: id,
         vendorname: vendorname,
         vendorcode: vendorcode,
@@ -190,9 +190,13 @@ export default function Popup(props) {
         //  setDupData(res.data);
         // console.log("result set in effect: ", res);
       });
+    setId(0);
     setOpenPopup(false);
   };
-
+const onClosePopup =()=>{
+  setId(0);
+  setOpenPopup(false)
+}
   return (
     <Dialog
       open={openPopup}
@@ -204,7 +208,7 @@ export default function Popup(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             Close

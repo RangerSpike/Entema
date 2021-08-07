@@ -78,7 +78,7 @@ export default function Popup(props) {
   const [clientLov, setClientLov] = useState([]);
 
   useEffect(() => {
-    fetch("https://mssoftware.xyz/getClientData", {
+    fetch("http://mssoftware.xyz/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -132,10 +132,10 @@ export default function Popup(props) {
         (comment) => comment.CLIENT_ID == value
       );
 
-      setCqname(computedComments[0].CLIENT_CPNAME);
-      setCqmobileNo(computedComments[0].CLIENT_PHONE);
-      setCqemail(computedComments[0].CLIENT_EMAIL);
-      setClientDispValue(computedComments[0].CLIENT_COMP_NAME);
+      // setCqname(computedComments[0].CLIENT_CPNAME);
+      // setCqmobileNo(computedComments[0].CLIENT_PHONE);
+      // setCqemail(computedComments[0].CLIENT_EMAIL);
+      // setClientDispValue(computedComments[0].CLIENT_COMP_NAME);
       // setClientDispValue(res.data[0].CLIENT_DISP_NAME);
     }
   };
@@ -152,6 +152,7 @@ export default function Popup(props) {
     const input = e.target.name;
 
     if (input === "cqdate") {
+      console.log("ON CHANGE DATE : ",e.target.value)
       setCqdate(e.target.value);
     } else if (input === "cqclient") {
       setCqclient(e.target.value);
@@ -207,13 +208,14 @@ export default function Popup(props) {
   };
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getQuotDataBasedOnId", {
+      .post("http://mssoftware.xyz/getQuotDataBasedOnId", {
         quotID: id,
       })
       .then((res) => {
         ///setNewData(res.data[0]);
         if (id > 0) {
-          setCqdate(res.data[0].CREATED_DATE);
+          console.log("res.data[0] :", res.data[0]);
+          setCqdate(res.data[0].WO_STARTDATE);
           setCqclient(res.data[0].QO_COMP_CLIENT);
           setCqname(res.data[0].QO_COMP_NAME);
           setCqmobileNo(res.data[0].QO_COMP_MOB);
@@ -222,7 +224,7 @@ export default function Popup(props) {
           setClientDispValue(res.data[0].CLIENT_DISP_NAME);
           // console.log("CQ :", cqtypes);
           axios
-            .post("https://mssoftware.xyz/getMultirowQuotDataBasedOnId", {
+            .post("http://mssoftware.xyz/getMultirowQuotDataBasedOnId", {
               quotID: id,
             })
             .then((res) => {
@@ -274,13 +276,13 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/removeQUOMulDataonId", {
+      .post("http://mssoftware.xyz/removeQUOMulDataonId", {
         qoid: id,
       })
       .then((res) => {});
 
     axios
-      .post("https://mssoftware.xyz/UpdateQuotData", {
+      .post("http://mssoftware.xyz/UpdateQuotData", {
         qoid: id,
         cqdate: cqdate,
         entFrom: entFrom,

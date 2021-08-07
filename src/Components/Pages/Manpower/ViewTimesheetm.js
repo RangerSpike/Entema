@@ -49,7 +49,7 @@ const DataTable = () => {
     ////console.log(myID);
     setAnchorEl(null);
     axios
-      .post("https://mssoftware.xyz/updateMptsStatus", {
+      .post("http://mssoftware.xyz/updateMptsStatus", {
         MPtsID: myID,
         mptssts: "Approved",
       })
@@ -67,7 +67,7 @@ const DataTable = () => {
     ////console.log(myID);
     setAnchorEl(null);
     axios
-      .post("https://mssoftware.xyz/updateMptsStatus", {
+      .post("http://mssoftware.xyz/updateMptsStatus", {
         MPtsID: myID,
         mptssts: "Not Approved",
       })
@@ -109,7 +109,7 @@ const DataTable = () => {
   ];
 
   const getYearLovData = () => {
-    fetch("https://mssoftware.xyz/getYearLov", {
+    fetch("http://mssoftware.xyz/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -182,7 +182,7 @@ const DataTable = () => {
     // ////console.log("year : ", tsYear);
 
     axios
-      .post("https://mssoftware.xyz/getMPTimesheetDataonYearMonth", {
+      .post("http://mssoftware.xyz/getMPTimesheetDataonYearMonth", {
         venMonth: tsMonth,
         venYear: tsYear,
       })
@@ -199,7 +199,7 @@ const DataTable = () => {
 
   const removeMPTimeSheet = (tsId) => {
     axios
-      .post("https://mssoftware.xyz/removeMPTSDataonId", {
+      .post("http://mssoftware.xyz/removeMPTSDataonId", {
         TSID: tsId,
       })
       .then((res) => {

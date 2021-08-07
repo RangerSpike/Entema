@@ -89,7 +89,7 @@ function CreateQuotation() {
   const [multiSet, setMultiSet] = useState([]);
 
   useEffect(() => {
-    fetch("https://mssoftware.xyz/getClientData", {
+    fetch("http://mssoftware.xyz/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -254,7 +254,7 @@ function CreateQuotation() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertQuotData", {
+      .post("http://mssoftware.xyz/insertQuotData", {
         quotID: quotID,
         quotRefNo: quotRefNo,
         cqdate: cqdate,

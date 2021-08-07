@@ -33,7 +33,7 @@ function AddClients() {
     // event.preventDefault();
     // console.log("event : ", event);
 
-    axios.post("https://mssoftware.xyz/insertClientData", {
+    axios.post("http://mssoftware.xyz/insertClientData", {
     
     clientcpname:clientcpname ,
     clientcompname:clientcompname,

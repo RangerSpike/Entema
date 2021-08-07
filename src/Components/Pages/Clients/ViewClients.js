@@ -45,7 +45,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getClientData")
+    fetch("http://mssoftware.xyz/getClientData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -60,7 +60,7 @@ const DataTable = () => {
 
   const removeClient = (clientId) => {
     axios
-      .post("https://mssoftware.xyz/removeClientDataonId", {
+      .post("http://mssoftware.xyz/removeClientDataonId", {
         clientID: clientId,
       })
       .then((res) => {

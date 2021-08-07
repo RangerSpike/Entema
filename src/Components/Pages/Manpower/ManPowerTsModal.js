@@ -54,7 +54,7 @@ export default function Popup(props) {
   const [yearLov, setYearLov] = useState([]);
 
   const getYearLovData = () => {
-    fetch("https://mssoftware.xyz/getYearLov", {
+    fetch("http://mssoftware.xyz/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function Popup(props) {
   };
 
   const getMPLovData = () => {
-    fetch("https://mssoftware.xyz/getManpowerData", {
+    fetch("http://mssoftware.xyz/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getMPTSDataonId", {
+      .post("http://mssoftware.xyz/getMPTSDataonId", {
         TSID: id,
       })
       .then((res) => {
@@ -169,7 +169,7 @@ export default function Popup(props) {
 
   const onYearChange = (value) => {
     axios
-      .post("https://mssoftware.xyz/getMPTimesheetValidation", {
+      .post("http://mssoftware.xyz/getMPTimesheetValidation", {
         pManpower: MpManPower,
         pMonth: MpMonth,
         pYear: value,
@@ -226,7 +226,7 @@ export default function Popup(props) {
     // e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/updateManPTimesheetData", {
+      .post("http://mssoftware.xyz/updateManPTimesheetData", {
         mmtsid: id,
         mtsdescription: MpDescription,
         mtsiqama: MpIqamaId,

@@ -43,7 +43,7 @@ function CreateManpower() {
   const [yearLov, setYearLov] = useState([]);
 
   const getYearLovData = () => {
-    fetch("https://mssoftware.xyz/getYearLov", {
+    fetch("http://mssoftware.xyz/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function CreateManpower() {
   };
 
   const getMPLovData = () => {
-    fetch("https://mssoftware.xyz/getManpowerData", {
+    fetch("http://mssoftware.xyz/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ function CreateManpower() {
 
   const onYearChange = (value) => {
     axios
-      .post("https://mssoftware.xyz/getMPTimesheetValidation", {
+      .post("http://mssoftware.xyz/getMPTimesheetValidation", {
         pManpower: MpManPower,
         pMonth: MpMonth,
         pYear: value,
@@ -203,7 +203,7 @@ function CreateManpower() {
     // e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertManPTimesheetData", {
+      .post("http://mssoftware.xyz/insertManPTimesheetData", {
         mtsmanpower: MpManPower,
         mtsmonth: MpMonth,
         mtsyear: MpYear,

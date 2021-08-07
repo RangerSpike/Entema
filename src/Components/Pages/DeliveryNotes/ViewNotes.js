@@ -42,7 +42,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getDeliveryNoteData")
+    fetch("http://mssoftware.xyz/getDeliveryNoteData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -53,7 +53,7 @@ const DataTable = () => {
 
   const removeDelTimeSheet = (id) => {
     axios
-      .post("https://mssoftware.xyz/removeDelNoteBasedOnId", {
+      .post("http://mssoftware.xyz/removeDelNoteBasedOnId", {
         delId: id,
       })
       .then((res) => {

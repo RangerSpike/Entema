@@ -45,7 +45,7 @@ function AddManpower() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertManpowerData", {
+      .post("http://mssoftware.xyz/insertManpowerData", {
         mpname: MpName,
         mpiqamaid: MpIqamaId,
         mpcategory: MpCategory,

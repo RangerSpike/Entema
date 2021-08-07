@@ -37,7 +37,7 @@ const DataTable = () => {
 
   const removeActivity = (actid) => {
     axios
-      .post("https://mssoftware.xyz/removeActivityDataonId", {
+      .post("http://mssoftware.xyz/removeActivityDataonId", {
         actid: actid,
       })
       .then((res) => {    
@@ -47,7 +47,7 @@ const DataTable = () => {
 
   const getData = () => {
     showLoader();    
-    fetch("https://mssoftware.xyz/getActivitiesData")
+    fetch("http://mssoftware.xyz/getActivitiesData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();

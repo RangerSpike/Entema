@@ -36,7 +36,7 @@ function Adduser(props) {
   ];
 
   const getRoleLovData = () => {
-    fetch("https://mssoftware.xyz/getRolesData", {
+    fetch("http://mssoftware.xyz/getRolesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ function Adduser(props) {
     if (userPwd == userCpwd) {
       // alert('Hello');
 
-      Axios.post("https://mssoftware.xyz/insertUserData", {
+      Axios.post("http://mssoftware.xyz/insertUserData", {
         userName: userName,
         userFname: userFname,
         userEmail: userEmail,

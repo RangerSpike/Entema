@@ -193,7 +193,7 @@ function AddVendors() {
       console.log("result success : ", res);
     });
 
-    history.push("/");
+    history.push("/ViewVendors");
   };
 
   return (

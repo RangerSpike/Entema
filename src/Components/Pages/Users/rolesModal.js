@@ -70,7 +70,7 @@ export default function Popup(props) {
   const [actLov, setActLov] = useState([]);
 
   const getActivitiesLov = () => {
-    fetch("https://mssoftware.xyz/getActivitiesData", {
+    fetch("http://mssoftware.xyz/getActivitiesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +119,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getRolesBasedOnId", {
+      .post("http://mssoftware.xyz/getRolesBasedOnId", {
         rolesid: id,
       })
       .then((res) => {
@@ -133,7 +133,7 @@ export default function Popup(props) {
       });
 
     axios
-      .post("https://mssoftware.xyz/getRolesActDataBasedOnId", {
+      .post("http://mssoftware.xyz/getRolesActDataBasedOnId", {
         roleactid: id,
       })
       .then((res) => {
@@ -183,7 +183,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/removeRolesActDataBasedOnId", {
+      .post("http://mssoftware.xyz/removeRolesActDataBasedOnId", {
         rolesid: id,
       })
       .then((res) => {
@@ -191,7 +191,7 @@ export default function Popup(props) {
       });
 
     axios
-      .post("https://mssoftware.xyz/updateRolesData", {
+      .post("http://mssoftware.xyz/updateRolesData", {
         rlId: id,
         rlname: RoRolesName,
         rlenddate: RoEndDate,

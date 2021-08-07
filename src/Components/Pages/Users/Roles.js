@@ -61,7 +61,7 @@ export default function Roles() {
   const [roleID, setRoleID] = useState();
 
   const getActivitiesLov = () => {
-    fetch("https://mssoftware.xyz/getActivitiesData", {
+    fetch("http://mssoftware.xyz/getActivitiesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export default function Roles() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertRolesData", {
+      .post("http://mssoftware.xyz/insertRolesData", {
         rlId: roleID,
         rlname: RoRolesName,
         rlenddate: RoEndDate,

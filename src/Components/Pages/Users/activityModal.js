@@ -58,7 +58,7 @@ export default function Popup(props) {
   };
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getActivitiesDataBasedOnId", {
+      .post("http://mssoftware.xyz/getActivitiesDataBasedOnId", {
         actid: id,
       })
       .then((res) => {
@@ -76,7 +76,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/updateActivityData", {
+      .post("http://mssoftware.xyz/updateActivityData", {
         actid: id,
         actname: AcActivityName,
         actenddate: AcEndDate,

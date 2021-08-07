@@ -56,7 +56,6 @@ const Statement = (props) => {
   const [venid, setVenId] = useState();
 
   const [refresh, setRefresh] = useState(false);
-  const [Tcolor, setColor] = useState("blue");
 
   const openInPopup = (item) => {
     setId(item);
@@ -80,8 +79,9 @@ const Statement = (props) => {
   };
 
   const paidAmntSts = (vid) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/getPaidReqAmt", {
+      .post("http://mssoftware.xyz/getPaidReqAmt", {
         venId: vid,
       })
       .then((res) => {
@@ -94,25 +94,28 @@ const Statement = (props) => {
           );
           setRefresh(!refresh);
         }
+        hideLoader();
       });
   };
 
   const removeTimeSheet = (tsId) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/removeVenTSDataonId", {
+      .post("http://mssoftware.xyz/removeVenTSDataonId", {
         TSID: tsId,
       })
       .then((res) => {
         //console.log("recsuccessfully deleted user ", tsId);
         setRefresh(!refresh);
       });
-
+    hideLoader();
     //console.log("TimeSheet ID : ", tsId);
   };
 
   const getVendorData = (vendorID) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/getVendorIDData", {
+      .post("http://mssoftware.xyz/getVendorIDData", {
         vendorID: vendorID,
       })
       .then((res) => {
@@ -127,7 +130,7 @@ const Statement = (props) => {
           setVenVat(res.data[0].VENDOR_VAT);
           setVenDOCNO(res.data[0].VENDOR_DOC_NO);
           setVenADD(res.data[0].VENDOR_ADD);
-          axios.get("https://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+          axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
             if (res.data.length > 0) {
               console.log(res.data);
               setVatDetails(res.data[0].VAT);
@@ -135,12 +138,14 @@ const Statement = (props) => {
           });
         }
       });
+    hideLoader();
     return vendorDetails;
   };
 
   const getPOData = (vendorId) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/getPODataBasedOnVenId", {
+      .post("http://mssoftware.xyz/getPODataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -148,12 +153,14 @@ const Statement = (props) => {
           setPOdetails(res.data);
         }
       });
+    hideLoader();
     return poDetails;
   };
 
   const getTSdata = (vendorId) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/getTSDataBasedOnVenId", {
+      .post("http://mssoftware.xyz/getTSDataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -161,12 +168,14 @@ const Statement = (props) => {
           setVENTSdetails(res.data);
         }
       });
+    hideLoader();
     return venTSDetails;
   };
 
   const getVpmdata = (vendorId) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/getVPMDataBasedOnVenId", {
+      .post("http://mssoftware.xyz/getVPMDataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -174,6 +183,7 @@ const Statement = (props) => {
           setVENPaymentdetails(res.data);
         }
       });
+    hideLoader();
     return venPaymentDetails;
   };
 
@@ -186,8 +196,18 @@ const Statement = (props) => {
   }, [vid]);
 
   useEffect(() => {
+    setTimeout(() => {
+      getVendorData(vid);
+      getPOData(vid);
+      getTSdata(vid);
+      getVpmdata(vid);
+      paidAmntSts(vid);
+    }, 1300);
+  }, [id]);
+
+  useEffect(() => {
     refreshValues();
-  }, [venTSDetails, refresh]);
+  }, [venTSDetails, refresh, id]);
 
   const refreshValues = () => {
     const lengthvalue = venTSDetails.length;
@@ -205,8 +225,9 @@ const Statement = (props) => {
   };
 
   const removeVendor = (vendorId) => {
+    showLoader();
     axios
-      .post("https://mssoftware.xyz/removeVendorDataonId", {
+      .post("http://mssoftware.xyz/removeVendorDataonId", {
         vendorID: vendorId,
       })
       .then((res) => {
@@ -270,12 +291,12 @@ const Statement = (props) => {
   };
   const removePO = (POId) => {
     axios
-      .post("https://mssoftware.xyz/removePODataonId", {
+      .post("http://mssoftware.xyz/removePODataonId", {
         POID: POId,
       })
       .then((res) => {
         axios
-          .post("https://mssoftware.xyz/removePOMulDataonId", {
+          .post("http://mssoftware.xyz/removePOMulDataonId", {
             POID: POId,
           })
           .then((res) => {
@@ -286,7 +307,7 @@ const Statement = (props) => {
 
   const removeVenPm = (pmntId) => {
     axios
-      .post("https://mssoftware.xyz/removeVenPmntDataonId", {
+      .post("http://mssoftware.xyz/removeVenPmntDataonId", {
         PMID: pmntId,
       })
       .then((res) => {
@@ -299,17 +320,18 @@ const Statement = (props) => {
 
   const approvePaymentSts = (value) => {
     // alert("hi there" + value);
-    setColor("#000");
 
     axios
-      .post("https://mssoftware.xyz/updateVenPmntRequestStatus", {
+      .post("http://mssoftware.xyz/updateVenPmntRequestStatus", {
         pmntSts: "Paid",
         pmntId: value,
       })
       .then((res) => {
         // console.log("updated Values Successfully : ", res.data);
         setRefresh(!refresh);
+        setId(1);
       });
+    setId(0);
   };
 
   return (
@@ -401,6 +423,7 @@ const Statement = (props) => {
                   </tbody>
                 </table>
                 <PopupPO
+                  setId={setId}
                   id={id}
                   openPopup={openPopup}
                   setOpenPopup={setOpenPopup}
@@ -450,7 +473,9 @@ const Statement = (props) => {
                           style={{ cursor: "pointer" }}
                           disabled={isDisabled(data.REQUEST_STATUS)}
                         >
-                          {data.REQUEST_STATUS}
+                          {data.REQUEST_STATUS
+                            ? data.REQUEST_STATUS
+                            : "Request"}
                         </button>
                       </td>
 
@@ -479,6 +504,7 @@ const Statement = (props) => {
                 setOpenPopup={setOpenTSPopup}
               ></PopupTS>
               <PopupVPR
+                setId={setId}
                 refresh={refresh}
                 setRefresh={setRefresh}
                 venId={venid}
@@ -514,7 +540,7 @@ const Statement = (props) => {
                       <td>{data.CLEARED_AMOUNT}</td>
                       <td
                         onClick={() => approvePaymentSts(data.PMNT_ID)}
-                        style={{ cursor: "pointer", color: Tcolor }}
+                        style={{ cursor: "pointer" }}
                       >
                         {data.PM_STATUS}
                       </td>
@@ -539,6 +565,7 @@ const Statement = (props) => {
                 </tbody>
               </table>
               <PopupVP
+                setId={setId}
                 id={id}
                 openPopup={openVPPopup}
                 setOpenPopup={setOpenVPPopup}

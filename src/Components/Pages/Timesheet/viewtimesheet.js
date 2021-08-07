@@ -52,7 +52,7 @@ const DataTable = () => {
     //console.log(myID);
     setAnchorEl(null);
     axios
-      .post("https://mssoftware.xyz/updateVenTsStatus", {
+      .post("http://mssoftware.xyz/updateVenTsStatus", {
         vtsid: myID,
         posts: "Approved",
       })
@@ -66,7 +66,7 @@ const DataTable = () => {
     //console.log(myID);
     setAnchorEl(null);
     axios
-      .post("https://mssoftware.xyz/updateVenTsStatus", {
+      .post("http://mssoftware.xyz/updateVenTsStatus", {
         vtsid: myID,
         posts: "Not Approved",
       })
@@ -114,7 +114,7 @@ const DataTable = () => {
     //console.log("year : ", tsYear);
 
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataonYearMonth", {
+      .post("http://mssoftware.xyz/getVenTimesheetDataonYearMonth", {
         venMonth: tsMonth,
         venYear: tsYear,
       })
@@ -124,13 +124,15 @@ const DataTable = () => {
         // hideLoader();
       });
   };
+  
   useEffect(() => {
     setTimeout(() => {
       getData();
     }, 1300);
   }, [id]);
+  
   const getYearLovData = () => {
-    fetch("https://mssoftware.xyz/getYearLov", {
+    fetch("http://mssoftware.xyz/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -155,17 +157,17 @@ const DataTable = () => {
 
   const removeTimeSheet = (tsId) => {
     axios
-      .post("https://mssoftware.xyz/removeVenTSDataonId", {
+      .post("http://mssoftware.xyz/removeVenTSDataonId", {
         TSID: tsId,
       })
       .then((res) => {
         axios
-          .post("https://mssoftware.xyz/removeVenTsRGHDataonId", {
+          .post("http://mssoftware.xyz/removeVenTsRGHDataonId", {
             TSID: tsId,
           })
           .then((res) => {
             axios
-              .post("https://mssoftware.xyz/removeVenTsOTHDataonId", {
+              .post("http://mssoftware.xyz/removeVenTsOTHDataonId", {
                 TSID: tsId,
               })
               .then((res) => {});
@@ -419,13 +421,13 @@ const DataTable = () => {
                             >
                               Approved
                             </MenuItem>
-                            <MenuItem
+                            {/*<MenuItem
                               onClick={() => {
                                 notApproveClose();
                               }}
                             >
                               Not Approved
-                            </MenuItem>
+                            </MenuItem>*/}
                           </Menu>
                         </div>
                       </td>

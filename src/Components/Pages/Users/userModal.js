@@ -85,7 +85,7 @@ export default function Popup(props) {
   ];
 
   const getRoleLovData = () => {
-    fetch("https://mssoftware.xyz/getRolesData", {
+    fetch("http://mssoftware.xyz/getRolesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getUserDataonId", {
+      .post("http://mssoftware.xyz/getUserDataonId", {
         userID: id,
       })
       .then((res) => {
@@ -204,7 +204,7 @@ export default function Popup(props) {
 
     if (userPwd === userCpwd) {
       axios
-        .post("https://mssoftware.xyz/UpdateUserData", {
+        .post("http://mssoftware.xyz/UpdateUserData", {
           userId: id,
           userName: userName,
           userFname: userFname,

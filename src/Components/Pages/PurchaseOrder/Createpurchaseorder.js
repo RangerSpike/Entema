@@ -176,7 +176,7 @@ function Createpurchaseorder() {
   };
 
   const getVendorLovData = () => {
-    fetch("https://mssoftware.xyz/getVendorData", {
+    fetch("http://mssoftware.xyz/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -185,7 +185,7 @@ function Createpurchaseorder() {
       .then((response) => response.json())
       .then((response) => {
         setVendorLov(response);
-        axios.get("https://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+        axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
           if (res.data.length > 0) {
             console.log(res.data);
             setVatDetails(res.data[0].VAT);
@@ -433,7 +433,7 @@ function Createpurchaseorder() {
     // submitMultiRowData(orderItem);
 
     axios
-      .post("https://mssoftware.xyz/insertPOData", {
+      .post("http://mssoftware.xyz/insertPOData", {
         poid: podocno,
         podocno: podocno,
         podate: podate,

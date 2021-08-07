@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupVPR(props) {
-  const { setRefresh, refresh, venId, tsId, openPopup, setOpenPopup } = props;
+  const { setId, setRefresh, refresh, venId, tsId, openPopup, setOpenPopup } =
+    props;
 
   const classes = useStyles();
 
@@ -52,7 +53,7 @@ export default function PopupVPR(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataBasedonId", {
+      .post("http://mssoftware.xyz/getVenTimesheetDataBasedonId", {
         vtsId: tsId,
       })
       .then((res) => {
@@ -151,7 +152,7 @@ export default function PopupVPR(props) {
 
   const handleSubmit = (e) => {
     axios
-      .post("https://mssoftware.xyz/updateVenTsRequestStatus", {
+      .post("http://mssoftware.xyz/updateVenTsRequestStatus", {
         vtsid: tsId,
         reqsts: "Requested",
       })
@@ -162,7 +163,7 @@ export default function PopupVPR(props) {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertVendorPaymentData", {
+      .post("http://mssoftware.xyz/insertVendorPaymentData", {
         pmvenname: pmVendorId,
         pmvendispname: pmVendorName,
         pmvents: pmTimesheetId,
@@ -177,12 +178,13 @@ export default function PopupVPR(props) {
         //console.log("updated Values Successfully : ", res.data);
       });
     //console.log("test submit");
-
+    setId(0);
     setOpenPopup(false);
     setRefresh(!refresh);
   };
 
   const onClose = () => {
+    setId(0);
     setPmClearedAmt();
     setRefresh(!refresh);
     setOpenPopup(false);

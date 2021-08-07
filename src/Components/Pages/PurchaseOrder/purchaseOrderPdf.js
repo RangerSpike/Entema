@@ -83,7 +83,7 @@ export default function PopupPdf(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getPOMULDataonID", {
+      .post("http://mssoftware.xyz/getPOMULDataonID", {
         POID: id,
       })
       .then((response) => {

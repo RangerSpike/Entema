@@ -144,11 +144,11 @@ function AddVat() {
     event.preventDefault();
     // console.log("event : ", event);
 
-    Axios.post("https://mssoftware.xyz/removeVendorVat").then((res) => {
+    Axios.post("http://mssoftware.xyz/removeVendorVat").then((res) => {
       // console.log("deleted Successfully");
     });
 
-    Axios.post("https://mssoftware.xyz/insertVatData", {
+    Axios.post("http://mssoftware.xyz/insertVatData", {
       vendorvatdetails: data,
     }).then((res) => {});
 

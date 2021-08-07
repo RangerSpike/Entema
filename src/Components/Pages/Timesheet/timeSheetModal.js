@@ -146,7 +146,7 @@ export default function PopupTS(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataListBasedonId", {
+      .post("http://mssoftware.xyz/getVenTimesheetDataListBasedonId", {
         vtsId: id,
       })
       .then((res) => {
@@ -434,17 +434,17 @@ export default function PopupTS(props) {
 
     if (isCalculated) {
       axios
-        .post("https://mssoftware.xyz/removeVenTsRGHDataonId", {
+        .post("http://mssoftware.xyz/removeVenTsRGHDataonId", {
           TSID: id,
         })
         .then((res) => {
           axios
-            .post("https://mssoftware.xyz/removeVenTsOTHDataonId", {
+            .post("http://mssoftware.xyz/removeVenTsOTHDataonId", {
               TSID: id,
             })
             .then((res) => {});
           axios
-            .post("https://mssoftware.xyz/updateVenTsData", {
+            .post("http://mssoftware.xyz/updateVenTsData", {
               tsvenId: id,
               tsid: id,
               tsdescription: tsDescription,
@@ -477,7 +477,7 @@ export default function PopupTS(props) {
 
   const onYearChange = (value) => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetValidation", {
+      .post("http://mssoftware.xyz/getVenTimesheetValidation", {
         pVendor: tsVendor,
         pMonth: tsMonth,
         pYear: value,
@@ -497,7 +497,7 @@ export default function PopupTS(props) {
   };
 
   const getVendorLovData = () => {
-    fetch("https://mssoftware.xyz/getVendorData", {
+    fetch("http://mssoftware.xyz/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -512,7 +512,7 @@ export default function PopupTS(props) {
   };
 
   const getYearLovData = () => {
-    fetch("https://mssoftware.xyz/getYearLov", {
+    fetch("http://mssoftware.xyz/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -1040,7 +1040,7 @@ export default function PopupTS(props) {
                       <Grid item md={4}>
                         <TextField
                           label="Day 7"
-                          name="day7"
+                          name="days7"
                           type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"

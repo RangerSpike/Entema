@@ -20,7 +20,7 @@ function CreateNote() {
   }, []);
 
   const getClientLovData = () => {
-    fetch("https://mssoftware.xyz/getClientData", {
+    fetch("http://mssoftware.xyz/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function CreateNote() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertDeliveryNoteData", {
+      .post("http://mssoftware.xyz/insertDeliveryNoteData", {
         delclient: DnClient,
         deladd: DnAddress,
         delshipadd: DnShippingAddress,

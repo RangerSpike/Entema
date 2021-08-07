@@ -99,12 +99,13 @@ export default function PopupPO(props) {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getPODataBasedOnId", {
+      .post("http://mssoftware.xyz/getPODataBasedOnId", {
         poid: id,
       })
-      .then((res) => {
+      .then((res) => {        
         ///setNewData(res.data[0]);
         if (res.data.length > 0) {
+          console.log("BROO :: ", res.data);
           setPodate(res.data[0].CREATED_DATE);
           setPodocno(res.data[0].DOC_NO);
           setPorevno(res.data[0].REV_NO);
@@ -128,11 +129,12 @@ export default function PopupPO(props) {
           setPototal(parseInt(res.data[0].PO_TOTAL));
           setPogst(parseInt(res.data[0].PO_GST));
           setPograndtotal(parseFloat(res.data[0].PO_GRANDTOTAL));
+          setSigName(res.data[0].VI_CONTACT_PERSON);
         }
       });
 
     axios
-      .post("https://mssoftware.xyz/getMultirowPODataBasedOnId", {
+      .post("http://mssoftware.xyz/getMultirowPODataBasedOnId", {
         poid: id,
       })
       .then((res) => {
@@ -166,15 +168,16 @@ export default function PopupPO(props) {
       );
     }
     //console.log("data set value is : ", computedComments);
-    setPocode(computedComments[0].VENDOR_CODE);
-    setPophone(computedComments[0].VENDOR_PHONE);
-    setPocpperson(computedComments[0].VENDOR_CPERSON);
-    setPomobile(computedComments[0].VENDOR_PHONE);
-    setPoemail(computedComments[0].VENDOR_EMAIL);
-    setPovat(computedComments[0].VENDOR_VAT);
-    setPoadd(computedComments[0].VENDOR_ADD);
-    setSigName(computedComments[0].VENDOR_NAME);
-    // setSigNameNTitle(computedComments[0].VENDOR_CPERSON);
+    //setPocode(computedComments[0].VENDOR_CODE);
+    // setPophone(computedComments[0].VENDOR_PHONE);
+    // setPocpperson(computedComments[0].VENDOR_CPERSON);
+    // setPomobile(computedComments[0].VENDOR_PHONE);
+    // setPoemail(computedComments[0].VENDOR_EMAIL);
+    // setPovat(computedComments[0].VENDOR_VAT);
+    // setPoadd(computedComments[0].VENDOR_ADD);
+    //setSigName(computedComments[0].VENDOR_NAME);
+    // console.log(computedComments[0].VENDOR_NAME);
+    //setSigNameNTitle(computedComments[0].VENDOR_CPERSON);
 
     if (computedComments[0].VENDOR_VAT) {
       setPogst(vatDetails);
@@ -225,10 +228,10 @@ export default function PopupPO(props) {
     }
 
     return formatedDate;
-  };  
+  };
 
   const getVendorLovData = () => {
-    fetch("https://mssoftware.xyz/getVendorData", {
+    fetch("http://mssoftware.xyz/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -237,7 +240,7 @@ export default function PopupPO(props) {
       .then((response) => response.json())
       .then((response) => {
         setVendorLov(response);
-        axios.get("https://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+        axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
           if (res.data.length > 0) {
             // console.log(res.data);
             setVatDetails(res.data[0].VAT);
@@ -508,7 +511,7 @@ export default function PopupPO(props) {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/removePOMulDataonId", {
+      .post("http://mssoftware.xyz/removePOMulDataonId", {
         POID: id,
       })
       .then((res) => {
@@ -516,7 +519,7 @@ export default function PopupPO(props) {
       });
 
     axios
-      .post("https://mssoftware.xyz/updatePoData", {
+      .post("http://mssoftware.xyz/updatePoData", {
         poid: id,
         podocno: podocno,
         podate: podate,
@@ -675,6 +678,7 @@ export default function PopupPO(props) {
                   required
                   value={povendor}
                   onChange={handleChangeEvent}
+                  disabled
                 >
                   <option key="" value="">
                     Select Vendor
@@ -1049,7 +1053,7 @@ export default function PopupPO(props) {
               <div className="panel-body">
                 <div className="row">
                   <div className="col-sm-6">
-                    <h3>{pocpperson}</h3>
+                    <h3>{sigName}</h3>
                     <div className="row">
                       <div className="col-sm-8 col-xs-8 bot-left">
                         Name &amp; Title

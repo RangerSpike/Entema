@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupVP(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
   const [pmVendorName, setPmVendorName] = useState();
@@ -52,7 +52,7 @@ export default function PopupVP(props) {
   ];
 
   const getVendorLovData = () => {
-    fetch("https://mssoftware.xyz/getVendorData", {
+    fetch("http://mssoftware.xyz/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export default function PopupVP(props) {
 
   const getTimeSheetForVendor = (vendorID) => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetDataonVendorId", {
+      .post("http://mssoftware.xyz/getVenTimesheetDataonVendorId", {
         venId: vendorID,
       })
       .then((res) => {
@@ -204,7 +204,7 @@ export default function PopupVP(props) {
   };
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getVenPmntDataonId", {
+      .post("http://mssoftware.xyz/getVenPmntDataonId", {
         PMID: id,
       })
       .then((res) => {
@@ -223,25 +223,27 @@ export default function PopupVP(props) {
   }, [id]);
 
   const handleSubmit = (e) => {
-     e.preventDefault();
+    e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/updateVenPmData", {
+      .post("http://mssoftware.xyz/updateVenPmData", {
         vpmid: id,
         pmamount: pmAmount,
         pmpmntmode: pmMode,
         pmdescription: pmDescription,
         pmstatus: pmStatus,
+        pmClearedAmt: pmClearedAmt,
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
       });
     //console.log("test submit");
-
+    setId(0);
     setOpenPopup(false);
   };
 
   const onClose = () => {
+    setId(0);
     setOpenPopup(false);
   };
 

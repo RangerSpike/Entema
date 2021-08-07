@@ -67,7 +67,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getPOData")
+    fetch("http://mssoftware.xyz/getPOData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -96,7 +96,7 @@ const DataTable = () => {
     // console.log(myID);
     setAnchorEl(null);
     axios
-      .post("https://mssoftware.xyz/updatePoStatus", {
+      .post("http://mssoftware.xyz/updatePoStatus", {
         POID: myID,
         posts: "Approved",
       })
@@ -115,7 +115,7 @@ const DataTable = () => {
     // console.log(myID);
     setAnchorEl(null);
     axios
-      .post("https://mssoftware.xyz/updatePoStatus", {
+      .post("http://mssoftware.xyz/updatePoStatus", {
         POID: myID,
         posts: "Not Approved",
       })
@@ -131,12 +131,12 @@ const DataTable = () => {
 
   const removePO = (POId) => {
     axios
-      .post("https://mssoftware.xyz/removePODataonId", {
+      .post("http://mssoftware.xyz/removePODataonId", {
         POID: POId,
       })
       .then((res) => {
         axios
-          .post("https://mssoftware.xyz/removePOMulDataonId", {
+          .post("http://mssoftware.xyz/removePOMulDataonId", {
             POID: POId,
           })
           .then((res) => {
@@ -269,13 +269,13 @@ const DataTable = () => {
                             >
                               Approved
                             </MenuItem>
-                            <MenuItem
+                            {/*<MenuItem
                               onClick={() => {
                                 notApproveClose();
                               }}
                             >
                               Not Approved
-                            </MenuItem>
+                            </MenuItem>*/}
                           </Menu>
                         </div>
                       </td>

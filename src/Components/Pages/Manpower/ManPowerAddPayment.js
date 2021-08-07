@@ -32,7 +32,7 @@ function ManPowerAddPayments() {
   ];
 
   const getMpLovData = () => {
-    fetch("https://mssoftware.xyz/getManpowerData", {
+    fetch("http://mssoftware.xyz/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ function ManPowerAddPayments() {
 
   const getMPtimesheetLovData = (MMPID) => {
     axios
-      .post("https://mssoftware.xyz/getMPtimesheetdataBasedOnId", {
+      .post("http://mssoftware.xyz/getMPtimesheetdataBasedOnId", {
         mmtsid: MMPID,
       })
       .then((res) => {
@@ -142,7 +142,7 @@ function ManPowerAddPayments() {
   };
   const validatePayments = (value) => {
     axios
-      .post("https://mssoftware.xyz/mpPmntValidation", {
+      .post("http://mssoftware.xyz/mpPmntValidation", {
         pmmpname: PmManpowerName,
         pmmpts: value,
       })
@@ -192,7 +192,7 @@ function ManPowerAddPayments() {
     e.preventDefault();
     //console.log("test submit", pmDisplayvalue);
     axios
-      .post("https://mssoftware.xyz/insertManpowerPaymentData", {
+      .post("http://mssoftware.xyz/insertManpowerPaymentData", {
         mppmname: PmManpowerName,
         mppmts: PmManpowerTimesheet,
         mppmamt: PmManpowerAmount,

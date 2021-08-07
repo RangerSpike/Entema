@@ -40,7 +40,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("https://mssoftware.xyz/getVendorData")
+    fetch("http://mssoftware.xyz/getVendorData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -53,9 +53,15 @@ const DataTable = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    }, 1300);
+  }, [id]);
+
   const removeVendor = (vendorId) => {
     axios
-      .post("https://mssoftware.xyz/removeVendorDataonId", {
+      .post("http://mssoftware.xyz/removeVendorDataonId", {
         vendorID: vendorId,
       })
       .then((res) => {
@@ -77,13 +83,15 @@ const DataTable = () => {
     let computedComments = comments;
 
     if (search) {
+      
       computedComments = computedComments.filter(
         (comment) =>
           comment.VENDOR_NAME.toLowerCase().includes(search.toLowerCase()) ||
-          comment.VENDOR_CODE.toLowerCase().includes(search.toLowerCase())
+          comment.VENDOR_CODE.toLowerCase().includes(search.toLowerCase()) ||
+          comment.VENDOR_CPERSON.toLowerCase().includes(search.toLowerCase())
       );
     }
-
+    
     setTotalItems(computedComments.length);
 
     //Sorting comments
@@ -168,6 +176,7 @@ const DataTable = () => {
                 </tbody>
               </table>
               <Popup
+                setId={setId}
                 id={id}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}

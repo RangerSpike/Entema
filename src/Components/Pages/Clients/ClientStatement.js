@@ -30,12 +30,12 @@ const ClientStatement = (props) => {
 
   const removeQuotation = (QOId) => {
     axios
-      .post("https://mssoftware.xyz/removeQODataonId", {
+      .post("http://mssoftware.xyz/removeQODataonId", {
         QOID: QOId,
       })
       .then((res) => {
         axios
-          .post("https://mssoftware.xyz/removeQOMulDataonId", {
+          .post("http://mssoftware.xyz/removeQOMulDataonId", {
             QOID: QOId,
           })
           .then((res) => {});
@@ -45,7 +45,7 @@ const ClientStatement = (props) => {
 
   const getQuotationData = (clientId) => {
     axios
-      .post("https://mssoftware.xyz/getQuotDataBasedOnClientId", {
+      .post("http://mssoftware.xyz/getQuotDataBasedOnClientId", {
         clientId: clientId,
       })
       .then((res) => {
@@ -58,7 +58,7 @@ const ClientStatement = (props) => {
 
   useEffect(() => {
     axios
-      .post("https://mssoftware.xyz/getClientBasedOnId", {
+      .post("http://mssoftware.xyz/getClientBasedOnId", {
         clientID: cid,
       })
       .then((res) => {

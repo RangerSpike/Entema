@@ -38,6 +38,9 @@ function Createtimesheet() {
   const [tsTotalOt, settsTotalOt] = useState();
   const [tsTotal, settsTotal] = useState();
   const [tsExpectedWorkingHours, settsExpectedWorkingHours] = useState(260);
+  const [isCalculated, setIsCalculated] = useState(true);
+  const [whTotal, setwhTotal] = useState(0);
+  const [oTtotal, setoTtotal] = useState(0);
 
   const [vendorLov, setVendorLov] = useState([]);
   const [yearLov, setYearLov] = useState([]);
@@ -112,15 +115,15 @@ function Createtimesheet() {
     oTdays31: 0,
   });
 
-  const [users, setUsers] = useState([]);
-  const [oTData, setOtData] = useState([]);
+  const [users, setUsers] = useState([taskList]);
+  const [oTData, setOtData] = useState([oTSheet]);
 
   const [isInputHidden29, setIsInputHidden29] = useState(false);
   const [isInputHidden30, setIsInputHidden30] = useState(false);
   const [isInputHidden31, setIsInputHidden31] = useState(false);
 
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [isDisabledRemove, setisDisabledRemove] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabledRemove, setisDisabledRemove] = useState(true);
 
   const optionUnit = [
     { key: "Select Unit", value: "" },
@@ -135,13 +138,13 @@ function Createtimesheet() {
   //console.log(taskList);
 
   let noOfDays = 0;
+  const [isHidden, setisHidden] = useState(true);
 
   const addUser = () => {
     if (tsMonth != "" && tsYear != "") {
-      setUsers([taskList]);
-      setOtData([oTSheet]);
       setIsDisabled(!isDisabled);
       setisDisabledRemove(true);
+      setisHidden(false);
     }
 
     noOfDays = checkCalendarDays(tsMonth, tsYear);
@@ -179,23 +182,11 @@ function Createtimesheet() {
   };
 
   const removeUsers = (index) => {
-    if (tsMonth != "" && tsYear != "") {
-      setIsDisabled(false);
-      setisDisabledRemove(!isDisabledRemove);
-    }
-
     setIsDisabled(!isDisabled);
-    setisDisabledRemove(!isDisabledRemove);
-    //console.log("index value :", index);
-    const filteredUsers = [...users];
-    filteredUsers.splice(index, 1);
-
-    setUsers(filteredUsers);
-
-    const filteredOtSheet = [...oTData];
-    filteredOtSheet.splice(index, 1);
-
-    setOtData(filteredOtSheet);
+    setIsCalculated(true);
+    setisHidden(true);
+    //setIsDisabled(!isDisabled);
+    //setisDisabledRemove(!isDisabledRemove);
   };
 
   const checkCalendarDays = (month, year) => {
@@ -367,7 +358,7 @@ function Createtimesheet() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/insertVenTimesheetData", {
+      .post("http://mssoftware.xyz/insertVenTimesheetData", {
         tsvenId: timesheetId,
         tsvendor: tsVendor,
         tsmonth: tsMonth,
@@ -391,13 +382,15 @@ function Createtimesheet() {
         //console.log("updated Values Successfully : ", res.data);
       });
 
-    history.push("/");
+    setIsDisabled(false);
+    setisHidden(true);
+    history.push("/ViewTimesheet");
     //console.log("test submit");
   };
 
   const onYearChange = (value) => {
     axios
-      .post("https://mssoftware.xyz/getVenTimesheetValidation", {
+      .post("http://mssoftware.xyz/getVenTimesheetValidation", {
         pVendor: tsVendor,
         pMonth: tsMonth,
         pYear: value,
@@ -416,8 +409,113 @@ function Createtimesheet() {
       });
   };
 
+  const calculateTimesheet = () => {
+    setIsCalculated(true);
+    console.log("CAlculated Timesheet");
+
+    let whtot =
+      parseInt(users[0].days1) +
+      parseInt(users[0].days2) +
+      parseInt(users[0].days3) +
+      parseInt(users[0].days4) +
+      parseInt(users[0].days5) +
+      parseInt(users[0].days6) +
+      parseInt(users[0].days7) +
+      parseInt(users[0].days8) +
+      parseInt(users[0].days9) +
+      parseInt(users[0].days10) +
+      parseInt(users[0].days11) +
+      parseInt(users[0].days12) +
+      parseInt(users[0].days13) +
+      parseInt(users[0].days14) +
+      parseInt(users[0].days15) +
+      parseInt(users[0].days16) +
+      parseInt(users[0].days17) +
+      parseInt(users[0].days18) +
+      parseInt(users[0].days19) +
+      parseInt(users[0].days20) +
+      parseInt(users[0].days21) +
+      parseInt(users[0].days22) +
+      parseInt(users[0].days23) +
+      parseInt(users[0].days24) +
+      parseInt(users[0].days25) +
+      parseInt(users[0].days26) +
+      parseInt(users[0].days27) +
+      parseInt(users[0].days28) +
+      parseInt(users[0].days29) +
+      parseInt(users[0].days30) +
+      parseInt(users[0].days31);
+
+    setwhTotal(whtot);
+
+    let otTot =
+      parseInt(oTData[0].oTdays1) +
+      parseInt(oTData[0].oTdays2) +
+      parseInt(oTData[0].oTdays3) +
+      parseInt(oTData[0].oTdays4) +
+      parseInt(oTData[0].oTdays5) +
+      parseInt(oTData[0].oTdays6) +
+      parseInt(oTData[0].oTdays7) +
+      parseInt(oTData[0].oTdays8) +
+      parseInt(oTData[0].oTdays9) +
+      parseInt(oTData[0].oTdays10) +
+      parseInt(oTData[0].oTdays11) +
+      parseInt(oTData[0].oTdays12) +
+      parseInt(oTData[0].oTdays13) +
+      parseInt(oTData[0].oTdays14) +
+      parseInt(oTData[0].oTdays15) +
+      parseInt(oTData[0].oTdays16) +
+      parseInt(oTData[0].oTdays17) +
+      parseInt(oTData[0].oTdays18) +
+      parseInt(oTData[0].oTdays19) +
+      parseInt(oTData[0].oTdays20) +
+      parseInt(oTData[0].oTdays21) +
+      parseInt(oTData[0].oTdays22) +
+      parseInt(oTData[0].oTdays23) +
+      parseInt(oTData[0].oTdays24) +
+      parseInt(oTData[0].oTdays25) +
+      parseInt(oTData[0].oTdays26) +
+      parseInt(oTData[0].oTdays27) +
+      parseInt(oTData[0].oTdays28) +
+      parseInt(oTData[0].oTdays29) +
+      parseInt(oTData[0].oTdays30) +
+      parseInt(oTData[0].oTdays31);
+
+    setoTtotal(otTot);
+    ValidateCalculations(whtot, otTot);
+  };
+
+  const ValidateCalculations = (whtot, otTot) => {
+    var tot = whtot + otTot;
+
+    if (parseInt(whtot) !== parseInt(tsExpectedWorkingHours)) {
+      alert(
+        "Expected Working Hours " +
+          tsExpectedWorkingHours +
+          " & Working Hours :" +
+          whtot +
+          " Do Not Match !"
+      );
+    } else if (parseInt(tsTotalHours) != parseInt(tot)) {
+      alert(
+        "Total Hours Do Not Match With Calculated Hours(" +
+          tot +
+          "), Please Verify!"
+      );
+    } else {
+      alert("All fields are validated!");
+    }
+
+    if (!tsTotalHours || tsTotalHours == 0) {
+      settsTotalHours(tot);
+      testing();
+    }
+
+    return tot;
+  };
+
   const getVendorLovData = () => {
-    fetch("https://mssoftware.xyz/getVendorData", {
+    fetch("http://mssoftware.xyz/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -432,7 +530,7 @@ function Createtimesheet() {
   };
 
   const getYearLovData = () => {
-    fetch("https://mssoftware.xyz/getYearLov", {
+    fetch("http://mssoftware.xyz/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -701,26 +799,34 @@ function Createtimesheet() {
                   disableElevation
                   variant="contained"
                   color="primary"
+                  style={{ marginBottom: "10px" }}
                 >
                   <Button
                     color="default"
-                    onClick={addUser}
+                    onClick={() => addUser()}
                     disabled={isDisabled}
                   >
                     Show
                   </Button>
                   <Button
                     color="default"
-                    onClick={removeUsers}
-                    disabled={!isDisabledRemove}
+                    onClick={() => removeUsers()}
+                    disabled={!isDisabled}
+                    style={{ marginLeft: "10px" }}
                   >
                     Remove
                   </Button>
                 </ButtonGroup>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-12">
+                <span style={{ color: "red" }}>
+                  NOTE : Please Click On Calculate Button In Case of Adding Data
+                  In Grid
+                </span>
+              </div>
+              <div className="col-md-6" hidden={isHidden}>
+                <lable>REGULAR HOURS</lable>
                 <Container className={classes.root}>
-                  <h5>Working Hours</h5>
                   {users.map((task, i) => (
                     <Grid
                       container
@@ -728,7 +834,7 @@ function Createtimesheet() {
                       key={i}
                       className={classes.inputGroup}
                     >
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 1"
                           name="days1"
@@ -740,7 +846,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 2"
                           name="days2"
@@ -752,7 +858,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 3"
                           name="days3"
@@ -764,7 +870,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 4"
                           name="days4"
@@ -776,7 +882,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 5"
                           name="days5"
@@ -788,7 +894,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 6"
                           name="days6"
@@ -800,7 +906,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 7"
                           name="days7"
@@ -812,7 +918,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 8"
                           name="days8"
@@ -824,7 +930,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 9"
                           name="days9"
@@ -836,7 +942,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 10"
                           name="days10"
@@ -848,7 +954,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 11"
                           name="days11"
@@ -860,7 +966,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 12"
                           name="days12"
@@ -872,7 +978,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 13"
                           name="days13"
@@ -884,7 +990,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 14"
                           name="days14"
@@ -896,7 +1002,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day15"
                           name="days15"
@@ -908,7 +1014,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 16"
                           name="days16"
@@ -920,7 +1026,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 17"
                           name="days17"
@@ -932,7 +1038,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 18"
                           name="days18"
@@ -944,7 +1050,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 19"
                           name="days19"
@@ -956,7 +1062,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 20"
                           name="days20"
@@ -968,7 +1074,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 21"
                           name="days21"
@@ -980,7 +1086,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 22"
                           name="days22"
@@ -992,7 +1098,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 23"
                           name="days23"
@@ -1004,7 +1110,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 24"
                           name="days24"
@@ -1016,7 +1122,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 25"
                           name="days25"
@@ -1028,7 +1134,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 26"
                           name="days26"
@@ -1040,7 +1146,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 27"
                           name="days27"
@@ -1052,7 +1158,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 28"
                           name="days28"
@@ -1064,7 +1170,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 29"
                           name="days29"
@@ -1077,7 +1183,7 @@ function Createtimesheet() {
                           disabled={isInputHidden29}
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 30"
                           name="days30"
@@ -1090,7 +1196,7 @@ function Createtimesheet() {
                           disabled={isInputHidden30}
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 31"
                           name="days31"
@@ -1107,9 +1213,9 @@ function Createtimesheet() {
                   ))}
                 </Container>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6" hidden={isHidden}>
+                <lable>OT HOURS</lable>
                 <Container className={classes.root}>
-                  <h5>Over Time</h5>
                   {oTData.map((task, i) => (
                     <Grid
                       container
@@ -1117,7 +1223,7 @@ function Createtimesheet() {
                       key={i}
                       className={classes.inputGroup}
                     >
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 1"
                           name="oTdays1"
@@ -1129,7 +1235,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 2"
                           name="oTdays2"
@@ -1141,7 +1247,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 3"
                           name="oTdays3"
@@ -1153,7 +1259,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 4"
                           name="oTdays4"
@@ -1165,7 +1271,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 5"
                           name="oTdays5"
@@ -1177,7 +1283,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 6"
                           name="oTdays6"
@@ -1189,10 +1295,10 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 7"
-                          name="oTday7"
+                          name="oTdays7"
                           type="number"
                           //placeholder="Enter Your Name"
                           variant="outlined"
@@ -1201,7 +1307,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 8"
                           name="oTdays8"
@@ -1213,7 +1319,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 9"
                           name="oTdays9"
@@ -1225,7 +1331,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 10"
                           name="oTdays10"
@@ -1237,7 +1343,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 11"
                           name="oTdays11"
@@ -1249,7 +1355,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 12"
                           name="oTdays12"
@@ -1261,7 +1367,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 13"
                           name="oTdays13"
@@ -1273,7 +1379,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 14"
                           name="oTdays14"
@@ -1285,7 +1391,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day15"
                           name="oTdays15"
@@ -1297,7 +1403,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 16"
                           name="oTdays16"
@@ -1309,7 +1415,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 17"
                           name="oTdays17"
@@ -1321,7 +1427,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 18"
                           name="oTdays18"
@@ -1333,7 +1439,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 19"
                           name="oTdays19"
@@ -1345,7 +1451,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 20"
                           name="oTdays20"
@@ -1357,7 +1463,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 21"
                           name="oTdays21"
@@ -1369,7 +1475,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 22"
                           name="oTdays22"
@@ -1381,7 +1487,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 23"
                           name="oTdays23"
@@ -1393,7 +1499,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 24"
                           name="oTdays24"
@@ -1405,7 +1511,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 25"
                           name="oTdays25"
@@ -1417,7 +1523,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 26"
                           name="oTdays26"
@@ -1429,7 +1535,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 27"
                           name="oTdays27"
@@ -1441,7 +1547,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 28"
                           name="oTdays28"
@@ -1453,7 +1559,7 @@ function Createtimesheet() {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 29"
                           name="oTdays29"
@@ -1466,7 +1572,7 @@ function Createtimesheet() {
                           disabled={isInputHidden29}
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 30"
                           name="oTdays30"
@@ -1479,7 +1585,7 @@ function Createtimesheet() {
                           disabled={isInputHidden30}
                         />
                       </Grid>
-                      <Grid item md={2}>
+                      <Grid item md={4}>
                         <TextField
                           label="Day 31"
                           name="oTdays31"
@@ -1494,6 +1600,18 @@ function Createtimesheet() {
                       </Grid>
                     </Grid>
                   ))}
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    style={{
+                      marginTop: "20px",
+                      marginBottom: "40px",
+                      marginLeft: "246px",
+                    }}
+                    onClick={calculateTimesheet}
+                  >
+                    Calculate
+                  </button>
                 </Container>
               </div>
             </div>
