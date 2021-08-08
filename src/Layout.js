@@ -4,7 +4,6 @@ import Aside from './Aside';
 import Routes from './Routes';
 import Navbar from './Components/Pages/Navbar';
 
-
 function Layout({ setLocale }) {
   const [rtl, setRtl] = useState(false);
   const [collapsed, setCollapsed] = useState(false);

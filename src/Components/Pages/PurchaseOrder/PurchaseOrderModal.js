@@ -130,6 +130,9 @@ export default function PopupPO(props) {
           setPogst(parseInt(res.data[0].PO_GST));
           setPograndtotal(parseFloat(res.data[0].PO_GRANDTOTAL));
           setSigName(res.data[0].VI_CONTACT_PERSON);
+          setInstruction(res.data[0].PO_INSTRUCTION)
+          setConditionTerms(res.data[0].PO_TC);
+          setDeliveryTerms(res.data[0].PO_TOD);
         }
       });
 
@@ -164,7 +167,7 @@ export default function PopupPO(props) {
     //console.log("onchange computedComments is : ", computedComments);
     if (vendorID) {
       computedComments = computedComments.filter(
-        (comment) => comment.VENDOR_ID == vendorID
+        (comment) => comment.VENDOR_ID === vendorID
       );
     }
     //console.log("data set value is : ", computedComments);

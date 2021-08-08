@@ -251,7 +251,7 @@ export default function PopupVPR(props) {
                   <label for="userName">Amount</label>
                   <input
                     type="text"
-                    class="form-control is-valid"
+                    class="form-control is-valid"                  
                     value={pmAmount}
                     id="pmAmount"
                     name="pmAmount"

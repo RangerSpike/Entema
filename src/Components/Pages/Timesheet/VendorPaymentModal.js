@@ -313,6 +313,7 @@ export default function PopupVP(props) {
                     id="pmAmount"
                     name="pmAmount"
                     required
+                    disabled
                   />
                 </div>
                 <div class="col-md-6 mb-3">

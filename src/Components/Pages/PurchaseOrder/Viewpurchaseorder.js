@@ -36,8 +36,10 @@ const DataTable = () => {
   };
 
   const openPdfPopup = (item) => {
-    setOpenpdfPopup(true);
-    setId(item);
+    //window.open(`https://pdfvercel.vercel.app/PoPdf/${item}`);
+    // setOpenpdfPopup(true);
+    // setId(item);
+    //window.print();
   };
   const ITEMS_PER_PAGE = 10;
 

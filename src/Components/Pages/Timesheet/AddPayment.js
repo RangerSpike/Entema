@@ -286,6 +286,7 @@ function AddPayment() {
                   type="number"
                   class="form-control is-valid"
                   value={pmAmount}
+                  disabled
                   id="pmAmount"
                   name="pmAmount"
                   required
