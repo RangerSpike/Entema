@@ -273,7 +273,7 @@ const onclosePopup = ()=>{
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onclosePopup()}
             style={{ flex: "end" }}
           >
             Close

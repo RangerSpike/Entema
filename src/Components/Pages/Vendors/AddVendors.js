@@ -187,7 +187,7 @@ function AddVendors() {
       vendoriban: vendoriban,
       vendorvat: vendorvat,
       vendordocno: vendordocno,
-      createdby: createdby,
+      createdby:localStorage.getItem("userDetails"),
       vendorstatus: vendorstatus,
     }).then((res) => {
       console.log("result success : ", res);

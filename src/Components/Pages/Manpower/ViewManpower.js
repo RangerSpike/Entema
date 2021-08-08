@@ -44,7 +44,7 @@ const DataTable = () => {
     fetch("http://mssoftware.xyz/getManpowerData")
       .then((response) => response.json())
       .then((json) => {
-        hideLoader(); 
+        hideLoader();
         setComments(json);
         // console.log(json);
       });
@@ -57,9 +57,9 @@ const DataTable = () => {
   useEffect(() => {
     setTimeout(() => {
       getData();
-    },1300);
+    }, 1300);
   }, [id]);
-  
+
   const removeManPower = (mpId) => {
     axios
       .post("http://mssoftware.xyz/removeMPDataonId", {
@@ -106,88 +106,88 @@ const DataTable = () => {
 
   return (
     <>
-    <div class="scrollbar square scrollbar-lady-lips thin">
-      <div class="container" style={{ paddingTop: "3px", paddingLeft: "5px" }}>
-        <div className="heading-layout1">
-          <div className="item-title">
-            <h3 style={{ padding: "50px" }}>List of Manpower</h3>
-          </div>
-        </div>
-
-        <div className="row w-100">
-          <div className="col mb-3 col-12 text-center">
-            <div className="row">
-              <div
-                className="col-md-6 d-flex flex-row-reverse"
-                style={{ marginBottom: "30px", marginLeft: "340px" }}
-              >
-                <Search
-                  onSearch={(value) => {
-                    setSearch(value);
-                    setCurrentPage(1);
-                  }}
-                />
-              </div>
+      <div class="scrollbar square scrollbar-lady-lips thin">
+        <div
+          class="container"
+          style={{ paddingTop: "3px", paddingLeft: "5px" }}
+        >
+          <div className="heading-layout1">
+            <div className="item-title">
+              <h3 style={{ padding: "50px" }}>List of Manpower</h3>
             </div>
-
-            <table className="table table-striped">
-              <TableHeader
-                headers={headers}
-                onSorting={(field, order) => setSorting({ field, order })}
-              />
-              <tbody>
-                {commentsData.map((comment) => (
-                  <tr>
-                    <th
-                      scope="row"
-                      key={comment.MP_ID}
-                      onClick={() => openInPopup(comment.MP_ID)}
-                      style={{cursor:'pointer'}}
-                    >
-                      {comment.MP_ID}
-                    </th>
-                    <td o>
-                      {comment.MP_IQAMA_ID}
-                    </td>
-                    <td>
-                      {comment.MP_NAME}
-                    </td>
-                    <td>{comment.MP_CATEGORY}</td>
-                    {/* <td>{comment.MP_BENF_NAME}</td>
-                                    <td>{comment.MP_BANK_NAME}</td> */}
-                    {/* <td>{comment.MP_ACCOUNT}</td> */}
-                    <td>{comment.MP_IBAN}</td>
-                    <td>{comment.MP_LOC}</td>
-                    <td>{comment.CREATED_DATE}</td>
-                    <td>{comment.CREATED_BY}</td>
-
-                    <td>
-                      <IconButton color="secondary">
-                        <DeleteOutlineIcon
-                          onClick={() => removeManPower(comment.MP_ID)}
-                        />
-                      </IconButton>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <Popup
-              id={id}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            ></Popup>
           </div>
-          <div className="col-md-6">
-            <Pagination
-              total={totalItems}
-              itemsPerPage={ITEMS_PER_PAGE}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
+
+          <div className="row w-100">
+            <div className="col mb-3 col-12 text-center">
+              <div className="row">
+                <div
+                  className="col-md-6 d-flex flex-row-reverse"
+                  style={{ marginBottom: "30px", marginLeft: "340px" }}
+                >
+                  <Search
+                    onSearch={(value) => {
+                      setSearch(value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <table className="table table-striped">
+                <TableHeader
+                  headers={headers}
+                  onSorting={(field, order) => setSorting({ field, order })}
+                />
+                <tbody>
+                  {commentsData.map((comment) => (
+                    <tr>
+                      <th
+                        scope="row"
+                        key={comment.MP_ID}
+                        onClick={() => openInPopup(comment.MP_ID)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {comment.MP_ID}
+                      </th>
+                      <td o>{comment.MP_IQAMA_ID}</td>
+                      <td>{comment.MP_NAME}</td>
+                      <td>{comment.MP_CATEGORY}</td>
+                      {/* <td>{comment.MP_BENF_NAME}</td>
+                                    <td>{comment.MP_BANK_NAME}</td> */}
+                      {/* <td>{comment.MP_ACCOUNT}</td> */}
+                      <td>{comment.MP_IBAN}</td>
+                      <td>{comment.MP_LOC}</td>
+                      <td>{comment.CREATED_DATE}</td>
+                      <td>{comment.CREATED_BY}</td>
+
+                      <td>
+                        <IconButton color="secondary">
+                          <DeleteOutlineIcon
+                            onClick={() => removeManPower(comment.MP_ID)}
+                          />
+                        </IconButton>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Popup
+                setId={setId}
+                id={id}
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+              ></Popup>
+            </div>
+            <div className="col-md-6">
+              <Pagination
+                total={totalItems}
+                itemsPerPage={ITEMS_PER_PAGE}
+                currentPage={currentPage}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
+            </div>
           </div>
         </div>
-      </div>
       </div>
       {loader}
     </>

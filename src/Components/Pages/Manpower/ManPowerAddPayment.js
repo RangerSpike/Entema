@@ -192,7 +192,7 @@ function ManPowerAddPayments() {
     e.preventDefault();
     //console.log("test submit", pmDisplayvalue);
     axios
-      .post("http://localhost:3009/insertManpowerPaymentData", {
+      .post("http://mssoftware.xyz/insertManpowerPaymentData", {
         mppmname: PmManpowerName,
         mppmts: PmManpowerTimesheet,
         mppmamt: PmManpowerAmount,
@@ -201,6 +201,7 @@ function ManPowerAddPayments() {
         mppmsts: PmManpowerStatus,
         mppmDispValue: pmDisplayvalue,
         mptsDispValue: pmtsDispName,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);

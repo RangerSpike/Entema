@@ -216,11 +216,11 @@ function CreateManpower() {
         mtstotal: MpTotalAmount,
         mtsgrid: true,
         mpDispValue: manpowDispValue,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
       });
-
     history.push("/ViewTimesheetm");
     //console.log("test submit");
   };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Popup from "./VendorsModal";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
+import { useHistory } from "react-router-dom";
 import CachedIcon from "@material-ui/icons/Cached";
 
 import { TableHeader, Pagination, Search } from "../../DataTable";
@@ -9,6 +10,7 @@ import { IconButton } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 const DataTable = () => {
+  const history = useHistory();
   const [comments, setComments] = useState([]);
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const [totalItems, setTotalItems] = useState(0);
@@ -76,6 +78,12 @@ const DataTable = () => {
       });
   };
 
+  const openInStatement = (vendorId) => {
+    console.log("IDIDI: ", vendorId);
+
+    history.push(`/Statement/${vendorId}`);
+  };
+
   const test = (data) => {
     alert("hurrray :" + data);
   };
@@ -83,7 +91,6 @@ const DataTable = () => {
     let computedComments = comments;
 
     if (search) {
-      
       computedComments = computedComments.filter(
         (comment) =>
           comment.VENDOR_NAME.toLowerCase().includes(search.toLowerCase()) ||
@@ -91,7 +98,7 @@ const DataTable = () => {
           comment.VENDOR_CPERSON.toLowerCase().includes(search.toLowerCase())
       );
     }
-    
+
     setTotalItems(computedComments.length);
 
     //Sorting comments
@@ -150,11 +157,15 @@ const DataTable = () => {
                 <tbody>
                   {commentsData.map((comment) => (
                     <tr>
-                      <th scope="row" key={comment.VENDOR_id}>
+                      <th
+                        scope="row"
+                        key={comment.VENDOR_ID}
+                        onClick={() => openInPopup(comment.VENDOR_ID)}
+                      >
                         {comment.VENDOR_ID}
                       </th>
                       <td
-                        onClick={() => openInPopup(comment.VENDOR_ID)}
+                        onClick={() => openInStatement(comment.VENDOR_ID)}
                         style={{ cursor: "pointer" }}
                       >
                         {comment.VENDOR_NAME}

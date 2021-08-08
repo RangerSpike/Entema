@@ -64,7 +64,7 @@ function MainApp() {
         activities,
       };
 
-      localStorage.setItem("userDetails", JSON.stringify(userDetails));
+      localStorage.setItem("userDetails",(dataSet[0].USER_NAME));
 
       console.log("activities - : ", activities);
       activateRoute();
@@ -100,7 +100,7 @@ function MainApp() {
   // };
 
   const handleChange = (e) => {
-    console.log("Change : ", e.target.value);
+    //console.log("Change : ", e.target.value);
     let input = e.target.name;
 
     if (input === "user") {

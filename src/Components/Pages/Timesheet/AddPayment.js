@@ -194,6 +194,7 @@ function AddPayment() {
         pmstatus: pmStatus,
         pmtsDispName: pmtsDispName,
         pmClearedAmt: pmClearedAmt,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);

@@ -36,6 +36,7 @@ function Activities() {
         actname: AcActivityName,
         actenddate: AcEndDate,
         actdescription: AcDescription,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         // setData(res.data);

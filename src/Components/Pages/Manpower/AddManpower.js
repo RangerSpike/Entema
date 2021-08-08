@@ -55,6 +55,7 @@ function AddManpower() {
         mpiban: MpIbanNumber,
         mploc: MpLocation,
         mpdesc: MpDescription,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         // console.log("updated Values Successfully : ", res.data);

@@ -82,6 +82,7 @@ function CreateNote() {
         delnotice: DnNotice,
         clientDispValue: clientDispValue,
         clientPersonValue: clientPersonValue,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);

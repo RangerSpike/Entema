@@ -268,6 +268,7 @@ function CreateQuotation() {
         termCond: termCond,
         multiSet: multiSet,
         clientDispValue: clientDispValue,
+        createdby:localStorage.getItem("userDetails")
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);

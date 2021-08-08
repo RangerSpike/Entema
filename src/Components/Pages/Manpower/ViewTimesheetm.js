@@ -58,11 +58,13 @@ const DataTable = () => {
       });
     setMyID("");
   };
+
   useEffect(() => {
     setTimeout(() => {
       getData();
     },1300);
   }, [id]);
+  
   const notApproveClose = () => {
     ////console.log(myID);
     setAnchorEl(null);
@@ -90,6 +92,7 @@ const DataTable = () => {
     { name: "Created By", field: "Created By", sortable: false },
     { name: "Status", field: "Status", sortable: false },
     { name: "Delete", field: "Delete", sortable: false },
+    { name: "Actions", field: "Actions", sortable: false },
   ];
 
   const MonthLov = [
@@ -387,13 +390,13 @@ const DataTable = () => {
                           >
                             Approved
                           </MenuItem>
-                          <MenuItem
+                          {/*<MenuItem
                             onClick={() => {
                               notApproveClose();
                             }}
                           >
                             Not Approved
-                          </MenuItem>
+                          </MenuItem>*/}
                         </Menu>
                       </div>
                     </td>

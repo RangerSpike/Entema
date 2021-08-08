@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId,id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
   // console.log("id : ", id);
@@ -110,8 +110,14 @@ export default function Popup(props) {
       })
       .then((res) => {
       });
+      setId(0);
       setOpenPopup(false);
   };
+
+  const onClosePopup =()=>{
+    setId(0);
+    setOpenPopup(false);
+  }
 
   return (
     <Dialog
@@ -124,7 +130,7 @@ export default function Popup(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             Close

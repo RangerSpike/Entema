@@ -92,6 +92,7 @@ const DataTable = () => {
       getData();
     }, 1300);
   }, [id]);
+
   const approvedClose = () => {
     // console.log(myID);
     setAnchorEl(null);
@@ -111,6 +112,7 @@ const DataTable = () => {
 
     history.push(`/Statement/${vendorId}`);
   };
+  
   const notApproveClose = () => {
     // console.log(myID);
     setAnchorEl(null);
