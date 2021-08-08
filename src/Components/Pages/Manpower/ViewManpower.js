@@ -53,11 +53,13 @@ const DataTable = () => {
   useEffect(() => {
     getData();
   }, []);
+
   useEffect(() => {
     setTimeout(() => {
       getData();
     },1300);
   }, [id]);
+  
   const removeManPower = (mpId) => {
     axios
       .post("http://mssoftware.xyz/removeMPDataonId", {

@@ -221,8 +221,7 @@ function CreateManpower() {
         //console.log("updated Values Successfully : ", res.data);
       });
 
-    history.push("/ViewManpower");
-
+    history.push("/ViewTimesheetm");
     //console.log("test submit");
   };
 

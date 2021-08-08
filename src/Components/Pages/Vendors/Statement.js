@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { useEffect, useState, useMemo } from "react";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import { Pagination } from "../../DataTable";
@@ -106,8 +107,9 @@ const Statement = (props) => {
       })
       .then((res) => {
         //console.log("recsuccessfully deleted user ", tsId);
-        setRefresh(!refresh);
       });
+    setRefresh(!refresh);
+    getTSdata(vid);
     hideLoader();
     //console.log("TimeSheet ID : ", tsId);
   };
@@ -165,6 +167,7 @@ const Statement = (props) => {
       })
       .then((res) => {
         if (res.data.length > 0) {
+          console.log("res.data :", res.data);
           setVENTSdetails(res.data);
         }
       });
@@ -289,6 +292,7 @@ const Statement = (props) => {
     if (value != "Paid") return false;
     else return true;
   };
+
   const removePO = (POId) => {
     axios
       .post("http://mssoftware.xyz/removePODataonId", {
@@ -303,6 +307,7 @@ const Statement = (props) => {
             setRefresh(!refresh);
           });
       });
+    getPOData(vid);
   };
 
   const removeVenPm = (pmntId) => {
@@ -314,7 +319,7 @@ const Statement = (props) => {
         // console.log("recsuccessfully deleted user ", pmntId);
         setRefresh(!refresh);
       });
-
+    getVpmdata(vid);
     // console.log('vendor payment ID : ', pmntId);
   };
 

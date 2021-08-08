@@ -192,7 +192,7 @@ function ManPowerAddPayments() {
     e.preventDefault();
     //console.log("test submit", pmDisplayvalue);
     axios
-      .post("http://mssoftware.xyz/insertManpowerPaymentData", {
+      .post("http://localhost:3009/insertManpowerPaymentData", {
         mppmname: PmManpowerName,
         mppmts: PmManpowerTimesheet,
         mppmamt: PmManpowerAmount,
@@ -205,7 +205,7 @@ function ManPowerAddPayments() {
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
       });
-    history.push("/");
+    history.push("/ManPowerClaims");
   };
 
   return (

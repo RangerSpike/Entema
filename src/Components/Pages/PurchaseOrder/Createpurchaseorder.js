@@ -406,7 +406,9 @@ function Createpurchaseorder() {
       setInstruction(e.target.value);
     } else if (input === "deliveryTerms") {
       setDeliveryTerms(e.target.value);
+      console.log(e.target.value);
     } else if (input === "conditionTerms") {
+      console.log(e.target.value);
       setConditionTerms(e.target.value);
     } else if (["description", "unit", "qty", "unit_rate"].includes(input)) {
       //console.log("exceptional handling");
@@ -897,7 +899,7 @@ function Createpurchaseorder() {
                   onChange={handleChangeEvent}
                   id="deliveryTerms"
                   value={deliveryTerms}
-                  rows="2"
+                  rows="3"
                 />
               </div>
               <div class="col-md-12 mb-3">

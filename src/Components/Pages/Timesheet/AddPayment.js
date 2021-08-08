@@ -12,7 +12,7 @@ function AddPayment() {
   const [pmMode, setPmMode] = useState();
   const [pmDescription, setPmDescription] = useState();
   const [pmStatus, setPmStatus] = useState();
-  const [pmClearedAmt, setPmClearedAmt] = useState();
+  const [pmClearedAmt, setPmClearedAmt] = useState(0);
   const [pmtsDispName, setPmtsDispName] = useState();
 
   const [vendorLov, setVendorLov] = useState([]);
