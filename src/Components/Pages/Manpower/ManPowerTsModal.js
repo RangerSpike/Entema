@@ -354,9 +354,7 @@ const onclosePopup = ()=>{
                   type="text"
                   class="form-control is-valid"
                   value={MpDescription}
-                  id="MpDescription"
-                  name="MpDescription"
-                  required
+                  id="MpDescription"       
                 />
               </div>
               <div class="col-md-4 mb-3">

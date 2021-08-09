@@ -27,8 +27,8 @@ function MainApp() {
         userPwd: pwd,
       })
       .then((res) => {
-        console.log("result set in login page: ", res.data);
-        console.log("result set in login page length: ", res.data.length);
+        //console.log("result set in login page: ", res.data);
+        //console.log("result set in login page length: ", res.data.length);
 
         if (res.data.length > 0) {
           SetResult(res.data);
@@ -42,7 +42,7 @@ function MainApp() {
         }
       });
 
-    console.log("test :");
+    //console.log("test :");
     //setShow(!show);
   };
 
@@ -66,21 +66,21 @@ function MainApp() {
 
       localStorage.setItem("userDetails",(dataSet[0].USER_NAME));
 
-      console.log("activities - : ", activities);
+      //console.log("activities - : ", activities);
       activateRoute();
       setShow(!show);
     }
   };
   const activateRoute = () => {
     Auth.login(() => {
-      console.log("Protected Route Activated");
+      //console.log("Protected Route Activated");
     });
     // setShow(!show);
   };
 
   const deActivateRoute = () => {
     Auth.logout(() => {
-      console.log("Protected Route Deactivated");
+      //console.log("Protected Route Deactivated");
     });
     // setShow(!show);
   };

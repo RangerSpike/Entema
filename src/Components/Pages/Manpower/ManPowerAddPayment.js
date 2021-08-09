@@ -301,8 +301,7 @@ function ManPowerAddPayments() {
                 class="form-control is-valid"
                 value={PmManpowerDescription}
                 id="PmManpowerDescription"
-                name="PmManpowerDescription"
-                required
+                name="PmManpowerDescription"          
               />
             </div>
             <div class="col-md-6 mb-3">

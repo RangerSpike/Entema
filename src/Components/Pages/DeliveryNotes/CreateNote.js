@@ -167,8 +167,7 @@ function CreateNote() {
                 class="form-control is-valid"
                 value={DnDispatchDate}
                 id="DnDispatchDate"
-                name="DnDispatchDate"
-                required
+                name="DnDispatchDate"             
               />
             </div>
           </div>
@@ -181,8 +180,7 @@ function CreateNote() {
                 class="form-control is-valid"
                 value={DnNotice}
                 id="DnNotice"
-                name="DnNotice"
-                required
+                name="DnNotice"                
               />
             </div>
           </div>

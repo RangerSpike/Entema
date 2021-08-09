@@ -37,8 +37,8 @@ const DataTable = () => {
 
   const openPdfPopup = (item) => {
     //window.open(`https://pdfvercel.vercel.app/PoPdf/${item}`);
-    // setOpenpdfPopup(true);
-    // setId(item);
+    setId(item);
+    setOpenpdfPopup(true);
     //window.print();
   };
   const ITEMS_PER_PAGE = 10;
@@ -110,11 +110,11 @@ const DataTable = () => {
   };
 
   const openInStatement = (vendorId) => {
-    console.log("IDIDI: ", vendorId);
+    //console.log("IDIDI: ", vendorId);
 
     history.push(`/Statement/${vendorId}`);
   };
-  
+
   const notApproveClose = () => {
     // console.log(myID);
     setAnchorEl(null);

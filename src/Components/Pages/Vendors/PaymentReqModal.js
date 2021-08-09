@@ -179,6 +179,7 @@ export default function PopupVPR(props) {
       });
     //console.log("test submit");
     setId(0);
+    setPmClearedAmt();
     setOpenPopup(false);
     setRefresh(!refresh);
   };

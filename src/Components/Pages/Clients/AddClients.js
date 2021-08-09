@@ -123,8 +123,7 @@ function AddClients() {
                   class="form-control is-valid"
                   id="clientadd"
                   name="clientadd"
-                  onChange={handleChangeEvent}
-                  required
+                  onChange={handleChangeEvent}              
                 />
               </div>
 

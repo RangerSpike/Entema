@@ -657,9 +657,9 @@ export default function PopupPdf(props) {
                             <td>{comment.PO_DESC}</td>
                             <td>{comment.UNIT_DD}</td>
                             <td>{comment.QUANTITY}</td>
-                            <td>{comment.UNIT_RATE}</td>
+                            <td>{comment.UNIT_RATE}/{comment.UNIT_DD}</td>
                             <td>{comment.UNIT_AMOUNT}</td>
-                            <td>NA</td>
+                            <td>N/A</td>
                           </tr>
                         ))}
                       </tbody>
@@ -811,7 +811,7 @@ export default function PopupPdf(props) {
                               Signature
                             </div>
                             <div className="col-sm-7 col-xs-6 bot-right">
-                              {pocpperson}
+                              
                             </div>
                           </div>
                           <div className="row">

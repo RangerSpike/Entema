@@ -81,7 +81,7 @@ function CreateQuotation() {
     description: "",
     unit: "",
     qty: "",
-    mobAnddemob: "N/a",
+    mobAnddemob: "N/A",
     amount: "",
     totalAmount: "",
   };

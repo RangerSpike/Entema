@@ -270,6 +270,7 @@ function CreateManpower() {
                       {data.value}
                     </option>
                   ))}
+
                 </select>
               </div>
               <div class="col-md-4 mb-3">
@@ -299,8 +300,7 @@ function CreateManpower() {
                   class="form-control is-valid"
                   value={MpDescription}
                   id="MpDescription"
-                  name="MpDescription"
-                  required
+                  name="MpDescription"              
                 />
               </div>
               <div class="col-md-4 mb-3">
@@ -310,8 +310,7 @@ function CreateManpower() {
                   class="form-control is-valid"
                   value={MpIqamaId}
                   id="MpIqamaId"
-                  name="MpIqamaId"
-                  required
+                  name="MpIqamaId"                  
                 />
               </div>
             </div>

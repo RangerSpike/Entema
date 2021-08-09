@@ -165,8 +165,7 @@ function AddManpower() {
                 class="form-control is-valid"
                 value={MpIbanNumber}
                 id="MpIbanNumber"
-                name="MpIbanNumber"
-                required
+                name="MpIbanNumber"         
                 onChange={handleChangeEvent}
               />
             </div>
@@ -189,8 +188,7 @@ function AddManpower() {
                 class="form-control is-valid"
                 value={MpDescription}
                 id="MpDescription"
-                name="MpDescription"
-                required
+                name="MpDescription"              
                 onChange={handleChangeEvent}
               />
             </div>

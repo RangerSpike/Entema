@@ -129,7 +129,7 @@ export default function PopupPO(props) {
           setPototal(parseInt(res.data[0].PO_TOTAL));
           setPogst(parseInt(res.data[0].PO_GST));
           setPograndtotal(parseFloat(res.data[0].PO_GRANDTOTAL));
-          setSigName(res.data[0].VI_CONTACT_PERSON);
+          setSigName(res.data[0].VENDOR_DISP_NAME);
           setInstruction(res.data[0].PO_INSTRUCTION)
           setConditionTerms(res.data[0].PO_TC);
           setDeliveryTerms(res.data[0].PO_TOD);
@@ -788,8 +788,7 @@ export default function PopupPO(props) {
                     type="date"
                     class="form-control is-valid"
                     id="postartdate"
-                    name="postartdate"
-                    required
+                    name="postartdate"                   
                     value={postartdate}
                     onChange={handleChangeEvent}
                   />
@@ -800,8 +799,7 @@ export default function PopupPO(props) {
                     type="date"
                     class="form-control is-valid"
                     id="poenddate"
-                    name="poenddate"
-                    required
+                    name="poenddate"              
                     value={poenddate}
                     onChange={handleChangeEvent}
                   />
@@ -826,8 +824,7 @@ export default function PopupPO(props) {
                     type="date"
                     class="form-control is-valid"
                     id="pomobilizationdate"
-                    name="pomobilizationdate"
-                    required
+                    name="pomobilizationdate"                  
                     value={pomobilizationdate}
                     onChange={handleChangeEvent}
                   />{" "}
@@ -840,8 +837,7 @@ export default function PopupPO(props) {
                   type="text"
                   class="form-control is-valid"
                   id="podesc"
-                  name="podesc"
-                  required
+                  name="podesc"                  
                   value={podesc}
                   onChange={handleChangeEvent}
                 />
@@ -927,6 +923,7 @@ export default function PopupPO(props) {
                           value={item.qty}
                           onBlur={(e) => handleBlur(e, index)}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item md={2}>
@@ -940,6 +937,7 @@ export default function PopupPO(props) {
                           value={item.unit_rate}
                           onBlur={(e) => handleBlur(e, index)}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item md={2}>
@@ -952,7 +950,7 @@ export default function PopupPO(props) {
                           onChange={(e) => handleChangeEvent(e, index)}
                           value={item.amount}
                           disabled
-                          fullWidth
+                          fullWidth                          
                         />
                       </Grid>
 

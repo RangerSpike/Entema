@@ -167,9 +167,9 @@ function Createpurchaseorder() {
     let formatedDate;
 
     if (currentMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
-      formatedDate = currentYear + "-0" + currentMonth + "-" + currentDay;
+      formatedDate = currentDay + "-0" + currentMonth + "-" + currentYear;
     } else {
-      formatedDate = currentYear + "-" + currentMonth + "-" + currentDay;
+      formatedDate = currentDay + "-" + currentMonth + "-" + currentYear;
     }
 
     return formatedDate;
@@ -187,7 +187,7 @@ function Createpurchaseorder() {
         setVendorLov(response);
         axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
           if (res.data.length > 0) {
-            console.log(res.data);
+            //console.log(res.data);
             setVatDetails(res.data[0].VAT);
           }
         });
@@ -406,9 +406,9 @@ function Createpurchaseorder() {
       setInstruction(e.target.value);
     } else if (input === "deliveryTerms") {
       setDeliveryTerms(e.target.value);
-      console.log(e.target.value);
+      //console.log(e.target.value);
     } else if (input === "conditionTerms") {
-      console.log(e.target.value);
+      //console.log(e.target.value);
       setConditionTerms(e.target.value);
     } else if (["description", "unit", "qty", "unit_rate"].includes(input)) {
       //console.log("exceptional handling");
@@ -465,7 +465,7 @@ function Createpurchaseorder() {
         conditionTerms: conditionTerms,
         taskList: orderItem,
         vendorDispName: sigName,
-        createdby:localStorage.getItem("userDetails")
+        createdby: localStorage.getItem("userDetails"),
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
@@ -529,7 +529,6 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="poquotationref"
                     name="poquotationref"
-                    required
                   />
                 </div>
               </div>
@@ -668,7 +667,6 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="postartdate"
                     name="postartdate"
-                    required
                   />
                 </div>
                 <div class="col-md-6 mb-3">
@@ -678,7 +676,6 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="poenddate"
                     name="poenddate"
-                    required
                   />
                 </div>{" "}
               </div>
@@ -690,7 +687,6 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="polocation"
                     name="polocation"
-                    required
                   />
                 </div>
                 <div class="col-md-6 mb-3">
@@ -700,7 +696,6 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="pomobilizationdate"
                     name="pomobilizationdate"
-                    required
                   />{" "}
                 </div>
               </div>
@@ -712,7 +707,6 @@ function Createpurchaseorder() {
                   class="form-control is-valid"
                   id="podesc"
                   name="podesc"
-                  required
                 />
               </div>
               <hr style={{ backgroundColor: "#030000" }} />
@@ -796,6 +790,7 @@ function Createpurchaseorder() {
                           value={item.qty}
                           onBlur={(e) => handleBlur(e, index)}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item md={2}>
@@ -809,6 +804,7 @@ function Createpurchaseorder() {
                           value={item.unit_rate}
                           onBlur={(e) => handleBlur(e, index)}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item md={2}>
@@ -822,6 +818,7 @@ function Createpurchaseorder() {
                           value={item.amount}
                           disabled
                           fullWidth
+                          required
                         />
                       </Grid>
 

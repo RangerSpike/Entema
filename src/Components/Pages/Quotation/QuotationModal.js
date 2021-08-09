@@ -69,7 +69,7 @@ export default function Popup(props) {
     description: "",
     unit: "",
     qty: "",
-    mobAnddemob: "",
+    mobAnddemob: "N/A",
     amount: "",
     totalAmount: "",
   };
@@ -152,7 +152,7 @@ export default function Popup(props) {
     const input = e.target.name;
 
     if (input === "cqdate") {
-      console.log("ON CHANGE DATE : ",e.target.value)
+      console.log("ON CHANGE DATE : ", e.target.value);
       setCqdate(e.target.value);
     } else if (input === "cqclient") {
       setCqclient(e.target.value);
@@ -222,6 +222,7 @@ export default function Popup(props) {
           setCqemail(res.data[0].QO_COMP_EMAIL);
           setCqtypes(res.data[0].QO_TYPE);
           setClientDispValue(res.data[0].CLIENT_DISP_NAME);
+          setTermCond(res.data[0].QO_TERMS_COND);
           // console.log("CQ :", cqtypes);
           axios
             .post("http://mssoftware.xyz/getMultirowQuotDataBasedOnId", {
@@ -279,23 +280,23 @@ export default function Popup(props) {
       .post("http://mssoftware.xyz/removeQUOMulDataonId", {
         qoid: id,
       })
-      .then((res) => {});
-
-    axios
-      .post("http://mssoftware.xyz/UpdateQuotData", {
-        qoid: id,
-        cqdate: cqdate,
-        entFrom: entFrom,
-        entMobile: entMobile,
-        cqclient: cqclient,
-        cqname: cqname,
-        cqmobileNo: cqmobileNo,
-        cqemail: cqemail,
-        cqtypes: cqtypes,
-        termCond: termCond,
-        multiSet: multiSet,
-      })
-      .then((res) => {});
+      .then((res) => {
+        axios
+          .post("http://mssoftware.xyz/UpdateQuotData", {
+            qoid: id,
+            cqdate: cqdate,
+            entFrom: entFrom,
+            entMobile: entMobile,
+            cqclient: cqclient,
+            cqname: cqname,
+            cqmobileNo: cqmobileNo,
+            cqemail: cqemail,
+            cqtypes: cqtypes,
+            termCond: termCond,
+            multiSet: multiSet,
+          })
+          .then((res) => {});
+      });
 
     setOpenPopup(false);
     setId(0);

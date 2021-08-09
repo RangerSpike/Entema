@@ -260,8 +260,7 @@ export default function Popup(props) {
                   class="form-control is-valid"
                   value={MpDescription}
                   id="MpDescription"
-                  name="MpDescription"
-                  required
+                  name="MpDescription"                  
                   onChange={handleChangeEvent}
                 />
               </div>

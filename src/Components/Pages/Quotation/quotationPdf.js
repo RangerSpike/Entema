@@ -80,7 +80,10 @@ export default function PopupPdf(props) {
           setEntMobile(response.data[0].WO_FROM_MOB);
           setQuotDate(response.data[0].CREATED_DATE);
           setQuotID(response.data[0].QO_ID);
-          setWOsdate(response.data[0].WO_STARTDATE);
+          formatChange(
+            response.data[0].WO_STARTDATE,
+            response.data[0].CREATED_DATE
+          );
         }
       });
   };
@@ -88,6 +91,33 @@ export default function PopupPdf(props) {
   useEffect(() => {
     getData();
   }, [id]);
+
+  const formatChange = (wDate, crtdDate) => {
+    let wrkDate = new Date(wDate);
+    let crtDate = new Date(crtdDate);
+
+    let wrkDay = wrkDate.getDate();
+    let wrkMonth = wrkDate.getMonth();
+    let wrkYear = wrkDate.getFullYear();
+
+    if (wrkMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      setWOsdate(wrkDay + "-0" + wrkMonth + "-" + wrkYear);
+    } else {
+      setWOsdate(wrkDay + "-" + wrkMonth + "-" + wrkYear);
+    }
+
+    //console.log(wosdate);
+
+    let crtDay = crtDate.getDate();
+    let crtMonth = crtDate.getMonth();
+    let crtYear = crtDate.getFullYear();
+
+    if (wrkMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      setQuotDate(crtDay + "-0" + crtMonth + "-" + crtYear);
+    } else {
+      setQuotDate(crtDay + "-" + crtMonth + "-" + crtYear);
+    }
+  };
 
   const handleExportWithComponent = (event) => {
     // console.log("my props id value : ", id);
@@ -127,7 +157,7 @@ export default function PopupPdf(props) {
     }
   };
 
-  const displayData = (cqtypes,amt,mod) => {
+  const displayData = (cqtypes, amt, mod) => {
     if (cqtypes === "Man Power") {
       return amt;
     } else {
@@ -167,7 +197,7 @@ export default function PopupPdf(props) {
         </div>
       </DialogTitle>
       <DialogContent>
-        <div className="page-container hidden-on-narrow">      
+        <div className="page-container hidden-on-narrow">
           <PDFExport ref={pdfExportComponent}>
             <div className="pdf-page">
               <div className="col-sm-14 print-div">
@@ -334,12 +364,18 @@ export default function PopupPdf(props) {
                         {myDataSet.map((comment, index) => (
                           <tr>
                             <th scope="row" key={index}>
-                              {comment.QO_ROW + 1}
+                              {parseInt(comment.QO_ROW) + 1}
                             </th>
                             <td>{comment.TAB_DESC}</td>
                             <td>{comment.TAB_QTY}</td>
                             <td>{comment.TAB_AMOUNT}</td>
-                            <td>{displayData(cqtypes,comment.TAB_TOTAL_AMT,comment.TAB_MAD)}</td>
+                            <td>
+                              {displayData(
+                                cqtypes,
+                                comment.TAB_TOTAL_AMT,
+                                comment.TAB_MAD
+                              )}
+                            </td>
                           </tr>
                         ))}
                       </tbody>

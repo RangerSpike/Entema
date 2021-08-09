@@ -299,8 +299,7 @@ function AddPayment() {
                   class="form-control is-valid"
                   value={pmClearedAmt}
                   id="pmClearedAmt"
-                  name="pmClearedAmt"
-           
+                  name="pmClearedAmt"           
                 />
               </div>
             </div>
@@ -312,8 +311,7 @@ function AddPayment() {
                   class="form-control is-valid"
                   value={pmDescription}
                   id="pmDescription"
-                  name="pmDescription"
-                  required
+                  name="pmDescription"                  
                 />
               </div>
               <div class="col-md-6 mb-3">
@@ -322,8 +320,7 @@ function AddPayment() {
                   class="form-control is-valid"
                   value={pmMode}
                   id="pmMode"
-                  name="pmMode"
-                  required
+                  name="pmMode"                  
                 >
                   {modeOptions.map((data) => (
                     <option key={data.key} value={data.value}>
