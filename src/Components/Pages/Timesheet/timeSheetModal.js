@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PopupTS(props) {
   const { setId, id, openPopup, setOpenPopup } = props;
-  
+
   const classes = useStyles();
 
   const [isCalculated, setIsCalculated] = useState(true);
@@ -166,6 +166,7 @@ export default function PopupTS(props) {
           settsTotalOt(res.data[0].TS_TOTAL_OT);
           settsTotal(res.data[0].TS_TOTAL);
           settsExpectedWorkingHours(res.data[0].TS_EXP_HOURS);
+          checkApproved(res.data[0].TS_STATUS);
           test[0] = {
             days1: res.data[0].RDAY_1,
             days2: res.data[0].RDAY_2,
@@ -239,6 +240,15 @@ export default function PopupTS(props) {
   }, [id]);
   const [isHidden, setisHidden] = useState(true);
 
+  const checkApproved = (sts) => {
+    console.log(sts);
+    if (sts === "Approved") {
+      return true;
+    }else{
+      return false;
+    }
+  };
+  
   const addUser = () => {
     setIsDisabled(!isDisabled);
     setIsCalculated(false);
@@ -593,14 +603,13 @@ export default function PopupTS(props) {
   };
 
   const onClosePopup = () => {
-    setId(0)
+    setId(0);
     setisHidden(true);
     setOpenPopup(false);
     setisDisabledRemove(true);
     setwhTotal(0);
     setoTtotal(0);
     setIsDisabled(false);
-    
   };
 
   const calculateTimesheet = () => {
@@ -685,12 +694,19 @@ export default function PopupTS(props) {
     if (id > 0) {
       if (parseInt(whtot) !== parseInt(tsExpectedWorkingHours)) {
         alert(
-          "Expected Working Hours " + tsExpectedWorkingHours +" & Working Hours :" +whtot +" Do Not Match !"
+          "Expected Working Hours " +
+            tsExpectedWorkingHours +
+            " & Working Hours :" +
+            whtot +
+            " Do Not Match !"
         );
-      }else if (parseInt(tsTotalHours) != parseInt(tot)) {
-        alert("Total Hours Do Not Match With Calculated Hours(" +tot+"), Please Verify!"
+      } else if (parseInt(tsTotalHours) != parseInt(tot)) {
+        alert(
+          "Total Hours Do Not Match With Calculated Hours(" +
+            tot +
+            "), Please Verify!"
         );
-      }else{
+      } else {
         alert("All fields are validated!");
       }
 
@@ -837,8 +853,9 @@ export default function PopupTS(props) {
                 <label htmlfor="userName">Expected Working Hours</label>
                 <input
                   type="text"
-                  class="form-control is-valid"
+                  class="form-control is-valid"                  
                   value={tsExpectedWorkingHours}
+                  onBlur={testing}
                   id="tsExpectedWorkingHours"
                   name="tsExpectedWorkingHours"
                   required
@@ -853,6 +870,7 @@ export default function PopupTS(props) {
                   type="text"
                   class="form-control is-valid"
                   value={tsMonthlyRate}
+                  onBlur={testing}
                   id="tsMonthlyRate"
                   name="tsMonthlyRate"
                   required
@@ -867,6 +885,7 @@ export default function PopupTS(props) {
                   class="form-control is-valid"
                   id="tsOtRate"
                   value={tsOtRate}
+                  onBlur={testing}
                   name="tsOtRate"
                   required
                   onChange={handleChangeEvent}
@@ -879,6 +898,7 @@ export default function PopupTS(props) {
                   class="form-control is-valid"
                   id="tsHrRate"
                   value={tsHrRate}
+                  onBlur={testing}
                   name="tsHrRate"
                   required
                   onChange={handleChangeEvent}
@@ -1751,6 +1771,7 @@ export default function PopupTS(props) {
               class="btn btn-outline-success"
               style={{ marginTop: "20px", marginBottom: "40px" }}
               onClick={handleSubmit}
+              disabled={checkApproved()}
             >
               Update
             </button>

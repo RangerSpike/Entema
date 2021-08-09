@@ -135,7 +135,11 @@ const Statement = (props) => {
           axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
             if (res.data.length > 0) {
               console.log(res.data);
-              setVatDetails(res.data[0].VAT);
+              if (venVat) {
+                setVatDetails(res.data[0].VAT);
+              } else {
+                setVatDetails(0);
+              }
             }
           });
         }
@@ -167,12 +171,26 @@ const Statement = (props) => {
       })
       .then((res) => {
         if (res.data.length > 0) {
-          console.log("res.data :", res.data);
-          setVENTSdetails(res.data);
+          console.log("TS Ka data :", res.data);
+          // setVENTSdetails(res.data);
+          filterApprovedTs(res.data);
         }
       });
     hideLoader();
     return venTSDetails;
+  };
+
+  const filterApprovedTs = (data) => {
+    let filterdTs = data;
+    let rows = [];
+
+    for (let i = 0; i < filterdTs.length; i++) {
+      if (filterdTs[i].TS_STATUS === "Approved") {
+        rows.push(filterdTs[i]);
+      }
+      console.log("NAMES:", rows);
+    }
+    setVENTSdetails(rows)
   };
 
   const getVpmdata = (vendorId) => {
@@ -382,7 +400,11 @@ const Statement = (props) => {
 
             <div className="row w-100">
               <text style={{ marginLeft: "20px", marginTop: "40px" }}>
-                Purchase Orders
+                Purchase Orders{""}
+                <CachedIcon
+                  onClick={() => getPOData(vid)}
+                  style={{ cursor: "pointer" }}
+                />
               </text>
               <div className="col mb-3 col-12 text-center">
                 <table
@@ -435,7 +457,11 @@ const Statement = (props) => {
                 ></PopupPO>
               </div>
               <text style={{ marginLeft: "20px", marginTop: "40px" }}>
-                TimeSheets
+                TimeSheets{""}
+                <CachedIcon
+                  onClick={() => getTSdata(vid)}
+                  style={{ cursor: "pointer" }}
+                />
               </text>
 
               <table
@@ -518,7 +544,11 @@ const Statement = (props) => {
                 setOpenPopup={setOpenVPRPopup}
               ></PopupVPR>
               <text style={{ marginLeft: "20px", marginTop: "40px" }}>
-                Payment Details
+                Payment Details{""}
+                <CachedIcon
+                  onClick={() => getVpmdata(vid)}
+                  style={{ cursor: "pointer" }}
+                />
               </text>
 
               <table

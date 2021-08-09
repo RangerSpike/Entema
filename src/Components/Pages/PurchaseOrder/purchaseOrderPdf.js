@@ -87,13 +87,11 @@ export default function PopupPdf(props) {
         POID: id,
       })
       .then((response) => {
-        {        
-
+        {
           if (response.data.length > 0) {
             setMyDataSet(response.data);
             setPoid(response.data[0].PO_ID);
             setPodocno(response.data[0].DOC_NO);
-            setPodate(response.data[0].CREATED_DATE);
             setPorevno(response.data[0].REV_NO);
             setPonumber(response.data[0].WO_NUMBER);
             setPoquotationref(response.data[0].WO_QUO_REF);
@@ -107,8 +105,6 @@ export default function PopupPdf(props) {
             setPoemail(response.data[0].VI_EMAIL);
             setPovat(response.data[0].VI_VAT);
             setPoadd(response.data[0].VI_ADDRESS);
-            setPostartdate(response.data[0].WS_START_DATE);
-            setPoenddate(response.data[0].WS_END_DATE);
             setPolocation(response.data[0].WS_LOC);
             setPomobilizationdate(response.data[0].WS_MOB_DATE);
             setPodesc(response.data[0].WS_DESC);
@@ -119,10 +115,52 @@ export default function PopupPdf(props) {
             setDeliveryTerms(response.data[0].PO_TOD);
             setConditionTerms(response.data[0].PO_TC);
             setStatus(response.data[0].PO_APPROVE_STATUS);
+            formatChange(
+              response.data[0].CREATED_DATE,
+              response.data[0].WS_START_DATE,
+              response.data[0].WS_END_DATE
+            );
           }
         }
       });
   }, [id]);
+
+  const formatChange = (crtdDate, sDate, eDate) => {
+    let crtDate = new Date(crtdDate);
+    let stDateDate = new Date(sDate);
+    let enDate = new Date(eDate);
+
+    let crtDay = crtDate.getDate();
+    let crtMonth = crtDate.getMonth() + 1;
+    let crtYear = crtDate.getFullYear();
+
+    if (crtMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      setPodate(crtDay + "-0" + crtMonth + "-" + crtYear);
+    } else {
+      setPodate(crtDay + "-" + crtMonth + "-" + crtYear);
+    }
+
+    //console.log(wosdate);
+
+    let sDay = stDateDate.getDate();
+    let sMonth = stDateDate.getMonth() + 1;
+    let sYear = stDateDate.getFullYear();
+
+    if (sMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      setPostartdate(sDay + "-0" + sMonth + "-" + sYear);
+    } else {
+      setPostartdate(sDay + "-" + sMonth + "-" + sYear);
+    }
+    let eDay = enDate.getDate();
+    let eMonth = enDate.getMonth() + 1;
+    let eYear = enDate.getFullYear();
+
+    if (eMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      setPoenddate(eDay + "-0" + eMonth + "-" + eYear);
+    } else {
+      setPoenddate(eDay + "-" + eMonth + "-" + eYear);
+    }
+  };
 
   const handleExportWithComponent = (event) => {
     // console.log("my props id value : ", id);
@@ -657,7 +695,9 @@ export default function PopupPdf(props) {
                             <td>{comment.PO_DESC}</td>
                             <td>{comment.UNIT_DD}</td>
                             <td>{comment.QUANTITY}</td>
-                            <td>{comment.UNIT_RATE}/{comment.UNIT_DD}</td>
+                            <td>
+                              {comment.UNIT_RATE}/{comment.UNIT_DD}
+                            </td>
                             <td>{comment.UNIT_AMOUNT}</td>
                             <td>N/A</td>
                           </tr>
@@ -810,9 +850,7 @@ export default function PopupPdf(props) {
                             <div className="col-sm-5 col-xs-6 bot-left">
                               Signature
                             </div>
-                            <div className="col-sm-7 col-xs-6 bot-right">
-                              
-                            </div>
+                            <div className="col-sm-7 col-xs-6 bot-right"></div>
                           </div>
                           <div className="row">
                             <div className="col-sm-5 col-xs-6 bot-left">

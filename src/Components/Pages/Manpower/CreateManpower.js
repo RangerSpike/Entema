@@ -332,6 +332,7 @@ function CreateManpower() {
                   type="text"
                   class="form-control is-valid"
                   value={MpOtHrs}
+                  onBlur={calculateTotalAmount}
                   id="MpOtHrs"
                   name="MpOtHrs"
                   required

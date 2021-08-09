@@ -65,7 +65,7 @@ function MainApp() {
       };
 
       localStorage.setItem("userDetails",(dataSet[0].USER_NAME));
-
+      
       //console.log("activities - : ", activities);
       activateRoute();
       setShow(!show);

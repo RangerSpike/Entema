@@ -73,6 +73,7 @@ const DataTable = () => {
   const test = (data) => {
     alert("hurrray :" + data);
   };
+  
   const commentsData = useMemo(() => {
     let computedComments = comments;
 

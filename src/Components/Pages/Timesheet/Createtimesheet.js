@@ -717,6 +717,7 @@ function Createtimesheet() {
                   value={tsExpectedWorkingHours}
                   id="tsExpectedWorkingHours"
                   name="tsExpectedWorkingHours"
+                  onBlur={testing}
                   required
                 />
               </div>
@@ -730,6 +731,7 @@ function Createtimesheet() {
                   value={tsMonthlyRate}
                   id="tsMonthlyRate"
                   name="tsMonthlyRate"
+                  onBlur={testing}
                   required
                 />
               </div>
@@ -742,6 +744,7 @@ function Createtimesheet() {
                   id="tsOtRate"
                   value={tsOtRate}
                   name="tsOtRate"
+                  onBlur={testing}
                   required
                 />
               </div>
@@ -753,6 +756,7 @@ function Createtimesheet() {
                   id="tsHrRate"
                   value={tsHrRate}
                   name="tsHrRate"
+                  onBlur={testing}
                   required
                 />
               </div>
