@@ -36,9 +36,13 @@ function AddVendors() {
   const [vendorstatus, setVendorstatus] = useState("Active");
   const [vendorId, setVendorId] = useState();
 
+  const [vendorMaxID, setVendorMaxID] = useState();
+  
   const handleChangeEvent = (e) => {
     // console.log("e.target.name : ", e.target.value);
     // return (e.target.name = e.target.value);
+
+    // console.log('testing my id : ', vendorId);
 
     const input = e.target.name;
 
@@ -117,26 +121,47 @@ function AddVendors() {
   // //     data[x - 1].vatsdate = setDate;
   // //   }
   // // }
+
+
+  const generateSequence = (value) => {
+    let x = parseInt(value) + 1;
+
+    setVendorId('VEN-'+parseInt(x));
+    setVendorcode('VCODE-'+parseInt(x));
+    setVendordocno('DOC-'+parseInt(x));
+  }
+
+  const getMaxID = () => {
+    fetch("/getMaxVendoriId")
+      .then((response) => response.json())
+      .then((json) => {
+        setVendorMaxID(json[0].maxid);
+        generateSequence(json[0].maxid)
+        return vendorMaxID
+      });
+  };
+
   useEffect(() => {
-    generateUniqueId();
+    // generateUniqueId();
+    getMaxID();
   }, []);
 
-  const generateUniqueId = () => {
-    let currentDate = new Date();
-    let uniqueValue =
-      "" +
-      currentDate.getFullYear() +
-      (currentDate.getMonth() + 1) +
-      currentDate.getDate() +
-      currentDate.getHours() +
-      currentDate.getMinutes() +
-      currentDate.getSeconds() +
-      currentDate.getMilliseconds();
+  // const generateUniqueId = () => {
+  //   let currentDate = new Date();
+  //   let uniqueValue =
+  //     "" +
+  //     currentDate.getFullYear() +
+  //     (currentDate.getMonth() + 1) +
+  //     currentDate.getDate() +
+  //     currentDate.getHours() +
+  //     currentDate.getMinutes() +
+  //     currentDate.getSeconds() +
+  //     currentDate.getMilliseconds();
 
-    setVendorId(uniqueValue);
-    console.log("My unique Values :", uniqueValue);
-    return uniqueValue;
-  };
+  //   //setVendorId(uniqueValue);
+  //   console.log("My unique Values :", uniqueValue);
+  //   return uniqueValue;
+  // };
 
   const setDateFormat = (value) => {
     let currentDate;
@@ -172,7 +197,7 @@ function AddVendors() {
     event.preventDefault();
     console.log("event : ", event);
 
-    Axios.post("http://mssoftware.xyz/insertVendorData", {
+    Axios.post("/insertVendorData", {
       vendorid: vendorId,
       vendorname: vendorname,
       vendorcode: vendorcode,
@@ -230,8 +255,9 @@ function AddVendors() {
                     class="form-control is-valid"
                     id="vendorcode"
                     name="vendorcode"
+                    value={vendorcode}
                     onChange={handleChangeEvent}
-                    required
+                    disabled
                   />
                 </div>
                 <div class="col-md-4 mb-3">
@@ -353,7 +379,9 @@ function AddVendors() {
                     class="form-control is-valid"
                     id="vendordocno"
                     name="vendordocno"
+                    value={vendordocno}
                     onChange={handleChangeEvent}
+                    disabled
                   />
                 </div>
               </div>

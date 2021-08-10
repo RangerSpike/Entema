@@ -36,6 +36,7 @@ function Createpurchaseorder() {
   const history = useHistory();
   const classes = useStyles();
 
+  const [poId, setPOID] = useState();
   const [podocno, setPodocno] = useState();
   const [podate, setPodate] = useState();
   const [porevno, setPorevno] = useState();
@@ -60,6 +61,9 @@ function Createpurchaseorder() {
   const [pogst, setPogst] = useState(0);
   const [pograndtotal, setPograndtotal] = useState(0);
   const [vatDetails, setVatDetails] = useState();
+  
+  const [POMaxID, setPOMaxID] = useState();
+  
 
   const [instruction, setInstruction] = useState(
     "1. Payment shall be made for the quantities executed as per unit rates given above. \n2. Work Order number and date must be quoted on all correspondence. \n3. This order is subject to the terms and conditions set out on the face and Annexure -A \n4. The acceptance copy must be signed by vender or by its representative ( on vender’s behalf) on the face and Annexure - A \n 5. This Work Order is subject to the cancellation unless the subcontractor returns one copy signed with confirmation that all terms and conditions are accepted. \n 6. The following attachments form an integral part of this work Order."
@@ -115,6 +119,7 @@ function Createpurchaseorder() {
     }
     //console.log("data set value is : ", computedComments);
     setPocode(computedComments[0].VENDOR_CODE);
+    setPodocno(computedComments[0].VENDOR_DOC_NO)
     setPophone(computedComments[0].VENDOR_PHONE);
     setPocpperson(computedComments[0].VENDOR_CPERSON);
     setPomobile(computedComments[0].VENDOR_PHONE);
@@ -195,16 +200,41 @@ function Createpurchaseorder() {
     return vendorLov;
   };
 
+
+  const generateSequence = (value) => {
+    let x;
+
+    if (!value){
+      x = parseInt(0) + 1;
+    } 
+    else{
+      x = parseInt(value) + 1;
+    } 
+    setPorevno('REV-'+parseInt(x));
+    setPonumber('PO-'+parseInt(x));
+  }
+
+  const getMaxID = () => {
+    fetch("/getMaxPOId")
+      .then((response) => response.json())
+      .then((json) => {
+        setPOMaxID(json[0].maxid);
+        generateSequence(json[0].maxid)
+        return POMaxID
+      });
+  };
+
   useEffect(() => {
     getVendorLovData();
     setPodate(setDateFormat());
+    getMaxID();
 
     let uniqueId = generateUniqueId();
     // //console.log("My unique Value :", uniqueId);
-    setPodocno(uniqueId);
-    setPorevno(uniqueId);
+    setPOID(uniqueId);
+    // setPorevno(uniqueId);
 
-    setPonumber("PO-" + uniqueId);
+    // setPonumber("PO-" + uniqueId);
     // //console.log('turned : ', result);
   }, []);
 
@@ -436,7 +466,7 @@ function Createpurchaseorder() {
 
     axios
       .post("http://mssoftware.xyz/insertPOData", {
-        poid: podocno,
+        poid: poId,
         podocno: podocno,
         podate: podate,
         porevno: porevno,

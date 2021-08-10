@@ -58,9 +58,11 @@ function CreateQuotation() {
   const [entFrom, setEntFrom] = useState("Entemasw");
 
   const [quotDate, setQuotDate] = useState();
-  const [quotRefNo, setQuotRefNo] = useState("ENT/Jun-21/111");
+  const [quotRefNo, setQuotRefNo] = useState("ENT-");
   const [newData, setNewData] = useState([]);
 
+  const [qoMaxID, setQOMaxID] = useState();
+  
   const [clientDispValue, setClientDispValue] = useState();
 
   //   let newData = [];
@@ -118,6 +120,7 @@ function CreateQuotation() {
     setQuotDate(formatedDate);
 
     generateUniqueId();
+    getMaxID();
   }, [stateChange]);
 
   const generateUniqueId = () => {
@@ -133,9 +136,34 @@ function CreateQuotation() {
       currentDate.getMilliseconds();
 
     setQuotID(uniqueValue);
-    setQuotRefNo("ENT - " + uniqueValue);
+    // setQuotRefNo("ENT - " + uniqueValue);
     //console.log("My unique Values :", uniqueValue);
     return uniqueValue;
+  };
+
+
+  const generateSequence = (value) => {
+    let x;
+
+    if (!value){
+      x = parseInt(0) + 1;
+    } 
+    else{
+      x = parseInt(value) + 1;
+    } 
+    // setPorevno('REV-'+parseInt(x));
+    // setPonumber('PO-'+parseInt(x));
+    setQuotRefNo("ENT - " + parseInt(x));
+  }
+
+  const getMaxID = () => {
+    fetch("/getMaxQOId")
+      .then((response) => response.json())
+      .then((json) => {
+        setQOMaxID(json[0].maxid);
+        generateSequence(json[0].maxid)
+        return qoMaxID
+      });
   };
 
   const onChangeClientData = (value) => {
