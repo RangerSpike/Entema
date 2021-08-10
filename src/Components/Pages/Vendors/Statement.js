@@ -121,14 +121,14 @@ const Statement = (props) => {
         vendorID: vendorID,
       })
       .then((res) => {
-        if (res.data.length > 0) {
+        if (res.data.length > 0) {          
           setVENDeatils(res.data);
           setVenName(res.data[0].VENDOR_NAME);
           setVenCPerson(res.data[0].VENDOR_CPERSON);
           setVenPhone(res.data[0].VENDOR_FL_PHONE);
           setVenMobile(res.data[0].VENDOR_PHONE);
           setVenEmail(res.data[0].VENDOR_EMAIL);
-          setVenCode(res.data[0].VENDOR_CODE);
+          setVenCode("VEN - " + res.data[0].SEQ_NO);
           setVenVat(res.data[0].VENDOR_VAT);
           setVenDOCNO(res.data[0].VENDOR_DOC_NO);
           setVenADD(res.data[0].VENDOR_ADD);
@@ -151,11 +151,12 @@ const Statement = (props) => {
   const getPOData = (vendorId) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/getPODataBasedOnVenId", {
+      .post("http://mssoftware.xyz/getPODataForStateOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
         if (res.data.length > 0) {
+          // console.log("data daaa:",res.data)
           setPOdetails(res.data);
         }
       });
@@ -566,10 +567,10 @@ const Statement = (props) => {
                   <th scope="row">Actions</th>
                 </tr>
                 <tbody>
-                  {venPaymentDetails.map((data) => (
+                  {venPaymentDetails.map((data,i) => (
                     <tr key={data.PMNT_ID}>
                       <th scope="row" style={{ cursor: "pointer" }}>
-                        {data.PMNT_ID}
+                        {i+1}
                       </th>
                       <td>{data.PM_AMOUNT}</td>
                       <td>{data.CLEARED_AMOUNT}</td>

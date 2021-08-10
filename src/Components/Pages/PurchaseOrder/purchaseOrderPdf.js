@@ -106,8 +106,7 @@ export default function PopupPdf(props) {
             setPoemail(response.data[0].VI_EMAIL);
             setPovat(response.data[0].VI_VAT);
             setPoadd(response.data[0].VI_ADDRESS);
-            setPolocation(response.data[0].WS_LOC);
-            setPomobilizationdate(response.data[0].WS_MOB_DATE);
+            setPolocation(response.data[0].WS_LOC);            
             setPodesc(response.data[0].WS_DESC);
             setPototal(response.data[0].PO_TOTAL);
             setPogst(response.data[0].PO_GST);
@@ -115,21 +114,34 @@ export default function PopupPdf(props) {
             setInstruction(response.data[0].PO_INSTRUCTION);
             setDeliveryTerms(response.data[0].PO_TOD);
             setConditionTerms(response.data[0].PO_TC);
+            // console.log(response.data[0].PO_APPROVE_STATUS);
             setStatus(response.data[0].PO_APPROVE_STATUS);
             formatChange(
               response.data[0].CREATED_DATE,
               response.data[0].WS_START_DATE,
-              response.data[0].WS_END_DATE
+              response.data[0].WS_END_DATE,
+              response.data[0].WS_MOB_DATE
             );
           }
         }
       });
   }, [id]);
 
-  const formatChange = (crtdDate, sDate, eDate) => {
+  const formatChange = (crtdDate, sDate, eDate, mobDate) => {
     let crtDate = new Date(crtdDate);
     let stDateDate = new Date(sDate);
     let enDate = new Date(eDate);
+    let mbDate =  new Date(mobDate);
+
+    let mbDay = mbDate.getDate();
+    let mbMonth = mbDate.getMonth() + 1;
+    let mbYear = mbDate.getFullYear();
+
+    if (mbMonth in [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      setPomobilizationdate(mbDay + "-0" + mbMonth + "-" + mbYear);
+    } else {
+      setPomobilizationdate(mbDay + "-" + mbMonth + "-" + mbYear);
+    }
 
     let crtDay = crtDate.getDate();
     let crtMonth = crtDate.getMonth() + 1;
@@ -426,7 +438,7 @@ export default function PopupPdf(props) {
                   </div>
                 </div>
               </div>
-              {status === "Not Approved" ? (
+              {status === "pending" ? (
                 <div id="watermark">Not Approved</div>
               ) : null}
 

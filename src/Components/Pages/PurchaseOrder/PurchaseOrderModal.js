@@ -705,6 +705,7 @@ export default function PopupPO(props) {
                     class="form-control is-valid"
                     id="pocode"
                     name="pocode"
+                    disabled
                     value={pocode}
                     onChange={handleChangeEvent}
                   />

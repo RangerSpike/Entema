@@ -29,7 +29,6 @@ const DataTable = () => {
   };
 
   const headers = [
-    { name: "Id", field: "Id", sortable: false },
     { name: "Vendor Name", field: "Vendor Name", sortable: false },
     { name: "Code", field: "Code", sortable: false },
     { name: "Phone", field: "Phone", sortable: false },
@@ -156,22 +155,19 @@ const DataTable = () => {
                 />
                 <tbody>
                   {commentsData.map((comment) => (
-                    <tr>
-                      <th
-                        scope="row"
-                        key={comment.VENDOR_ID}
-                        onClick={() => openInPopup(comment.VENDOR_ID)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        FORM LINK
-                      </th>
+                    <tr key={comment.VENDOR_ID}>                      
                       <td
                         onClick={() => openInStatement(comment.VENDOR_ID)}
                         style={{ cursor: "pointer" }}
                       >
                         {comment.VENDOR_NAME}
                       </td>
-                      <td>VEN - {comment.SEQ_NO}</td>
+                      <td
+                        onClick={() => openInPopup(comment.VENDOR_ID)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        VEN - {comment.SEQ_NO}
+                      </td>
                       <td>{comment.VENDOR_FL_PHONE}</td>
                       <td>{comment.VENDOR_CPERSON}</td>
                       <td>{comment.VENDOR_PHONE}</td>

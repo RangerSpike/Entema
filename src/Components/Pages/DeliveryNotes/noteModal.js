@@ -269,7 +269,7 @@ export default function Popup(props) {
               </div>
             </div>
             <div>
-              <Button type="button" onClick={handleSubmit}>
+              <Button type="button" onClick={handleSubmit} style={{color:"primary"}}>
                 UPDATE
               </Button>
             </div>

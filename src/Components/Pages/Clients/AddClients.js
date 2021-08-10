@@ -97,8 +97,7 @@ function AddClients() {
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="clientcompname">Company Name</label>
-                  <input
-                    disabled
+                  <input                    
                     type="text"
                     class="form-control is-valid"
                     id="clientcompname"

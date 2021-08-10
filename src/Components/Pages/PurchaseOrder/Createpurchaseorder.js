@@ -67,10 +67,10 @@ function Createpurchaseorder() {
   const [POMaxID, setPOMaxID] = useState();
 
   const [instruction, setInstruction] = useState(
-    "1. Payment shall be made for the quantities executed as per unit rates given above. \n2. Work Order number and date must be quoted on all correspondence. \n3. This order is subject to the terms and conditions set out on the face and Annexure -A \n4. The acceptance copy must be signed by vender or by its representative ( on vender’s behalf) on the face and Annexure - A \n 5. This Work Order is subject to the cancellation unless the subcontractor returns one copy signed with confirmation that all terms and conditions are accepted. \n 6. The following attachments form an integral part of this work Order."
+    "1. Payment shall be made for the quantities executed as per unit rates given above. \n2. Work Order number and date must be quoted on all correspondence. \n3. This order is subject to the terms and conditions set out on the face and Annexure -A \n4. The acceptance copy must be signed by vendor or by its representative ( on vendor’s behalf) on the face and Annexure - A \n5. This Work Order is subject to the cancellation unless the subcontractor returns one copy signed with confirmation that all terms and conditions are accepted. \n6. The following attachments form an integral part of this work Order."
   );
   const [deliveryTerms, setDeliveryTerms] = useState(
-    "1. Lubricants, top-up oil, repairs, daily maintenance, Service and Consumables of the Equipments shall be provide by Vender. \n2. In case of breakDown or Maintenance, Vwndor/Supplier shall provide a replacement of equipment immediatly at no extra cost."
+    "1. Lubricants, top-up oil, repairs, daily maintenance, Service and Consumables of the Equipments shall be provide by Vender. \n2. In case of breakdown or Maintenance, Vendor/Supplier shall provide a replacement of equipment immediately at no extra cost."
   );
   const [conditionTerms, setConditionTerms] = useState(
     "1. Above rate is applicable for 10 hours per day, 6 days a week, 260 hours per Month. \n2. Working Duration: 2 Month Extandable. \n3. Supply Food, accommodation & Transportation scope Entema al-shamal. \n4. Above Rate is exclusive of VAT. \n5. If you need any clarification on above matter or any assistance please feel free to contract undersigned. \n6. Vendor has to return the same purchase order to Entema Al-shamal by Fax or Email after Confirmation Signature."
@@ -617,6 +617,7 @@ function Createpurchaseorder() {
                     class="form-control is-valid"
                     id="pocode"
                     name="pocode"
+                    disabled
                     value={pocode}
                   />
                 </div>

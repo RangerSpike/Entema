@@ -45,7 +45,7 @@ export default function PopupPdf(props) {
   const [cqname, setCqname] = useState();
   const [cqmobileNo, setCqmobileNo] = useState();
   const [cqemail, setCqemail] = useState();
-  const [termCond, setTermCond] = useState("123 \n 123");
+  const [termCond, setTermCond] = useState();
   const [ischeked, setIsChecked] = useState(false);
   const [cqtypes, setCqtypes] = useState("");
 
