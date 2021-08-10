@@ -262,6 +262,7 @@ export default function PopupPdf(props) {
 
   const onClosePopup = () => {
     setId(0);
+    setConditionTerms("");
     setOpenPopup(false);
   };
 

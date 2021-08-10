@@ -34,6 +34,7 @@ const DataTable = () => {
   const openInPopup = (item) => {
     setOpenPopup(true);
     setId(item);
+    
   };
 
   const openPdfPopup = (item) => {

@@ -121,7 +121,7 @@ const Statement = (props) => {
         vendorID: vendorID,
       })
       .then((res) => {
-        if (res.data.length > 0) {          
+        if (res.data.length > 0) {
           setVENDeatils(res.data);
           setVenName(res.data[0].VENDOR_NAME);
           setVenCPerson(res.data[0].VENDOR_CPERSON);
@@ -130,7 +130,7 @@ const Statement = (props) => {
           setVenEmail(res.data[0].VENDOR_EMAIL);
           setVenCode("VEN - " + res.data[0].SEQ_NO);
           setVenVat(res.data[0].VENDOR_VAT);
-          setVenDOCNO("VEN - " + res.data[0].SEQ_NO);
+          setVenDOCNO("DOC - " + res.data[0].SEQ_NO);
           setVenADD(res.data[0].VENDOR_ADD);
           axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
             if (res.data.length > 0) {
@@ -146,6 +146,50 @@ const Statement = (props) => {
       });
     hideLoader();
     return vendorDetails;
+  };
+
+  const monthDispValue = (value) => {
+    let output;
+
+    switch (parseInt(value)) {
+      case 1:
+        output = "Jan";
+        break;
+      case 2:
+        output = "Feb";
+        break;
+      case 3:
+        output = "Mar";
+        break;
+      case 4:
+        output = "Apr";
+        break;
+      case 5:
+        output = "May";
+        break;
+      case 6:
+        output = "Jun";
+        break;
+      case 7:
+        output = "Jul";
+        break;
+      case 8:
+        output = "Aug";
+        break;
+      case 9:
+        output = "Sep";
+        break;
+      case 10:
+        output = "Oct";
+        break;
+      case 11:
+        output = "Nov";
+        break;
+      case 12:
+        output = "Dec";
+    }
+    //console.log("switch value : ", output);
+    return output;
   };
 
   const getPOData = (vendorId) => {
@@ -172,7 +216,7 @@ const Statement = (props) => {
       })
       .then((res) => {
         if (res.data.length > 0) {
-         // console.log("TS Ka data :", res.data);
+          // console.log("TS Ka data :", res.data);
           // setVENTSdetails(res.data);
           filterApprovedTs(res.data);
         }
@@ -191,7 +235,7 @@ const Statement = (props) => {
       }
       //console.log("NAMES:", rows);
     }
-    setVENTSdetails(rows)
+    setVENTSdetails(rows);
   };
 
   const getVpmdata = (vendorId) => {
@@ -492,7 +536,7 @@ const Statement = (props) => {
                         {data.VTS_ID}
                       </th>
                       <td>
-                        {data.TS_MONTH},{data.TS_YEAR}
+                        {monthDispValue(data.TS_MONTH)},{data.TS_YEAR}
                       </td>
                       <td>{data.TS_TOTAL}</td>
                       <td>
@@ -567,10 +611,10 @@ const Statement = (props) => {
                   <th scope="row">Actions</th>
                 </tr>
                 <tbody>
-                  {venPaymentDetails.map((data,i) => (
+                  {venPaymentDetails.map((data, i) => (
                     <tr key={data.PMNT_ID}>
                       <th scope="row" style={{ cursor: "pointer" }}>
-                        {i+1}
+                        {i + 1}
                       </th>
                       <td>{data.PM_AMOUNT}</td>
                       <td>{data.CLEARED_AMOUNT}</td>

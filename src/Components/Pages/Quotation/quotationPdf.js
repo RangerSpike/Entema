@@ -396,7 +396,7 @@ export default function PopupPdf(props) {
                 <div className="col-sm-12">
                   <div className="dash-terms">
                     <h1>Terms &amp; Conditions:</h1>
-                    <textarea style={{border:"0px" ,width:"850px"}} rows="13">{termCond}</textarea>
+                    <textarea style={{border:"0px" ,width:"850px"}} rows="13" value={termCond}/>
                   </div>
                 </div>
               </div>
