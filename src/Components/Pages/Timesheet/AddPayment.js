@@ -59,9 +59,22 @@ function AddPayment() {
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
-        setTsLov(res.data);
+        filterApprovedTs(res.data);        
       });
     return tsLov;
+  };
+
+  const filterApprovedTs = (data) => {
+    let filterdTs = data;
+    let rows = [];
+    console.log(data);
+    for (let i = 0; i < filterdTs.length; i++) {
+      if (filterdTs[i].TS_STATUS === "Approved") {
+        rows.push(filterdTs[i]);
+      }
+      //console.log("NAMES:", rows);
+    }
+    setTsLov(rows);
   };
 
   const onChangeVendor = (vendorID) => {

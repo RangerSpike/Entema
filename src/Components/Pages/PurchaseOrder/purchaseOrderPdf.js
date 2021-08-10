@@ -697,7 +697,7 @@ export default function PopupPdf(props) {
                             <td>{comment.UNIT_DD}</td>
                             <td>{comment.QUANTITY}</td>
                             <td>
-                              {comment.UNIT_RATE}/{comment.UNIT_DD}
+                              {comment.UNIT_RATE}/{" "+comment.UNIT_DD}
                             </td>
                             <td>{comment.UNIT_AMOUNT}</td>
                             <td>N/A</td>

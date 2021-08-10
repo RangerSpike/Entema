@@ -64,7 +64,7 @@ function getStyles(name, personName, theme) {
 }
 
 export default function Popup(props) {
-  const { id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   //console.log("MODAL ID ", id);
 
@@ -124,7 +124,7 @@ export default function Popup(props) {
           setPmManpowerAmount(res.data[0].PM_AMOUNT);
           setPmManpowerMode(res.data[0].PM_PMNT_MODE);
           setPmManpowerDescription(res.data[0].PM_DESCRIPTION);
-          setPmManpowerStatus(res.data[0].PM_STATUS);          
+          setPmManpowerStatus(res.data[0].PM_STATUS);
         }
       });
   }, [id]);
@@ -169,7 +169,7 @@ export default function Popup(props) {
       computedComments = computedComments.filter(
         (comment) => comment.MMTS_ID == tsValue
       );
-      
+
       setPmManpowerAmount(computedComments[0].MTS_TOTAL);
     } else {
       setPmManpowerAmount(0);
@@ -245,14 +245,20 @@ export default function Popup(props) {
     //console.log("test submit", pmDisplayvalue);
     axios
       .post("http://mssoftware.xyz/updateManpowerPaymentData", {
-        pmntid: id,      
+        pmntid: id,
         pmmode: PmManpowerMode,
         mppmbesc: PmManpowerDescription,
-        mppmsts: PmManpowerStatus,        
+        mppmsts: PmManpowerStatus,
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
       });
+    setId(0);
+    setOpenPopup(false);
+  };
+
+  const onClosePopup = () => {
+    setId(0);
     setOpenPopup(false);
   };
 
@@ -267,7 +273,7 @@ export default function Popup(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpenPopup(false)}
+            onClick={() => onClosePopup()}
             style={{ flex: "end" }}
           >
             close
@@ -275,7 +281,6 @@ export default function Popup(props) {
         </div>
       </DialogTitle>
       <DialogContent dividers>
-    
         <div
           class="container"
           style={{ paddingTop: "30px", paddingLeft: "30px" }}
@@ -285,7 +290,7 @@ export default function Popup(props) {
               <h3 style={{ padding: "50px" }}>ManPower Add Payment</h3>
             </div>
           </div>
-          <form >
+          <form>
             <div className="row">
               <div class="col-md-6 mb-3">
                 <label for="PmManpowerName">ManPower Name</label>
@@ -296,7 +301,7 @@ export default function Popup(props) {
                   value={PmManpowerName}
                   required
                   onChange={handleChangeEvent}
-                  disabled  
+                  disabled
                 >
                   <option key="" value="">
                     Select ManPower
@@ -361,7 +366,7 @@ export default function Popup(props) {
                   class="form-control is-valid"
                   value={PmManpowerDescription}
                   id="PmManpowerDescription"
-                  name="PmManpowerDescription"               
+                  name="PmManpowerDescription"
                   onChange={handleChangeEvent}
                 />
               </div>
@@ -374,7 +379,7 @@ export default function Popup(props) {
                   value={PmManpowerStatus}
                   required
                   onChange={handleChangeEvent}
-                >              
+                >
                   {statusOptions.map((data) => (
                     <option key={data.key} value={data.value}>
                       {data.value}
@@ -385,13 +390,16 @@ export default function Popup(props) {
             </div>
 
             <div>
-              <button type="button" class="btn btn-outline-success" onClick={handleSubmit}>
+              <button
+                type="button"
+                class="btn btn-outline-success"
+                onClick={handleSubmit}
+              >
                 Update
               </button>
             </div>
           </form>
         </div>
-        
       </DialogContent>
     </Dialog>
   );

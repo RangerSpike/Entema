@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogContent,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import axios from "axios";
@@ -178,7 +177,7 @@ export default function Popup(props) {
         >
           <div className="heading-layout1">
             <div className="item-title">
-              <h3 style={{ padding: "50px" }}>Add Delivery Note</h3>
+              <h3 style={{ padding: "50px" }}>Update Delivery Note</h3>
             </div>
           </div>
 
@@ -270,9 +269,9 @@ export default function Popup(props) {
               </div>
             </div>
             <div>
-              <button type="button" onClick={handleSubmit}>
+              <Button type="button" onClick={handleSubmit}>
                 UPDATE
-              </button>
+              </Button>
             </div>
           </form>
         </div>

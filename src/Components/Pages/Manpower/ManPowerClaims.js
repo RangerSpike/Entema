@@ -55,11 +55,15 @@ const DataTable = () => {
   }, []);
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       getData();
     }, 1300);
-  }, []);
-  
+  }, [id]);
+
   const removeData = (mppmid) => {
     axios
       .post("http://mssoftware.xyz/removeMpPmntDataonId", {
@@ -74,7 +78,7 @@ const DataTable = () => {
 
     if (search) {
       computedComments = computedComments.filter((comment) =>
-        comment.PM_VEN_DISP_NAME.toLowerCase().includes(search.toLowerCase())
+        comment.PM_DISP_NAME.toLowerCase().includes(search.toLowerCase())
       );
     }
 
@@ -144,13 +148,19 @@ const DataTable = () => {
                       <th scope="row" key={comment.PMNT_ID}>
                         {comment.PMNT_ID}
                       </th>
-                      <td onClick={() => openInPopup(comment.PMNT_ID)}>
+                      <td
+                        onClick={() => openInPopup(comment.PMNT_ID)}
+                        style={{ cursor: "pointer" }}
+                      >
                         {comment.PM_DISP_NAME}
                       </td>
                       <td>{comment.TS_DISP_NAME}</td>
                       <td>{comment.PM_AMOUNT}</td>
                       <td>{comment.PM_PMNT_MODE}</td>
-                      <td onClick={() => openInPopup(comment.PMNT_ID)}>
+                      <td
+                        onClick={() => openInPopup(comment.PMNT_ID)}
+                        style={{ cursor: "pointer" }}
+                      >
                         {comment.PM_STATUS}
                       </td>
 
@@ -158,6 +168,7 @@ const DataTable = () => {
                         <IconButton color="secondary">
                           <DeleteOutlineIcon
                             onClick={() => removeData(comment.PMNT_ID)}
+                            style={{ cursor: "pointer" }}
                           />
                         </IconButton>
                       </td>
@@ -166,6 +177,7 @@ const DataTable = () => {
                 </tbody>
               </table>
               <Popup
+                setId={setId}
                 id={id}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}

@@ -4,7 +4,6 @@ import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -91,7 +90,7 @@ function AddVendors() {
   // const onChange = (e, index) => {
   //   const updatedUsers = data.map((data, i) =>
   //     index === i
-  //       ? Object.assign(data, { [e.target.name]: e.target.value })
+  //        Object.assign(data, { [e.target.name]: e.target.value })
   //       : data
   //   );
   //   console.log("newnew:", e.target.value);
@@ -127,11 +126,10 @@ function AddVendors() {
 
   const generateSequence = (value) => {
     let x;
- 
-    if (!value){
+
+    if (!value) {
       x = 1;
-    } 
-    else{
+    } else {
       x = parseInt(value) + 1;
     }
 
@@ -140,6 +138,7 @@ function AddVendors() {
     setVendordocno("DOC-" + parseInt(x));
     setSeqNo(parseInt(x));
   };
+  
 
   const getMaxID = () => {
     fetch("/getMaxVendoriId")
@@ -152,26 +151,29 @@ function AddVendors() {
   };
 
   useEffect(() => {
-    // generateUniqueId();
+    generateUniqueId();
     getMaxID();
   }, []);
 
-  // const generateUniqueId = () => {
-  //   let currentDate = new Date();
-  //   let uniqueValue =
-  //     "" +
-  //     currentDate.getFullYear() +
-  //     (currentDate.getMonth() + 1) +
-  //     currentDate.getDate() +
-  //     currentDate.getHours() +
-  //     currentDate.getMinutes() +
-  //     currentDate.getSeconds() +
-  //     currentDate.getMilliseconds();
+  const generateUniqueId = () => {
+    let currentDate = new Date();
+    let uniqueValue =
+      "" +
+      currentDate.getFullYear() +
+      (currentDate.getMonth() + 1) +
+      currentDate.getDate() +
+      currentDate.getHours() +
+      currentDate.getMinutes() +
+      currentDate.getSeconds() +
+      currentDate.getMilliseconds();
 
-  //   //setVendorId(uniqueValue);
-  //   console.log("My unique Values :", uniqueValue);
-  //   return uniqueValue;
-  // };
+    setVendorId(uniqueValue);
+    console.log("My unique Values :", uniqueValue);
+    return uniqueValue;
+  };
+
+
+
 
   const setDateFormat = (value) => {
     let currentDate;
@@ -204,46 +206,50 @@ function AddVendors() {
     return formatedDate;
   };
 
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    //console.log("event : ", event);
 
-    Axios.post("/insertVendorData", {
-      vendorid: vendorId,
-      vendorname: vendorname,
-      vendorcode: vendorcode,
-      vendorfline: vendorfline,
-      vendoradd: vendoradd,
-      vendorcperson: vendorcperson,
-      vendorphone: vendorphone,
-      vendoremail: vendoremail,
-      vendorbfname: vendorbfname,
-      vendorbankname: vendorbankname,
-      vendorbankacc: vendorbankacc,
-      vendoriban: vendoriban,
-      vendorvat: vendorvat,
-      vendordocno: vendordocno,
-      createdby: localStorage.getItem("userDetails"),
-      vendorstatus: vendorstatus,
-      seqNo: seqNo,
-    }).then((res) => {
-      //console.log("result success : ", res);
-    });
+    getMaxID();
+    //console.log("event : ", event);
+    setTimeout(() => {
+      Axios.post("/insertVendorData", {
+        vendorid: vendorId,
+        vendorname: vendorname,
+        vendorcode: vendorcode,
+        vendorfline: vendorfline,
+        vendoradd: vendoradd,
+        vendorcperson: vendorcperson,
+        vendorphone: vendorphone,
+        vendoremail: vendoremail,
+        vendorbfname: vendorbfname,
+        vendorbankname: vendorbankname,
+        vendorbankacc: vendorbankacc,
+        vendoriban: vendoriban,
+        vendorvat: vendorvat,
+        vendordocno: vendordocno,
+        createdby: localStorage.getItem("userDetails"),
+        vendorstatus: vendorstatus,
+        seqNo: seqNo,
+      }).then((res) => {
+        //console.log("result success : ", res);
+      });
+    }, 1000);
 
     history.push("/ViewVendors");
   };
 
   const testOnlurr = () => {
-    Axios
-      .post("http://mssoftware.xyz/getVenNameValidation", {
-        venName: vendorname,
-      })
-      .then((res) => {
-        if (res.data[0].VENDORCOUNT > 0) {
-          alert("Vendor Already Exist");  
-          setVendorname('');       
-        }
-      });
+    Axios.post("http://mssoftware.xyz/getVenNameValidation", {
+      venName: vendorname,
+    }).then((res) => {
+      if (res.data[0].VENDORCOUNT > 0) {
+        alert("Vendor Already Exist");
+        setVendorname("");
+      }
+    });
   };
 
   return (

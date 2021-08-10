@@ -84,12 +84,14 @@ const DataTable = () => {
 
   const commentsData = useMemo(() => {
     let computedComments = comments;
-
     if (search) {
       computedComments = computedComments.filter(
         (comment) =>
-          comment.VI_VENDOR.toLowerCase().includes(search.toLowerCase()) ||
-          comment.WS_LOC.toLowerCase().includes(search.toLowerCase())
+          comment.CLIENT_DISP_NAME.toLowerCase().includes(
+            search.toLowerCase()
+          ) ||
+          comment.QO_COMP_NAME.toLowerCase().includes(search.toLowerCase()) ||
+          comment.QO_ID.toLowerCase().includes(search.toLowerCase())
       );
     }
 

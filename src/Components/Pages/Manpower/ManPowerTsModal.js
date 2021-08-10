@@ -353,6 +353,7 @@ const onclosePopup = ()=>{
                 <label for="MpDescription">Description</label>
                 <textarea
                   type="text"
+                  name="MpDescription"
                   class="form-control is-valid"
                   value={MpDescription}
                   id="MpDescription"       
