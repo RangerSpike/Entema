@@ -130,7 +130,7 @@ const Statement = (props) => {
           setVenEmail(res.data[0].VENDOR_EMAIL);
           setVenCode("VEN - " + res.data[0].SEQ_NO);
           setVenVat(res.data[0].VENDOR_VAT);
-          setVenDOCNO(res.data[0].VENDOR_DOC_NO);
+          setVenDOCNO("VEN - " + res.data[0].SEQ_NO);
           setVenADD(res.data[0].VENDOR_ADD);
           axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
             if (res.data.length > 0) {
