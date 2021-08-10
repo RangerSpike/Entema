@@ -4,6 +4,7 @@ import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -20,6 +21,7 @@ function AddVendors() {
   const classes = useStyles();
   const history = useHistory();
 
+  const [seqNo, setSeqNo] = useState();
   const [vendorname, setVendorname] = useState();
   const [vendorcode, setVendorcode] = useState();
   const [vendorfline, setVendorfline] = useState();
@@ -38,7 +40,7 @@ function AddVendors() {
   const [vendorId, setVendorId] = useState();
 
   const [vendorMaxID, setVendorMaxID] = useState();
-  
+
   const handleChangeEvent = (e) => {
     // console.log("e.target.name : ", e.target.value);
     // return (e.target.name = e.target.value);
@@ -123,22 +125,22 @@ function AddVendors() {
   // //   }
   // // }
 
-
   const generateSequence = (value) => {
     let x = parseInt(value) + 1;
 
-    setVendorId('VEN-'+parseInt(x));
-    setVendorcode('VCODE-'+parseInt(x));
-    setVendordocno('DOC-'+parseInt(x));
-  }
+    setVendorId("VEN-" + parseInt(x));
+    setVendorcode("VCODE-" + parseInt(x));
+    setVendordocno("DOC-" + parseInt(x));
+    setSeqNo(parseInt(x));
+  };
 
   const getMaxID = () => {
     fetch("/getMaxVendoriId")
       .then((response) => response.json())
       .then((json) => {
         setVendorMaxID(json[0].maxid);
-        generateSequence(json[0].maxid)
-        return vendorMaxID
+        generateSequence(json[0].maxid);
+        return vendorMaxID;
       });
   };
 
@@ -194,6 +196,7 @@ function AddVendors() {
     //vatTemplate.vatsdate = formatedDate;
     return formatedDate;
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("event : ", event);
@@ -213,13 +216,27 @@ function AddVendors() {
       vendoriban: vendoriban,
       vendorvat: vendorvat,
       vendordocno: vendordocno,
-      createdby:localStorage.getItem("userDetails"),
+      createdby: localStorage.getItem("userDetails"),
       vendorstatus: vendorstatus,
+      seqNo: seqNo,
     }).then((res) => {
       console.log("result success : ", res);
     });
 
     history.push("/ViewVendors");
+  };
+
+  const testOnlurr = () => {
+    Axios
+      .post("http://mssoftware.xyz/getVenNameValidation", {
+        venName: vendorname,
+      })
+      .then((res) => {
+        if (res.data[0].VENDORCOUNT > 0) {
+          alert("Vendor Already Exist");  
+          setVendorname('');       
+        }
+      });
   };
 
   return (
@@ -245,6 +262,8 @@ function AddVendors() {
                     id="vendorname"
                     name="vendorname"
                     onChange={handleChangeEvent}
+                    onBlur={testOnlurr}
+                    value={vendorname}
                     required
                   />
                 </div>

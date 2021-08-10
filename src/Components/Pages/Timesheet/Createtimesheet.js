@@ -46,6 +46,8 @@ function Createtimesheet() {
   const [yearLov, setYearLov] = useState([]);
 
   const [vendorDispValue, setVendorDispValue] = useState();
+  const [curDate, setCurdate] = useState(new Date());
+
 
   let [taskList, setTasklist] = useState({
     days1: 0,
@@ -595,7 +597,7 @@ function Createtimesheet() {
 
       RHamount = tsExpectedWorkingHours * tsHrRate;
       TotalAmount = OTamount + RHamount;
-      settsTotal(TotalAmount.toFixed(2));
+      settsTotal(TotalAmount);
 
       //console.log("RHamount : ", RHamount);
       //console.log("TotalAmount : ", TotalAmount);
@@ -606,6 +608,16 @@ function Createtimesheet() {
       settsTotal(RHamount.toFixed(2));
     }
   };
+
+  
+  const dateFn = () => {
+    let x = curDate.getFullYear();    
+    settsYear(x);   
+  };
+
+  useEffect(() => {
+    dateFn();
+  }, []);
 
   return (
     <>
@@ -790,7 +802,7 @@ function Createtimesheet() {
                   type="text"
                   class="form-control is-valid"
                   id="tsTotal"
-                  value={tsTotal}
+                  value={Math.round(tsTotal)}
                   name="tsTotal"
                   required
                   disabled
@@ -809,6 +821,7 @@ function Createtimesheet() {
                     color="default"
                     onClick={() => addUser()}
                     disabled={isDisabled}
+                    hidden
                   >
                     Show
                   </Button>
@@ -817,13 +830,14 @@ function Createtimesheet() {
                     onClick={() => removeUsers()}
                     disabled={!isDisabled}
                     style={{ marginLeft: "10px" }}
+                    hidden
                   >
                     Remove
                   </Button>
                 </ButtonGroup>
               </div>
               <div className="col-md-12">
-                <span style={{ color: "red" }}>
+                <span style={{ color: "red" }} hidden>
                   NOTE : Please Click On Calculate Button In Case of Adding Data
                   In Grid
                 </span>

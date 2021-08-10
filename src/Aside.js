@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { useIntl } from "react-intl";
 
 import { FaBars } from "react-icons/fa";

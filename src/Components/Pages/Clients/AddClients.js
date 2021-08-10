@@ -56,6 +56,19 @@ function AddClients() {
     history.push("/ViewClients");
   };
 
+  const testOnlurr = () => {
+    axios
+      .post("http://mssoftware.xyz/getClientCmpValidation", {
+        clientCmpName: clientcompname,
+      })
+      .then((res) => {
+        if (res.data[0].CLIENTSCOUNT > 0) {
+          alert("Client Already Exist");  
+          setClientcompname('');       
+        }
+      });
+  };
+
   return (
     <>
       <div class="scrollbar square scrollbar-lady-lips thin">
@@ -89,6 +102,8 @@ function AddClients() {
                     class="form-control is-valid"
                     id="clientcompname"
                     name="clientcompname"
+                    onBlur={testOnlurr}
+                    value={clientcompname}
                     onChange={handleChangeEvent}
                     required
                   />

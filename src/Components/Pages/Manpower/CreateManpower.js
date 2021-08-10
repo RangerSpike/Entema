@@ -125,12 +125,10 @@ function CreateManpower() {
   const [isInputHidden30, setIsInputHidden30] = useState(false);
   const [isInputHidden31, setIsInputHidden31] = useState(false);
 
-
   const checkCalendarDays = (month, year) => {
     /*assuming month = 3 and year = 2021 (make sure when you select march your variable returns you in number that is 3)*/
     return new Date(year, month, 0).getDate();
   };
-
 
   const onYearChange = (value) => {
     axios
@@ -198,7 +196,7 @@ function CreateManpower() {
       setMpTotalOt(e.target.value);
     } else if (input === "MpTotal") {
       setMpTotal(e.target.value);
-    } 
+    }
   };
   const handleSubmit = (e) => {
     // e.preventDefault();
@@ -217,7 +215,7 @@ function CreateManpower() {
         mtstotal: MpTotalAmount,
         mtsgrid: true,
         mpDispValue: manpowDispValue,
-        createdby:localStorage.getItem("userDetails")
+        createdby: localStorage.getItem("userDetails"),
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
@@ -225,6 +223,16 @@ function CreateManpower() {
     history.push("/ViewTimesheetm");
     //console.log("test submit");
   };
+  const [curDate, setCurdate] = useState(new Date());
+  
+  const dateFn = () => {
+    let x = curDate.getFullYear();
+    setMpYear(x);
+  };
+
+  useEffect(() => {
+    dateFn();
+  }, []);
 
   return (
     <>
@@ -271,7 +279,6 @@ function CreateManpower() {
                       {data.value}
                     </option>
                   ))}
-
                 </select>
               </div>
               <div class="col-md-4 mb-3">
@@ -301,7 +308,7 @@ function CreateManpower() {
                   class="form-control is-valid"
                   value={MpDescription}
                   id="MpDescription"
-                  name="MpDescription"              
+                  name="MpDescription"
                 />
               </div>
               <div class="col-md-4 mb-3">
@@ -311,7 +318,7 @@ function CreateManpower() {
                   class="form-control is-valid"
                   value={MpIqamaId}
                   id="MpIqamaId"
-                  name="MpIqamaId"                  
+                  name="MpIqamaId"
                 />
               </div>
             </div>
@@ -378,7 +385,7 @@ function CreateManpower() {
                   required
                 />
               </div>
-            </div>            
+            </div>
             <button
               type="submit"
               class="btn btn-outline-success"

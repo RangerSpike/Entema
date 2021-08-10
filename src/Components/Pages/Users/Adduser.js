@@ -156,187 +156,201 @@ function Adduser(props) {
     }
   };
 
+  const testOnlurr = () => {
+    Axios
+      .post("http://mssoftware.xyz/getUserNameValidation", {
+        userName: userName,
+      })
+      .then((res) => {
+        if (res.data[0].USERCOUNT > 0) {
+          alert("User Already Exist");
+          setUserName("");
+        }
+      });
+  };
+
   return (
     <>
-    <div class="scrollbar square scrollbar-lady-lips thin">
-      <div
-        class="container"
-        style={{ paddingTop: "30px", paddingLeft: "50px" }}
-      >
-        <div>
-          <div className="heading-layout1">
-            <div className="item-title">
-              <h3 style={{ padding: "50px" }}>Add User</h3>
+      <div class="scrollbar square scrollbar-lady-lips thin">
+        <div
+          class="container"
+          style={{ paddingTop: "30px", paddingLeft: "50px" }}
+        >
+          <div>
+            <div className="heading-layout1">
+              <div className="item-title">
+                <h3 style={{ padding: "50px" }}>Add User</h3>
+              </div>
             </div>
-          </div>
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="row">
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userName">User name</label>
-                <input
-                  type="text"
-                  class="form-control is-valid"
-                  id="userName"
-                  name="userName"
-                  value={userName}
-                  onChange={handleChangeEvent}
-                  required
-                />
+            <form onSubmit={handleSubmit} autoComplete="off">
+              <div className="row">
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userName">User name</label>
+                  <input
+                    type="text"
+                    class="form-control is-valid"
+                    id="userName"
+                    name="userName"
+                    value={userName}
+                    onChange={handleChangeEvent}
+                    onBlur={testOnlurr}
+                    required
+                  />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userFname">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control is-valid"
+                    id="userFname"
+                    name="userFname"
+                    value={userFname}
+                    onChange={handleChangeEvent}
+                    required
+                  />
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userEmail">User Email</label>
+                  <input
+                    type="text"
+                    class="form-control is-valid"
+                    id="userEmail"
+                    name="userEmail"
+                    value={userEmail}
+                    onChange={handleChangeEvent}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userPwd">Password</label>
+                  <input
+                    type="password"
+                    class="form-control is-valid"
+                    id="userPwd"
+                    name="userPwd"
+                    value={userPwd}
+                    onChange={handleChangeEvent}
+                    required
+                  />
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userCpwd">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control is-valid"
+                    id="userCpwd"
+                    name="userCpwd"
+                    value={userCpwd}
+                    onChange={handleChangeEvent}
+                    required
+                  />
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userPhone">Phone</label>
+                  <input
+                    type="text"
+                    class="form-control is-valid"
+                    id="userPhone"
+                    name="userPhone"
+                    value={userPhone}
+                    onChange={handleChangeEvent}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userDesignation">Designation</label>
+                  <input
+                    type="text"
+                    class="form-control is-valid"
+                    id="userDesignation"
+                    name="userDesignation"
+                    value={userDesignation}
+                    onChange={handleChangeEvent}
+                  />
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userRole">Role</label>
+                  <select
+                    class="form-control is-valid"
+                    id="userRole"
+                    name="userRole"
+                    value={userRole}
+                    onChange={handleChangeEvent}
+                    required
+                  >
+                    <option key="" value="">
+                      Select Role
+                    </option>
+                    {roleLov.map((data) => (
+                      <option key={data.RL_ID} value={data.RL_ID}>
+                        {data.RL_NAME}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userStatus">Status</label>
+                  <select
+                    class="form-control is-valid"
+                    id="userStatus"
+                    name="userStatus"
+                    value={userStatus}
+                    onChange={handleChangeEvent}
+                    required
+                  >
+                    {statusLov.map((data) => (
+                      <option key={data.key} value={data.key}>
+                        {data.value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="row">
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userActdate">Activation Date</label>
+                  <input
+                    type="date"
+                    class="form-control is-valid"
+                    id="userActdate"
+                    name="userActdate"
+                    value={userActdate}
+                    onChange={handleChangeEvent}
+                    disabled
+                  />
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label htmlFor="userDactdate">Deactivation Date</label>
+                  <input
+                    type="date"
+                    class="form-control is-valid"
+                    id="userDactdate"
+                    name="userDactdate"
+                    value={userDactdate}
+                    onChange={handleChangeEvent}
+                    required={mandDact}
+                    disabled
+                  />
+                </div>
               </div>
 
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userFname">Full Name</label>
-                <input
-                  type="text"
-                  class="form-control is-valid"
-                  id="userFname"
-                  name="userFname"
-                  value={userFname}
-                  onChange={handleChangeEvent}
-                  required
-                />
-              </div>
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userEmail">User Email</label>
-                <input
-                  type="text"
-                  class="form-control is-valid"
-                  id="userEmail"
-                  name="userEmail"
-                  value={userEmail}
-                  onChange={handleChangeEvent}
-                  required
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userPwd">Password</label>
-                <input
-                  type="password"
-                  class="form-control is-valid"
-                  id="userPwd"
-                  name="userPwd"
-                  value={userPwd}
-                  onChange={handleChangeEvent}
-                  required
-                />
-              </div>
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userCpwd">Confirm Password</label>
-                <input
-                  type="password"
-                  class="form-control is-valid"
-                  id="userCpwd"
-                  name="userCpwd"
-                  value={userCpwd}
-                  onChange={handleChangeEvent}
-                  required
-                />
-              </div>
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userPhone">Phone</label>
-                <input
-                  type="text"
-                  class="form-control is-valid"
-                  id="userPhone"
-                  name="userPhone"
-                  value={userPhone}
-                  onChange={handleChangeEvent}
-                  required
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userDesignation">Designation</label>
-                <input
-                  type="text"
-                  class="form-control is-valid"
-                  id="userDesignation"
-                  name="userDesignation"
-                  value={userDesignation}
-                  onChange={handleChangeEvent}                 
-                />
-              </div>
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userRole">Role</label>
-                <select
-                  class="form-control is-valid"
-                  id="userRole"
-                  name="userRole"
-                  value={userRole}
-                  onChange={handleChangeEvent}
-                  required
+              <div>
+                <button
+                  type="submit"
+                  class="btn btn-outline-success"
+                  style={{ marginTop: "20px", marginBottom: "20px" }}
                 >
-                  <option key="" value="">
-                    Select Role
-                  </option>
-                  {roleLov.map((data) => (
-                    <option key={data.RL_ID} value={data.RL_ID}>
-                      {data.RL_NAME}
-                    </option>
-                  ))}
-                </select>
+                  Submit
+                </button>
               </div>
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userStatus">Status</label>
-                <select
-                  class="form-control is-valid"
-                  id="userStatus"
-                  name="userStatus"
-                  value={userStatus}
-                  onChange={handleChangeEvent}
-                  required
-                >
-                  {statusLov.map((data) => (
-                    <option key={data.key} value={data.key}>
-                      {data.value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="row">
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userActdate">Activation Date</label>
-                <input
-                  type="date"
-                  class="form-control is-valid"
-                  id="userActdate"
-                  name="userActdate"
-                  value={userActdate}
-                  onChange={handleChangeEvent}
-                  disabled
-                />
-              </div>
-              <div class="col-md-4 mb-3">
-                <label htmlFor="userDactdate">Deactivation Date</label>
-                <input
-                  type="date"
-                  class="form-control is-valid"
-                  id="userDactdate"
-                  name="userDactdate"
-                  value={userDactdate}
-                  onChange={handleChangeEvent}
-                  required={mandDact}
-                  disabled
-                />
-              </div>
-            </div>
-            
-            <div>
-            <button
-              type="submit"
-              class="btn btn-outline-success"
-              style={{ marginTop: "20px", marginBottom: "20px" }}
-            >
-              Submit
-            </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

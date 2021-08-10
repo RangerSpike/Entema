@@ -145,6 +145,8 @@ export default function PopupTS(props) {
 
   let noOfDays = 0;
 
+  const [tsSts, setTsSts] = useState(false);
+
   useEffect(() => {
     axios
       .post("http://mssoftware.xyz/getVenTimesheetDataListBasedonId", {
@@ -152,7 +154,7 @@ export default function PopupTS(props) {
       })
       .then((res) => {
         if (res.data.length > 0) {
-          console.log("BAGIAN:",res.data);
+          console.log("BAGIAN:", res.data);
           setTsid(res.data[0].VTS_ID);
           settsVendor(res.data[0].TS_VENDOR);
           settsMont(res.data[0].TS_MONTH);
@@ -167,7 +169,8 @@ export default function PopupTS(props) {
           settsTotalOt(res.data[0].TS_TOTAL_OT);
           settsTotal(res.data[0].TS_TOTAL);
           settsExpectedWorkingHours(res.data[0].TS_EXP_HOURS);
-          checkApproved(res.data[0].TS_STATUS);
+          setTsSts(res.data[0].TS_STATUS);
+          //checkApproved(res.data[0].TS_STATUS);
           test[0] = {
             days1: res.data[0].RDAY_1,
             days2: res.data[0].RDAY_2,
@@ -240,21 +243,30 @@ export default function PopupTS(props) {
       });
   }, [id]);
 
+
+  let x = localStorage.getItem("userDetails");
+
   const [isHidden, setisHidden] = useState(true);
-  const[isBtnDisabled,setIsBtnDisabled]=useState(false);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
   const checkApproved = (sts) => {
     console.log(sts);
     if (sts === "Approved") {
+      console.log("-------->Disabled");
       setIsBtnDisabled(true);
-      if(localStorage.getItem("userDetails")==="Admin"){
+      if ( x === "admin") {
+
         setIsBtnDisabled(false);
       }
-    }else{
+    } else {
       setIsBtnDisabled(false);
     }
   };
-  
+
+  useEffect(() => {
+    checkApproved(tsSts);
+  }, [tsSts]);
+
   const addUser = () => {
     setIsDisabled(!isDisabled);
     setIsCalculated(false);
@@ -859,7 +871,7 @@ export default function PopupTS(props) {
                 <label htmlfor="userName">Expected Working Hours</label>
                 <input
                   type="text"
-                  class="form-control is-valid"                  
+                  class="form-control is-valid"
                   value={tsExpectedWorkingHours}
                   onBlur={testing}
                   id="tsExpectedWorkingHours"
@@ -942,7 +954,7 @@ export default function PopupTS(props) {
                   type="text"
                   class="form-control is-valid"
                   id="tsTotal"
-                  value={tsTotal}
+                  value={Math.round(tsTotal)}
                   name="tsTotal"
                   required
                   disabled
@@ -962,6 +974,7 @@ export default function PopupTS(props) {
                     color="default"
                     onClick={() => addUser()}
                     disabled={isDisabled}
+                    hidden
                   >
                     Show
                   </Button>
@@ -970,13 +983,14 @@ export default function PopupTS(props) {
                     onClick={() => removeUsers()}
                     disabled={!isDisabled}
                     style={{ marginLeft: "10px" }}
+                    hidden
                   >
                     Remove
                   </Button>
                 </ButtonGroup>
               </div>
               <div className="col-md-12">
-                <span style={{ color: "red" }}>
+                <span style={{ color: "red" }} hidden>
                   NOTE : Please Click On Calculate Button In Case of Adding Data
                   In Grid
                 </span>

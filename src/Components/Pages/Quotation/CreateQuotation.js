@@ -39,6 +39,7 @@ function CreateQuotation() {
   const history = useHistory();
   const classes = useStyles();
 
+  const [seqNo, setSeqNo] = useState();
   const [stateChange] = useState(false);
   const [quotID, setQuotID] = useState();
   const [cqdate, setCqdate] = useState();
@@ -63,7 +64,7 @@ function CreateQuotation() {
   const [newData, setNewData] = useState([]);
 
   const [qoMaxID, setQOMaxID] = useState();
-  
+
   const [clientDispValue, setClientDispValue] = useState();
 
   //   let newData = [];
@@ -142,28 +143,26 @@ function CreateQuotation() {
     return uniqueValue;
   };
 
-
   const generateSequence = (value) => {
     let x;
 
-    if (!value){
+    if (!value) {
       x = parseInt(0) + 1;
-    } 
-    else{
+    } else {
       x = parseInt(value) + 1;
-    } 
+    }
     // setPorevno('REV-'+parseInt(x));
-    // setPonumber('PO-'+parseInt(x));
+    setSeqNo(parseInt(x));
     setQuotRefNo("ENT - " + parseInt(x));
-  }
+  };
 
   const getMaxID = () => {
     fetch("/getMaxQOId")
       .then((response) => response.json())
       .then((json) => {
         setQOMaxID(json[0].maxid);
-        generateSequence(json[0].maxid)
-        return qoMaxID
+        generateSequence(json[0].maxid);
+        return qoMaxID;
       });
   };
 
@@ -265,8 +264,7 @@ function CreateQuotation() {
 
         setMultiSet(updatedUsers);
       }
-    } 
-    else if (e.target.name === "qty") {
+    } else if (e.target.name === "qty") {
       if (multiSet[index].amount != "") {
         let calc = multiSet[index].qty * multiSet[index].amount;
 
@@ -297,7 +295,8 @@ function CreateQuotation() {
         termCond: termCond,
         multiSet: multiSet,
         clientDispValue: clientDispValue,
-        createdby:localStorage.getItem("userDetails")
+        createdby: localStorage.getItem("userDetails"),
+        seqNo: seqNo,
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
@@ -334,6 +333,7 @@ function CreateQuotation() {
                   name="cqdate"
                   value={cqdate}
                   onChange={(e) => handleChangeEvent(e)}
+                  required
                 />
               </div>
               <div className="top-quot2" style={{ marginLeft: "337px" }}>
@@ -427,6 +427,7 @@ function CreateQuotation() {
                   >
                     <Grid item md={2}>
                       <TextField
+                        required
                         label="Description"
                         name="description"
                         type="textarea"
@@ -447,6 +448,7 @@ function CreateQuotation() {
                           Unit
                         </InputLabel>
                         <Select
+                          required
                           native
                           value={item.unit}
                           onChange={(e) => handleChangeEvent(e, index)}
@@ -470,6 +472,7 @@ function CreateQuotation() {
 
                     <Grid item md={2}>
                       <TextField
+                        required
                         type="number"
                         label="Qty"
                         name="qty"
@@ -483,6 +486,7 @@ function CreateQuotation() {
                     </Grid>
                     <Grid item md={2}>
                       <TextField
+                        required
                         type="number"
                         label="Price"
                         name="amount"
@@ -498,6 +502,7 @@ function CreateQuotation() {
                     {ischeked ? (
                       <Grid item md={2}>
                         <TextField
+                          required
                           type="number"
                           label="Total Amount"
                           name="totalAmount"
@@ -513,6 +518,7 @@ function CreateQuotation() {
                     ) : (
                       <Grid item md={2}>
                         <TextField
+                          required
                           label="Mob And Demob"
                           name="mobAnddemob"
                           variant="outlined"
