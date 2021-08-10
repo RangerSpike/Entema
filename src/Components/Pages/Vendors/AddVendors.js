@@ -126,7 +126,14 @@ function AddVendors() {
   // // }
 
   const generateSequence = (value) => {
-    let x = parseInt(value) + 1;
+    let x;
+ 
+    if (!value){
+      x = 1;
+    } 
+    else{
+      x = parseInt(value) + 1;
+    }
 
     setVendorId("VEN-" + parseInt(x));
     setVendorcode("VCODE-" + parseInt(x));

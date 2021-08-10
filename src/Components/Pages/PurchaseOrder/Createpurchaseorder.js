@@ -203,10 +203,11 @@ function Createpurchaseorder() {
 
   const generateSequence = (value) => {
     let x;
-
-    if (!value) {
-      x = parseInt(0) + 1;
-    } else {
+ 
+    if (!value){
+      x = 1;
+    } 
+    else{
       x = parseInt(value) + 1;
     }
     setPorevno("REV-" + parseInt(x));
