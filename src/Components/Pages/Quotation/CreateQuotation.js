@@ -145,16 +145,15 @@ function CreateQuotation() {
 
   const generateSequence = (value) => {
     let x;
- 
-    if (!value){
+
+    if (!value) {
       x = 1;
-    } 
-    else{
+    } else {
       x = parseInt(value) + 1;
     }
     // setPorevno('REV-'+parseInt(x));
     setSeqNo(parseInt(x));
-    setQuotRefNo("ENT - " + parseInt(x));
+    setQuotRefNo("ENT - X");
   };
 
   const getMaxID = () => {
@@ -252,7 +251,7 @@ function CreateQuotation() {
   };
 
   const handleBlur = (e, index) => {
-   // console.log("blurr on call e value : ", e);
+    // console.log("blurr on call e value : ", e);
     //console.log("blurr on call index value : ", index);
 
     if (e.target.name === "amount") {
@@ -296,8 +295,7 @@ function CreateQuotation() {
         termCond: termCond,
         multiSet: multiSet,
         clientDispValue: clientDispValue,
-        createdby: localStorage.getItem("userDetails"),
-        seqNo: seqNo,
+        createdby: localStorage.getItem("userDetails")
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);
@@ -317,6 +315,11 @@ function CreateQuotation() {
             <div className="top-quot2" style={{ marginLeft: "157px" }}></div>
           </div>
           <form onSubmit={handleSubmit} onChange={handleChangeEvent}>
+            <div className="heading-layout1">
+              <div className="item-title">
+                <h3 style={{ color: "blue" }}>Create Quotation</h3>
+              </div>
+            </div>
             <div className="heading-layout1">
               <div className="item-title">
                 <h4 style={{ color: "blue" }}>Work Schedule</h4>

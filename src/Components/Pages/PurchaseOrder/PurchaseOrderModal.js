@@ -109,8 +109,8 @@ export default function PopupPO(props) {
           console.log("BROO :: ", res.data);
           setPodate(res.data[0].CREATED_DATE);
           setPodocno(res.data[0].DOC_NO);
-          setPorevno(res.data[0].REV_NO);
-          setPonumber(res.data[0].WO_NUMBER);
+          setPorevno("REV - "+res.data[0].SEQ_NO);
+          setPonumber("PO - "+res.data[0].SEQ_NO);
           setPoquotationref(res.data[0].WO_QUO_REF);
           setPoproject(res.data[0].WO_PROJECT);
           setPopaymentmode(res.data[0].WO_PAYMENT_MODE);

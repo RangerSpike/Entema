@@ -22,7 +22,7 @@ function AddVendors() {
 
   const [seqNo, setSeqNo] = useState();
   const [vendorname, setVendorname] = useState();
-  const [vendorcode, setVendorcode] = useState();
+  const [vendorcode, setVendorcode] = useState('VEN-X');
   const [vendorfline, setVendorfline] = useState();
   const [vendoradd, setVendoradd] = useState();
   const [vendorcperson, setVendorcperson] = useState();
@@ -33,7 +33,7 @@ function AddVendors() {
   const [vendorbankacc, setVendorbankacc] = useState();
   const [vendoriban, setVendoriban] = useState();
   const [vendorvat, setVendorvat] = useState();
-  const [vendordocno, setVendordocno] = useState();
+  const [vendordocno, setVendordocno] = useState('DOC-X');
   const [createdby, setCreatedby] = useState("Mazhar");
   const [vendorstatus, setVendorstatus] = useState("Active");
   const [vendorId, setVendorId] = useState();
@@ -133,9 +133,9 @@ function AddVendors() {
       x = parseInt(value) + 1;
     }
 
-    setVendorId("VEN-" + parseInt(x));
-    setVendorcode("VCODE-" + parseInt(x));
-    setVendordocno("DOC-" + parseInt(x));
+    // setVendorId("VEN-" + parseInt(x));
+    // setVendorcode("VCODE-" + parseInt(x));
+    // setVendordocno("DOC-" + parseInt(x));
     setSeqNo(parseInt(x));
   };
   
@@ -232,7 +232,6 @@ function AddVendors() {
         vendordocno: vendordocno,
         createdby: localStorage.getItem("userDetails"),
         vendorstatus: vendorstatus,
-        seqNo: seqNo,
       }).then((res) => {
         //console.log("result success : ", res);
       });

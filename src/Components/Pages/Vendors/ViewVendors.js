@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { useEffect, useState, useMemo } from "react";
 import Popup from "./VendorsModal";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
@@ -80,7 +79,7 @@ const DataTable = () => {
   };
 
   const openInStatement = (vendorId) => {
-    //console.log("IDIDI: ", vendorId);
+    console.log("IDIDI: ", vendorId);
 
     history.push(`/Statement/${vendorId}`);
   };
@@ -164,7 +163,7 @@ const DataTable = () => {
                         onClick={() => openInPopup(comment.VENDOR_ID)}
                         style={{ cursor: "pointer" }}
                       >
-                        {comment.VENDOR_ID}
+                        FORM LINK
                       </th>
                       <td
                         onClick={() => openInStatement(comment.VENDOR_ID)}
@@ -172,7 +171,7 @@ const DataTable = () => {
                       >
                         {comment.VENDOR_NAME}
                       </td>
-                      <td>{comment.VENDOR_CODE}</td>
+                      <td>VEN - {comment.SEQ_NO}</td>
                       <td>{comment.VENDOR_FL_PHONE}</td>
                       <td>{comment.VENDOR_CPERSON}</td>
                       <td>{comment.VENDOR_PHONE}</td>

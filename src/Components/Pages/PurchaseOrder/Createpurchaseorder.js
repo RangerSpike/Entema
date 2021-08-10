@@ -119,8 +119,8 @@ function Createpurchaseorder() {
       );
     }
     //console.log("data set value is : ", computedComments);
-    setPocode(computedComments[0].VENDOR_CODE);
-    setPodocno(computedComments[0].VENDOR_DOC_NO);
+    setPocode("VEN - "+computedComments[0].SEQ_NO);
+    setPodocno("DOC - " + computedComments[0].SEQ_NO);
     setPophone(computedComments[0].VENDOR_PHONE);
     setPocpperson(computedComments[0].VENDOR_CPERSON);
     setPomobile(computedComments[0].VENDOR_PHONE);
@@ -210,9 +210,9 @@ function Createpurchaseorder() {
     else{
       x = parseInt(value) + 1;
     }
-    setPorevno("REV-" + parseInt(x));
-    setSeqNo(parseInt(x));
-    setPonumber("PO-" + parseInt(x));
+    setPorevno("REV-X");
+    //setSeqNo(parseInt(x));
+    setPonumber("PO-X");
   };
 
   const getMaxID = () => {
@@ -497,7 +497,6 @@ function Createpurchaseorder() {
         taskList: orderItem,
         vendorDispName: sigName,
         createdby: localStorage.getItem("userDetails"),
-        seqNo: seqNo,
       })
       .then((res) => {
         //console.log("updated Values Successfully : ", res.data);

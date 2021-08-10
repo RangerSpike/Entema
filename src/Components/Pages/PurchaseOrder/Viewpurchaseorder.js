@@ -230,7 +230,7 @@ const DataTable = () => {
                       >
                         {comment.PO_ID}
                       </th>
-                      <td>{comment.DOC_NO}</td>
+                      <td>DOC - {comment.SEQ_NO}</td>
                       <td
                         onClick={() => openInStatement(comment.VI_VENDOR)}
                         style={{ cursor: "pointer" }}
@@ -242,7 +242,7 @@ const DataTable = () => {
                       <td>{comment.CREATED_BY}</td>
                       <td>{comment.WS_LOC}</td>
                       <td>{comment.WO_QUO_REF}</td>
-                      <td>{comment.WO_NUMBER}</td>
+                      <td>PO - {comment.SEQ_NO}</td>
                       <td>{comment.PO_APPROVE_STATUS}</td>
                       <td>
                         <IconButton color="secondary">

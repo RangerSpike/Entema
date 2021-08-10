@@ -53,9 +53,9 @@ export default function Popup(props) {
       .then((res) => {
         // console.log("FROM MODAL:", res.data[0]);
 
-        if (res.data.length > 0) {
+        if (res.data.length > 0) {          
           setVendorname(res.data[0].VENDOR_NAME);
-          setVendorcode(res.data[0].VENDOR_CODE);
+          setVendorcode("VEN - " + res.data[0].SEQ_NO);
           setVendorfline(res.data[0].VENDOR_FL_PHONE);
           setVendoradd(res.data[0].VENDOR_ADD);
           setVendorcperson(res.data[0].VENDOR_CPERSON);
@@ -66,7 +66,7 @@ export default function Popup(props) {
           setVendorbankacc(res.data[0].VENDOR_BANK_ACC);
           setVendoriban(res.data[0].VENDOR_IBAN);
           setVendorvat(res.data[0].VENDOR_VAT);
-          setVendordocno(res.data[0].VENDOR_DOC_NO);
+          setVendordocno("DOC - "+res.data[0].SEQ_NO);
         }
       });
   }, [id]);
@@ -139,8 +139,7 @@ export default function Popup(props) {
     axios
       .post("http://mssoftware.xyz/updateVendorData", {
         v_id: id,
-        vendorname: vendorname,
-        vendorcode: vendorcode,
+        vendorname: vendorname,        
         vendorphone: vendorphone,
         vendoradd: vendoradd,
         vendorcperson: vendorcperson,
@@ -150,8 +149,7 @@ export default function Popup(props) {
         vendorbankname: vendorbankname,
         vendorbankacc: vendorbankacc,
         vendoriban: vendoriban,
-        vendorvat: vendorvat,
-        vendordocno: vendordocno,
+        vendorvat: vendorvat,        
         vendorstatus: vendorstatus,
       })
       .then((res) => {
