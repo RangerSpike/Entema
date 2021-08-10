@@ -59,7 +59,7 @@ export default function Popup(props) {
   const [entFrom, setEntFrom] = useState("Entemasw");
 
   const [quotDate, setQuotDate] = useState();
-  const [quotRefNo, setQuotRefNo] = useState("ENT/Jun-21/111");
+  const [quotRefNo, setQuotRefNo] = useState();
 
   let newData = [];
   let test = [];
@@ -106,25 +106,25 @@ export default function Popup(props) {
 
     setQuotDate(formatedDate);
 
-    generateUniqueId();
+    // generateUniqueId();
   }, [stateChange]);
 
-  const generateUniqueId = () => {
-    let currentDate = new Date();
-    let uniqueValue =
-      "" +
-      currentDate.getFullYear() +
-      (currentDate.getMonth() + 1) +
-      currentDate.getDate() +
-      currentDate.getHours() +
-      currentDate.getMinutes() +
-      currentDate.getSeconds() +
-      currentDate.getMilliseconds();
+  // const generateUniqueId = () => {
+  //   let currentDate = new Date();
+  //   let uniqueValue =
+  //     "" +
+  //     currentDate.getFullYear() +
+  //     (currentDate.getMonth() + 1) +
+  //     currentDate.getDate() +
+  //     currentDate.getHours() +
+  //     currentDate.getMinutes() +
+  //     currentDate.getSeconds() +
+  //     currentDate.getMilliseconds();
 
-    setQuotID(uniqueValue);
-    setQuotRefNo("ENT - " + uniqueValue);
-    return uniqueValue;
-  };
+  //   setQuotID(uniqueValue);
+  //   setQuotRefNo("ENT - " + uniqueValue);
+  //   return uniqueValue;
+  // };
 
   const onChangeClientData = (value) => {
     let computedComments = clientLov;
@@ -215,7 +215,7 @@ export default function Popup(props) {
       .then((res) => {
         ///setNewData(res.data[0]);
         if (id > 0) {
-         // console.log("res.data[0] :", res.data[0]);
+          console.log("res.data[0] :", res.data[0]);
           setCqdate(res.data[0].WO_STARTDATE);
           setCqclient(res.data[0].QO_COMP_CLIENT);
           setCqname(res.data[0].QO_COMP_NAME);
@@ -224,6 +224,7 @@ export default function Popup(props) {
           setCqtypes(res.data[0].QO_TYPE);
           setClientDispValue(res.data[0].CLIENT_DISP_NAME);
           setTermCond(res.data[0].QO_TERMS_COND);
+          setQuotRefNo(res.data[0].QUOT_NO);
           // console.log("CQ :", cqtypes);
           axios
             .post("http://mssoftware.xyz/getMultirowQuotDataBasedOnId", {
@@ -274,6 +275,24 @@ export default function Popup(props) {
     setMultiSet(updatedDataSet);
   };
 
+  const updatedQuot = () => {
+    axios
+      .post("http://mssoftware.xyz/UpdateQuotData", {
+        qoid: id,
+        cqdate: cqdate,
+        entFrom: entFrom,
+        entMobile: entMobile,
+        cqclient: cqclient,
+        cqname: cqname,
+        cqmobileNo: cqmobileNo,
+        cqemail: cqemail,
+        cqtypes: cqtypes,
+        termCond: termCond,
+        multiSet: multiSet,
+      })
+      .then((res) => {});
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -282,21 +301,9 @@ export default function Popup(props) {
         qoid: id,
       })
       .then((res) => {
-        axios
-          .post("http://mssoftware.xyz/UpdateQuotData", {
-            qoid: id,
-            cqdate: cqdate,
-            entFrom: entFrom,
-            entMobile: entMobile,
-            cqclient: cqclient,
-            cqname: cqname,
-            cqmobileNo: cqmobileNo,
-            cqemail: cqemail,
-            cqtypes: cqtypes,
-            termCond: termCond,
-            multiSet: multiSet,
-          })
-          .then((res) => {});
+        setTimeout(()=>{
+          updatedQuot();
+        },1000)
       });
 
     setOpenPopup(false);

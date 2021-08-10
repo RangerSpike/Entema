@@ -106,11 +106,11 @@ export default function PopupPO(props) {
       .then((res) => {        
         ///setNewData(res.data[0]);
         if (res.data.length > 0) {
-          //console.log("BROO :: ", res.data);
+          console.log("BROO :: ", res.data);
           setPodate(res.data[0].CREATED_DATE);
           setPodocno(res.data[0].DOC_NO);
           setPorevno(res.data[0].REV_NO);
-          setPonumber(res.data[0].REV_NO);
+          setPonumber(res.data[0].WO_NUMBER);
           setPoquotationref(res.data[0].WO_QUO_REF);
           setPoproject(res.data[0].WO_PROJECT);
           setPopaymentmode(res.data[0].WO_PAYMENT_MODE);
@@ -511,17 +511,7 @@ export default function PopupPO(props) {
   //     });
   // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    axios
-      .post("http://mssoftware.xyz/removePOMulDataonId", {
-        POID: id,
-      })
-      .then((res) => {
-        //console.log("DELETED");
-      });
-
+  const updatePo = ()=>{
     axios
       .post("http://mssoftware.xyz/updatePoData", {
         poid: id,
@@ -554,6 +544,19 @@ export default function PopupPO(props) {
         taskList: orderItem,
       })
       .then((res) => {});
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://mssoftware.xyz/removePOMulDataonId", {
+        POID: id,
+      })
+      .then((res) => {
+        //console.log("DELETED");
+        updatePo();
+      });    
 
     setId(0);
     setOpenPopup(false);
