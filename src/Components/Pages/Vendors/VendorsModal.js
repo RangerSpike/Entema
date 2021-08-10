@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Popup(props) {
-  const {setId, id, openPopup, setOpenPopup } = props;
+  const { setId, id, openPopup, setOpenPopup } = props;
 
   const classes = useStyles();
   // console.log(id);
@@ -45,15 +45,6 @@ export default function Popup(props) {
   const [createdby, setCreatedby] = useState("Mazhar");
   const [vendorstatus, setVendorstatus] = useState("Active");
 
-  // const vatTemplate = {
-  //   vatsdate: "",
-  //   vat: "",
-  //   vatedate: "",
-  // };
-  // const [data, setData] = useState([vatTemplate]);
-  // let newData = [];
-  // let test = [];
-
   useEffect(() => {
     axios
       .post("http://mssoftware.xyz/getVendorIDData", {
@@ -62,7 +53,7 @@ export default function Popup(props) {
       .then((res) => {
         // console.log("FROM MODAL:", res.data[0]);
 
-        if (id > 0) {
+        if (res.data.length > 0) {
           setVendorname(res.data[0].VENDOR_NAME);
           setVendorcode(res.data[0].VENDOR_CODE);
           setVendorfline(res.data[0].VENDOR_FL_PHONE);
@@ -77,28 +68,6 @@ export default function Popup(props) {
           setVendorvat(res.data[0].VENDOR_VAT);
           setVendordocno(res.data[0].VENDOR_DOC_NO);
         }
-        // axios
-        //   .post("https://mssoftware.xyz/getVatDataOnID", {
-        //     vendorID: id,
-        //   })
-        //   .then((res) => {
-        //     console.log(res.data);
-        //     newData = res.data;
-
-        //     var x = newData.length;
-        //     var rows = [];
-
-        //     for (var i = 0; i < x; i++) {
-        //       rows.push(vatTemplate);
-
-        //       test[i] = {
-        //         vatsdate: newData[i].VEN_START_DATE,
-        //         vat: newData[i].VAT,
-        //         vatedate: newData[i].VEN_END_DATE,
-        //       };
-        //     }
-        //     setData(test);
-        //   });
       });
   }, [id]);
 
@@ -194,10 +163,10 @@ export default function Popup(props) {
     setId(0);
     setOpenPopup(false);
   };
-const onClosePopup =()=>{
-  setId(0);
-  setOpenPopup(false)
-}
+  const onClosePopup = () => {
+    setId(0);
+    setOpenPopup(false);
+  };
   return (
     <Dialog
       open={openPopup}
@@ -223,7 +192,7 @@ const onClosePopup =()=>{
         >
           <div className="heading-layout1">
             <div className="item-title">
-              <h3 style={{ padding: "50px" }}>Add Vendors</h3>
+              <h3 style={{ padding: "50px" }}>Update Vendors</h3>
             </div>
           </div>
           <form>

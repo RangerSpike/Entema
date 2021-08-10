@@ -162,6 +162,7 @@ const DataTable = () => {
                         scope="row"
                         key={comment.VENDOR_ID}
                         onClick={() => openInPopup(comment.VENDOR_ID)}
+                        style={{ cursor: "pointer" }}
                       >
                         {comment.VENDOR_ID}
                       </th>

@@ -122,7 +122,7 @@ export default function Popup(props) {
         >
           <div className="heading-layout1">
             <div className="item-title">
-              <h4 style={{ paddingBottom: "10px" }}>Add Client</h4>
+              <h4 style={{ paddingBottom: "10px" }}>Update Client</h4>
             </div>
           </div>
           <div className="scroll">
