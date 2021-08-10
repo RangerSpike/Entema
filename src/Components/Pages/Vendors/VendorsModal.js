@@ -165,6 +165,18 @@ export default function Popup(props) {
     setId(0);
     setOpenPopup(false);
   };
+
+  const testOnlurr = () => {
+    axios.post("http://mssoftware.xyz/getVenNameValidation", {
+      venName: vendorname,
+    }).then((res) => {
+      if (res.data[0].VENDORCOUNT > 0) {
+        alert("Vendor Already Exist");
+        // setVendorname("");
+      }
+    });
+  };
+
   return (
     <Dialog
       open={openPopup}
@@ -202,6 +214,8 @@ export default function Popup(props) {
                   class="form-control is-valid"
                   id="vendorname"
                   name="vendorname"
+                  onBlur={testOnlurr}
+                  disabled
                   required
                   value={vendorname}
                   onChange={handleChangeEvent}
@@ -215,6 +229,7 @@ export default function Popup(props) {
                   class="form-control is-valid"
                   id="vendorcode"
                   name="vendorcode"
+                  disabled
                   value={vendorcode}
                   onChange={handleChangeEvent}
                 />
@@ -343,6 +358,7 @@ export default function Popup(props) {
                   id="vendordocno"
                   name="vendordocno"
                   value={vendordocno}
+                  disabled
                   onChange={handleChangeEvent}
                 />
               </div>

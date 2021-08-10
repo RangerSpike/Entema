@@ -97,6 +97,19 @@ export default function Popup(props) {
     setOpenPopup(false);
   };
 
+  const testOnlurr = () => {
+    axios
+      .post("http://mssoftware.xyz/getClientCmpValidation", {
+        clientCmpName: clientcompname,
+      })
+      .then((res) => {
+        if (res.data[0].CLIENTSCOUNT > 0) {
+          alert("Client Already Exist");
+          setClientcompname("");
+        }
+      });
+  };
+
   return (
     <Dialog
       open={openPopup}
@@ -147,7 +160,9 @@ export default function Popup(props) {
                     class="form-control is-valid"
                     id="clientcompname"
                     name="clientcompname"
+                    disabled
                     required
+                    onBlur={testOnlurr}
                     value={clientcompname}
                     onChange={handleChangeEvent}
                   />

@@ -45,12 +45,12 @@ function AddClients() {
         clientphone: clientphone,
         clientemail: clientemail,
         clientadd: clientadd,
-        createdby:localStorage.getItem("userDetails")
+        createdby: localStorage.getItem("userDetails"),
       })
       .then((res) => {
         // setData(res.data);
         //  setDupData(res.data);
-       //console.log("result set in effect: ", res);
+        //console.log("result set in effect: ", res);
       });
 
     history.push("/ViewClients");
@@ -63,8 +63,8 @@ function AddClients() {
       })
       .then((res) => {
         if (res.data[0].CLIENTSCOUNT > 0) {
-          alert("Client Already Exist");  
-          setClientcompname('');       
+          alert("Client Already Exist");
+          // setClientcompname('');
         }
       });
   };
@@ -98,6 +98,7 @@ function AddClients() {
                 <div class="col-md-6 mb-3">
                   <label for="clientcompname">Company Name</label>
                   <input
+                    disabled
                     type="text"
                     class="form-control is-valid"
                     id="clientcompname"
@@ -139,7 +140,7 @@ function AddClients() {
                   class="form-control is-valid"
                   id="clientadd"
                   name="clientadd"
-                  onChange={handleChangeEvent}              
+                  onChange={handleChangeEvent}
                 />
               </div>
 

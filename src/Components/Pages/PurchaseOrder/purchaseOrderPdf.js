@@ -92,8 +92,8 @@ export default function PopupPdf(props) {
           if (response.data.length > 0) {
             setMyDataSet(response.data);
             setPoid(response.data[0].PO_ID);
-            setPodocno(response.data[0].DOC_NO);
-            setPorevno(response.data[0].REV_NO);
+            setPodocno("SUBCO / FRM / " + response.data[0].DOC_NO);
+            setPorevno("REV - " + response.data[0].SEQ_NO);
             setPonumber(response.data[0].WO_NUMBER);
             setPoquotationref(response.data[0].WO_QUO_REF);
             setPoproject(response.data[0].WO_PROJECT);
@@ -697,7 +697,7 @@ export default function PopupPdf(props) {
                             <td>{comment.UNIT_DD}</td>
                             <td>{comment.QUANTITY}</td>
                             <td>
-                              {comment.UNIT_RATE}/{" "+comment.UNIT_DD}
+                              {comment.UNIT_RATE}/{" " + comment.UNIT_DD}
                             </td>
                             <td>{comment.UNIT_AMOUNT}</td>
                             <td>N/A</td>
@@ -770,71 +770,35 @@ export default function PopupPdf(props) {
 
               <div className="row">
                 <div className="col-sm-12">
-                  <div className="dash-terms mt-0 pt-0">
-                    <h1 className="pl-0">INSTRUCTIONS:</h1>
-                    <p>
-                      {" "}
-                      1. Payment shall be made for the quantities executed as
-                      per unit rates given above.
-                      <br />
-                      2. Work Order number and date must be quoted on all
-                      correspondence.
-                      <br />
-                      3. This order is subject to the terms and conditions set
-                      out on the face and Annexure -A
-                      <br />
-                      4. The acceptance copy must be signed by vender or by its
-                      representative ( on vender’s behalf) on the face and
-                      Annexure - A<br />
-                      5. This Work Order is subject to the cancellation unless
-                      the subcontractor returns one copy signed with
-                      confirmation that all terms and conditions are accepted.
-                      <br />
-                      6. The following attachments form an integral part of this
-                      work Order.{" "}
-                    </p>
+                  <div className="dash-terms">
+                    <h1>INSTRUCTIONS:</h1>
+                    <textarea
+                      rows="7"
+                      value={instruction}
+                      style={{ border: "0px", width: "950px", height: "auto" }}
+                    />
                   </div>
                 </div>
 
                 <div className="col-sm-12">
                   <div className="dash-terms mt-0 pt-0">
                     <h1 className="pl-0">Terms of delivery:</h1>
-                    <p>
-                      {" "}
-                      1. Lubricants, top-up oil, repairs, daily maintenance,
-                      Service. and Consumables of the Equipment shall be provide
-                      by Vender.
-                      <br />
-                      2. In case of breakDown or Maintenance, Vendor/Supplier
-                      shall provide a replacement of equipment immediately at no
-                      extra cost. in case of where Vendor/Supplier falls to
-                      complete Entema shall impose a delay penalty of 2.5 % per
-                      week the P O value , up to maximum of 10 % of P O Value.{" "}
-                    </p>
+                    <textarea
+                      rows="4"
+                      value={deliveryTerms}
+                      style={{ border: "0px", width: "950px", height: "auto" }}
+                    />
                   </div>
                 </div>
 
                 <div className="col-sm-12">
                   <div className="dash-terms mt-0 pt-0">
                     <h1 className="pl-0">Terms &amp; Conditions:</h1>
-                    <p>
-                      {" "}
-                      1. Above rate is applicable for 10 hours per day, 6 days a
-                      week, 260 hours per Month.
-                      <br />
-                      2. Working Duration: 3 Months Extendable.
-                      <br />
-                      3. Supply Food scope of Vendor,and accommodation &amp;
-                      Transportation scope Entema al-shamal.
-                      <br />
-                      4. Above Rate is exclusive of VAT.
-                      <br />
-                      5. If you need any clarification on above matter or any
-                      assistance please feel free to contract undersigned.
-                      <br />
-                      6. Vendor has to return the same purchase order to Entema
-                      Al-shamal by Fax or Email after Confirmation Signature.{" "}
-                    </p>
+                    <textarea
+                      rows="7"
+                      value={conditionTerms}
+                      style={{ border: "0px", width: "950px", height: "auto" }}
+                    />
                   </div>
                 </div>
               </div>

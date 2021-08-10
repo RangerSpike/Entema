@@ -45,9 +45,7 @@ export default function PopupPdf(props) {
   const [cqname, setCqname] = useState();
   const [cqmobileNo, setCqmobileNo] = useState();
   const [cqemail, setCqemail] = useState();
-  const [termCond, setTermCond] = useState(
-    "1. Above rate is applicable for 10 hours per day, 260 hours per month. \n2. Working less than 10 hours day will be considered as full working day. \n3. Supply Food, accommodation & site transportation Scope of Client. \n4. In case of non-availability of work or inadequate weather conditions, normal daily rate will be charged. \n5. Payment terms will be 30 days after receipt of the Entema al-shamal invoice. \n6. Above Rate is Exclusive of VAT . \n7. Mobilization will be done immediately after receiving the P.O. \n8. Our quotation valid for ten days from the date of this offers and is subject to the availability of manpower & equipment, until receipt of the P.O. \n9. All above mentioned conditions must be mentioned in your purchase order. Hope above quotation is made good and looking forward to get your valuable purchase order at the earliest. Your usual Cooperation would behighly appreciated."
-  );
+  const [termCond, setTermCond] = useState("123 \n 123");
   const [ischeked, setIsChecked] = useState(false);
   const [cqtypes, setCqtypes] = useState("");
 
@@ -61,6 +59,8 @@ export default function PopupPdf(props) {
   const [quotRefNo, setQuotRefNo] = useState("ENT/Jun-21/111");
   const [myDataSet, setMyDataSet] = useState([]);
 
+  let str;
+
   const getData = () => {
     axios
       .post("http://mssoftware.xyz/getQOMULDataonID", {
@@ -71,7 +71,7 @@ export default function PopupPdf(props) {
 
         if (response.data.length > 0) {
           setMyDataSet(response.data);
-          // console.log("MY DATA SET : ", myDataSet);
+          console.log("MY DATA SET : ", myDataSet);
           setCqclient(response.data[0].CLIENT_DISP_NAME);
           setCqtypes(response.data[0].QO_TYPE);
           setCqmobileNo(response.data[0].QO_COMP_MOB);
@@ -80,7 +80,11 @@ export default function PopupPdf(props) {
           setEntFrom(response.data[0].WO_FROM_COMP);
           setEntMobile(response.data[0].WO_FROM_MOB);
           setQuotDate(response.data[0].CREATED_DATE);
-          setQuotID(response.data[0].QO_ID);
+          setQuotID("ENT - " + response.data[0].SEQ_NO);
+          setTermCond(response.data[0].QO_TERMS_COND);
+          // str = response.data[0].QO_TERMS_COND;
+          // str.replace(".","\n");
+          // setTermCond(str);
           formatChange(
             response.data[0].WO_STARTDATE,
             response.data[0].CREATED_DATE
@@ -356,6 +360,7 @@ export default function PopupPdf(props) {
                         <tr>
                           <th>Serial No.</th>
                           <th>Description</th>
+                          <th>UNIT</th>
                           <th>QTY</th>
                           <th>Price</th>
                           {displayTitle(cqtypes)}
@@ -368,7 +373,10 @@ export default function PopupPdf(props) {
                               {parseInt(comment.QO_ROW) + 1}
                             </th>
                             <td>{comment.TAB_DESC}</td>
-                            <td>{comment.TAB_QTY}</td>
+                            <td>{comment.TAB_UNIT}</td>
+                            <td>
+                              {comment.TAB_QTY}/{" " + comment.TAB_UNIT}
+                            </td>
                             <td>{comment.TAB_AMOUNT}</td>
                             <td>
                               {displayData(
@@ -388,36 +396,7 @@ export default function PopupPdf(props) {
                 <div className="col-sm-12">
                   <div className="dash-terms">
                     <h1>Terms &amp; Conditions:</h1>
-                    <p>
-                      1. Above rate is applicable for 10 hours per day, 260
-                      hours per month. 6 Days A week <br />
-                      2. Working less than 10 hours day will be considered as
-                      full working day.
-                      <br />
-                      3. Lubricants, top-up oil, repairs, daily maintenance,
-                      Service. and Consumables of the Equipment's shall be
-                      provide by Clien.
-                      <br />
-                      4. In case of non-availability of work or inadequate
-                      weather conditions, normal daily rate will be charged.
-                      <br />
-                      5. Payment terms will be 30 days after receipt of the
-                      Entema al-shamal invoice.
-                      <br />
-                      6. Above Rate is Exclusive of VAT .<br />
-                      7. Mobilization will be done immediately after receiving
-                      the P.O.
-                      <br />
-                      8. Our quotation valid for ten days from the date of this
-                      offers and is subject to the availability of manpower
-                      &amp; equipment, until receipt of the P.O.
-                      <br />
-                      9. All above mentioned conditions must be mentioned in
-                      your purchase order. Hope above quotation is made good and
-                      looking forward to get your valuable purchase order at the
-                      earliest. Your usual Cooperation would be highly
-                      appreciated.
-                    </p>
+                    <textarea style={{border:"0px" ,width:"850px"}} rows="13">{termCond}</textarea>
                   </div>
                 </div>
               </div>

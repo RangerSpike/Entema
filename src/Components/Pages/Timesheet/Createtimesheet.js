@@ -597,7 +597,7 @@ function Createtimesheet() {
 
       RHamount = tsExpectedWorkingHours * tsHrRate;
       TotalAmount = OTamount + RHamount;
-      settsTotal(TotalAmount);
+      settsTotal(Math.round(TotalAmount));
 
       //console.log("RHamount : ", RHamount);
       //console.log("TotalAmount : ", TotalAmount);
@@ -605,7 +605,7 @@ function Createtimesheet() {
       //console.log("lesser man");
       RHamount = tsTotalHours * tsHrRate;
       settsTotalOt(0);
-      settsTotal(RHamount.toFixed(2));
+      settsTotal(Math.round(RHamount.toFixed(2)));
     }
   };
 
@@ -802,7 +802,7 @@ function Createtimesheet() {
                   type="text"
                   class="form-control is-valid"
                   id="tsTotal"
-                  value={Math.round(tsTotal)}
+                  value={tsTotal}
                   name="tsTotal"
                   required
                   disabled

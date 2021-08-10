@@ -224,7 +224,7 @@ export default function Popup(props) {
           setCqtypes(res.data[0].QO_TYPE);
           setClientDispValue(res.data[0].CLIENT_DISP_NAME);
           setTermCond(res.data[0].QO_TERMS_COND);
-          setQuotRefNo(res.data[0].QUOT_NO);
+          setQuotRefNo("ENT - " + res.data[0].SEQ_NO);
           // console.log("CQ :", cqtypes);
           axios
             .post("http://mssoftware.xyz/getMultirowQuotDataBasedOnId", {
