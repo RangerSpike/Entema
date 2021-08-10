@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useEffect, useState, useMemo } from "react";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import { TableHeader, Pagination } from "../../DataTable";
@@ -96,7 +97,7 @@ const DataTable = () => {
     { name: "Status", field: "Status", sortable: false },
     { name: "Delete", field: "Delete", sortable: false },
     { name: "Operation", field: "Operation", sortable: false },
-    { name: "PDF", field: "PDF", sortable: false },
+    // { name: "PDF", field: "PDF", sortable: false },
   ];
 
   const getData = () => {
@@ -431,10 +432,10 @@ const DataTable = () => {
                           </Menu>
                         </div>
                       </td>
-                      <td onClick={() => openPdfPopup(comment.VTS_ID)}>
+                      {/*<td onClick={() => openPdfPopup(comment.VTS_ID)}>
                         <PictureAsPdfIcon style={{ color: "green" }} />
                         PDF FILE
-                      </td>
+                          </td>*/}
                     </tr>
                   ))}
                 </tbody>

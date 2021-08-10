@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import {
   Dialog,
@@ -151,7 +152,7 @@ export default function PopupTS(props) {
       })
       .then((res) => {
         if (res.data.length > 0) {
-          console.log(res.data);
+          console.log("BAGIAN:",res.data);
           setTsid(res.data[0].VTS_ID);
           settsVendor(res.data[0].TS_VENDOR);
           settsMont(res.data[0].TS_MONTH);
@@ -238,14 +239,19 @@ export default function PopupTS(props) {
         }
       });
   }, [id]);
+
   const [isHidden, setisHidden] = useState(true);
+  const[isBtnDisabled,setIsBtnDisabled]=useState(false);
 
   const checkApproved = (sts) => {
     console.log(sts);
     if (sts === "Approved") {
-      return true;
+      setIsBtnDisabled(true);
+      if(localStorage.getItem("userDetails")==="Admin"){
+        setIsBtnDisabled(false);
+      }
     }else{
-      return false;
+      setIsBtnDisabled(false);
     }
   };
   
@@ -1771,7 +1777,7 @@ export default function PopupTS(props) {
               class="btn btn-outline-success"
               style={{ marginTop: "20px", marginBottom: "40px" }}
               onClick={handleSubmit}
-              disabled={checkApproved()}
+              disabled={isBtnDisabled}
             >
               Update
             </button>

@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import "./Adduser.css";
 import DatePicker from "react-datepicker";
