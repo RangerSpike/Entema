@@ -349,7 +349,7 @@ function Createtimesheet() {
       currentDate.getMilliseconds();
 
     setTimesheetid(uniqueValue);
-    console.log("My unique Values :", uniqueValue);
+    //console.log("My unique Values :", uniqueValue);
     return uniqueValue;
   };
   useEffect(() => {
@@ -413,7 +413,7 @@ function Createtimesheet() {
 
   const calculateTimesheet = () => {
     setIsCalculated(true);
-    console.log("CAlculated Timesheet");
+    //console.log("CAlculated Timesheet");
 
     let whtot =
       parseInt(users[0].days1) +

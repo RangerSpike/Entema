@@ -153,7 +153,7 @@ export default function Popup(props) {
     const input = e.target.name;
 
     if (input === "cqdate") {
-      console.log("ON CHANGE DATE : ", e.target.value);
+      //console.log("ON CHANGE DATE : ", e.target.value);
       setCqdate(e.target.value);
     } else if (input === "cqclient") {
       setCqclient(e.target.value);
@@ -215,7 +215,7 @@ export default function Popup(props) {
       .then((res) => {
         ///setNewData(res.data[0]);
         if (id > 0) {
-          console.log("res.data[0] :", res.data[0]);
+         // console.log("res.data[0] :", res.data[0]);
           setCqdate(res.data[0].WO_STARTDATE);
           setCqclient(res.data[0].QO_COMP_CLIENT);
           setCqname(res.data[0].QO_COMP_NAME);

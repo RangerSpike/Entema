@@ -50,7 +50,7 @@ function AddClients() {
       .then((res) => {
         // setData(res.data);
         //  setDupData(res.data);
-       console.log("result set in effect: ", res);
+       //console.log("result set in effect: ", res);
       });
 
     history.push("/ViewClients");

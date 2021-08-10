@@ -154,7 +154,7 @@ export default function PopupTS(props) {
       })
       .then((res) => {
         if (res.data.length > 0) {
-          console.log("BAGIAN:", res.data);
+          //console.log("BAGIAN:", res.data);
           setTsid(res.data[0].VTS_ID);
           settsVendor(res.data[0].TS_VENDOR);
           settsMont(res.data[0].TS_MONTH);
@@ -250,9 +250,9 @@ export default function PopupTS(props) {
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
   const checkApproved = (sts) => {
-    console.log(sts);
+   // console.log(sts);
     if (sts === "Approved") {
-      console.log("-------->Disabled");
+      //console.log("-------->Disabled");
       setIsBtnDisabled(true);
       if ( x === "admin") {
 
@@ -632,7 +632,7 @@ export default function PopupTS(props) {
 
   const calculateTimesheet = () => {
     setIsCalculated(true);
-    console.log("CAlculated Timesheet");
+    //console.log("CAlculated Timesheet");
 
     let whtot =
       parseInt(users[0].days1) +

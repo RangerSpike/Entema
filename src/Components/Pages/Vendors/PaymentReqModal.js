@@ -58,7 +58,7 @@ export default function PopupVPR(props) {
         vtsId: tsId,
       })
       .then((res) => {
-        console.log("TS KA DATA : ", res.data);
+        //console.log("TS KA DATA : ", res.data);
         if (res.data.length > 0) {
           setPmVendorName(res.data[0].TS_VENDOR_DISP_NAME);
           setPmTimesheet(

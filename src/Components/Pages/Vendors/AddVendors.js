@@ -199,7 +199,7 @@ function AddVendors() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("event : ", event);
+    //console.log("event : ", event);
 
     Axios.post("/insertVendorData", {
       vendorid: vendorId,
@@ -220,7 +220,7 @@ function AddVendors() {
       vendorstatus: vendorstatus,
       seqNo: seqNo,
     }).then((res) => {
-      console.log("result success : ", res);
+      //console.log("result success : ", res);
     });
 
     history.push("/ViewVendors");

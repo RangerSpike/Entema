@@ -106,7 +106,7 @@ export default function PopupPO(props) {
       .then((res) => {        
         ///setNewData(res.data[0]);
         if (res.data.length > 0) {
-          console.log("BROO :: ", res.data);
+          //console.log("BROO :: ", res.data);
           setPodate(res.data[0].CREATED_DATE);
           setPodocno(res.data[0].DOC_NO);
           setPorevno(res.data[0].REV_NO);

@@ -120,7 +120,7 @@ const DataTable = () => {
         venYear: tsYear,
       })
       .then((res) => {
-        console.log("updated Values Successfully : ", res.data);
+        //console.log("updated Values Successfully : ", res.data);
         setComments(res.data);
         // hideLoader();
       });

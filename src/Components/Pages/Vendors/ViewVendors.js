@@ -80,7 +80,7 @@ const DataTable = () => {
   };
 
   const openInStatement = (vendorId) => {
-    console.log("IDIDI: ", vendorId);
+    //console.log("IDIDI: ", vendorId);
 
     history.push(`/Statement/${vendorId}`);
   };

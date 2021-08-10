@@ -86,7 +86,7 @@ const Statement = (props) => {
         venId: vid,
       })
       .then((res) => {
-        console.log("Hi tthe; ", res.data);
+        //console.log("Hi tthe; ", res.data);
         if (res.data.length > 0) {
           setVenRequested(res.data[0].TOTAL);
           setVenPaidAmt(res.data[1].TOTAL);
@@ -134,7 +134,7 @@ const Statement = (props) => {
           setVenADD(res.data[0].VENDOR_ADD);
           axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
             if (res.data.length > 0) {
-              console.log(res.data);
+              //console.log(res.data);
               if (venVat) {
                 setVatDetails(res.data[0].VAT);
               } else {
@@ -171,7 +171,7 @@ const Statement = (props) => {
       })
       .then((res) => {
         if (res.data.length > 0) {
-          console.log("TS Ka data :", res.data);
+         // console.log("TS Ka data :", res.data);
           // setVENTSdetails(res.data);
           filterApprovedTs(res.data);
         }
@@ -188,7 +188,7 @@ const Statement = (props) => {
       if (filterdTs[i].TS_STATUS === "Approved") {
         rows.push(filterdTs[i]);
       }
-      console.log("NAMES:", rows);
+      //console.log("NAMES:", rows);
     }
     setVENTSdetails(rows)
   };
