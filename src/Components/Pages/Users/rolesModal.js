@@ -71,7 +71,7 @@ export default function Popup(props) {
   const [actLov, setActLov] = useState([]);
 
   const getActivitiesLov = () => {
-    fetch("http://mssoftware.xyz/getActivitiesData", {
+    fetch("http://entemadb.entema-software.com/getActivitiesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +120,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getRolesBasedOnId", {
+      .post("http://entemadb.entema-software.com/getRolesBasedOnId", {
         rolesid: id,
       })
       .then((res) => {
@@ -134,7 +134,7 @@ export default function Popup(props) {
       });
 
     axios
-      .post("http://mssoftware.xyz/getRolesActDataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getRolesActDataBasedOnId", {
         roleactid: id,
       })
       .then((res) => {
@@ -184,7 +184,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/removeRolesActDataBasedOnId", {
+      .post("http://entemadb.entema-software.com/removeRolesActDataBasedOnId", {
         rolesid: id,
       })
       .then((res) => {
@@ -192,7 +192,7 @@ export default function Popup(props) {
       });
 
     axios
-      .post("http://mssoftware.xyz/updateRolesData", {
+      .post("http://entemadb.entema-software.com/updateRolesData", {
         rlId: id,
         rlname: RoRolesName,
         rlenddate: RoEndDate,

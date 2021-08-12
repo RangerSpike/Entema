@@ -39,7 +39,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getVendorPaymentData")
+    fetch("http://entemadb.entema-software.com/getVendorPaymentData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -60,7 +60,7 @@ const DataTable = () => {
 
   const removeData = (pmntId) => {
     axios
-      .post("http://mssoftware.xyz/removeVenPmntDataonId", {
+      .post("http://entemadb.entema-software.com/removeVenPmntDataonId", {
         PMID: pmntId,
       })
       .then((res) => {

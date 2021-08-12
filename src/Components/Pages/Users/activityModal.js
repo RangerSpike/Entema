@@ -59,7 +59,7 @@ export default function Popup(props) {
   };
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getActivitiesDataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getActivitiesDataBasedOnId", {
         actid: id,
       })
       .then((res) => {
@@ -77,7 +77,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/updateActivityData", {
+      .post("http://entemadb.entema-software.com/updateActivityData", {
         actid: id,
         actname: AcActivityName,
         actenddate: AcEndDate,

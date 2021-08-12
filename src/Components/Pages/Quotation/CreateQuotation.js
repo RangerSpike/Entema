@@ -93,7 +93,7 @@ function CreateQuotation() {
   const [multiSet, setMultiSet] = useState([]);
 
   useEffect(() => {
-    fetch("http://mssoftware.xyz/getClientData", {
+    fetch("http://entemadb.entema-software.com/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -157,7 +157,7 @@ function CreateQuotation() {
   };
 
   const getMaxID = () => {
-    fetch("/getMaxQOId")
+    fetch("http://entemadb.entema-software.com/getMaxQOId")
       .then((response) => response.json())
       .then((json) => {
         setQOMaxID(json[0].maxid);
@@ -281,7 +281,7 @@ function CreateQuotation() {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertQuotData", {
+      .post("http://entemadb.entema-software.com/insertQuotData", {
         quotID: quotID,
         quotRefNo: quotRefNo,
         cqdate: cqdate,

@@ -65,7 +65,7 @@ export default function Popup(props) {
   const [clientLov, setClientLov] = useState([]);
 
   const getClientLovData = () => {
-    fetch("http://mssoftware.xyz/getClientData", {
+    fetch("http://entemadb.entema-software.com/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getDelNoteBasedOnId", {
+      .post("http://entemadb.entema-software.com/getDelNoteBasedOnId", {
         delId: id,
       })
       .then((res) => {
@@ -129,7 +129,7 @@ export default function Popup(props) {
     //console.log("FROM SUBMIT", id);
 
     axios
-      .post("http://mssoftware.xyz/UpdateDeliveryNote", {
+      .post("http://entemadb.entema-software.com/UpdateDeliveryNote", {
         delId: id,
         delclient: DnClient,
         deladd: DnAddress,

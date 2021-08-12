@@ -41,7 +41,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getVendorData")
+    fetch("http://entemadb.entema-software.com/getVendorData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -62,12 +62,12 @@ const DataTable = () => {
 
   const removeVendor = (vendorId) => {
     axios
-      .post("http://mssoftware.xyz/removeVendorDataonId", {
+      .post("http://entemadb.entema-software.com/removeVendorDataonId", {
         vendorID: vendorId,
       })
       .then((res) => {
         // axios
-        //   .post("https://mssoftware.xyz/removeVendorVatDataonId", {
+        //   .post("http://entemadb.entema-software.com/removeVendorVatDataonId", {
         //     vendorID: vendorId,
         //   })
         //   .then((res) => {

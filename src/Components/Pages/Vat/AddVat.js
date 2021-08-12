@@ -40,7 +40,7 @@ function AddVat() {
   let test = [];
 
   const getVatData = () => {
-    Axios.get("https://mssoftware.xyz/getVatData", {}).then((res) => {
+    Axios.get("http://entemadb.entema-software.com/getVatData", {}).then((res) => {
       if (res.data.length > 0) {
         // console.log(res.data);
         newData = res.data;
@@ -144,11 +144,11 @@ function AddVat() {
     event.preventDefault();
     // console.log("event : ", event);
 
-    Axios.post("http://mssoftware.xyz/removeVendorVat").then((res) => {
+    Axios.post("http://entemadb.entema-software.com/removeVendorVat").then((res) => {
       // console.log("deleted Successfully");
     });
 
-    Axios.post("http://mssoftware.xyz/insertVatData", {
+    Axios.post("http://entemadb.entema-software.com/insertVatData", {
       vendorvatdetails: data,
     }).then((res) => {});
 

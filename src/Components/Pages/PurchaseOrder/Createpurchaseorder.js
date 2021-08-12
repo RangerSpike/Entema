@@ -100,7 +100,7 @@ function Createpurchaseorder() {
 
   const onChangeVendorDetails = (vendorID) => {
     // axios
-    //   .post("https://mssoftware.xyz/getVatDataOnID", {
+    //   .post("http://entemadb.entema-software.com/getVatDataOnID", {
     //     vendorID: vendorID,
     //   })
     //   .then((res) => {
@@ -182,7 +182,7 @@ function Createpurchaseorder() {
   };
 
   const getVendorLovData = () => {
-    fetch("http://mssoftware.xyz/getVendorData", {
+    fetch("http://entemadb.entema-software.com/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -191,7 +191,7 @@ function Createpurchaseorder() {
       .then((response) => response.json())
       .then((response) => {
         setVendorLov(response);
-        axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+        axios.get("http://entemadb.entema-software.com/getVatDataOnID", {}).then((res) => {
           if (res.data.length > 0) {
             //console.log(res.data);
             setVatDetails(res.data[0].VAT);
@@ -216,7 +216,7 @@ function Createpurchaseorder() {
   };
 
   const getMaxID = () => {
-    fetch("/getMaxPOId")
+    fetch("http://entemadb.entema-software.com/getMaxPOId")
       .then((response) => response.json())
       .then((json) => {
         setPOMaxID(json[0].maxid);
@@ -466,7 +466,7 @@ function Createpurchaseorder() {
     // submitMultiRowData(orderItem);
 
     axios
-      .post("http://mssoftware.xyz/insertPOData", {
+      .post("http://entemadb.entema-software.com/insertPOData", {
         poid: poId,
         podocno: podocno,
         podate: podate,

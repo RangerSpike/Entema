@@ -38,7 +38,7 @@ const DataTable = () => {
 
   const removeActivity = (actid) => {
     axios
-      .post("http://mssoftware.xyz/removeActivityDataonId", {
+      .post("http://entemadb.entema-software.com/removeActivityDataonId", {
         actid: actid,
       })
       .then((res) => {    
@@ -48,7 +48,7 @@ const DataTable = () => {
 
   const getData = () => {
     showLoader();    
-    fetch("http://mssoftware.xyz/getActivitiesData")
+    fetch("http://entemadb.entema-software.com/getActivitiesData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();

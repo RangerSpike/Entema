@@ -37,7 +37,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getClientBasedOnId", {
+      .post("http://entemadb.entema-software.com/getClientBasedOnId", {
         clientID: id,
       })
       .then((res) => {
@@ -75,7 +75,7 @@ export default function Popup(props) {
     // console.log("event : ", event);
     // console.log("FROM SUBMIT", id);
     axios
-      .post("http://mssoftware.xyz/UpdateClientData", {
+      .post("http://entemadb.entema-software.com/UpdateClientData", {
         clientID: id,
         clientcpname: clientcpname,
         clientcompname: clientcompname,
@@ -99,7 +99,7 @@ export default function Popup(props) {
 
   const testOnlurr = () => {
     axios
-      .post("http://mssoftware.xyz/getClientCmpValidation", {
+      .post("http://entemadb.entema-software.com/getClientCmpValidation", {
         clientCmpName: clientcompname,
       })
       .then((res) => {

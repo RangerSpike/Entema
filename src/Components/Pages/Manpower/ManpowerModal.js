@@ -74,7 +74,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getManpowerDataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getManpowerDataBasedOnId", {
         mpid: id,
       })
       .then((res) => {
@@ -97,7 +97,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/updateManpowerData", {
+      .post("http://entemadb.entema-software.com/updateManpowerData", {
         mpid:id,
         mpname: MpName,
         mpiqamaid: MpIqamaId,

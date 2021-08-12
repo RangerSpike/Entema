@@ -33,7 +33,7 @@ function ManPowerAddPayments() {
   ];
 
   const getMpLovData = () => {
-    fetch("http://mssoftware.xyz/getManpowerData", {
+    fetch("http://entemadb.entema-software.com/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function ManPowerAddPayments() {
 
   const getMPtimesheetLovData = (MMPID) => {
     axios
-      .post("http://mssoftware.xyz/getMPtimesheetdataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getMPtimesheetdataBasedOnId", {
         mmtsid: MMPID,
       })
       .then((res) => {
@@ -143,7 +143,7 @@ function ManPowerAddPayments() {
   };
   const validatePayments = (value) => {
     axios
-      .post("http://mssoftware.xyz/mpPmntValidation", {
+      .post("http://entemadb.entema-software.com/mpPmntValidation", {
         pmmpname: PmManpowerName,
         pmmpts: value,
       })
@@ -193,7 +193,7 @@ function ManPowerAddPayments() {
     e.preventDefault();
     //console.log("test submit", pmDisplayvalue);
     axios
-      .post("http://mssoftware.xyz/insertManpowerPaymentData", {
+      .post("http://entemadb.entema-software.com/insertManpowerPaymentData", {
         mppmname: PmManpowerName,
         mppmts: PmManpowerTimesheet,
         mppmamt: PmManpowerAmount,

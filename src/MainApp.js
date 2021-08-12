@@ -22,7 +22,7 @@ function MainApp() {
     e.preventDefault();
 
     axios
-      .post("https://mssoftware.xyz/loginValidation", {
+      .post("http://entemadb.entema-software.com/loginValidation", {
         userName: user,
         userPwd: pwd,
       })

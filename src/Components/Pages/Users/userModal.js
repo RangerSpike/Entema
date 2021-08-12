@@ -85,7 +85,7 @@ export default function Popup(props) {
   ];
 
   const getRoleLovData = () => {
-    fetch("http://mssoftware.xyz/getRolesData", {
+    fetch("http://entemadb.entema-software.com/getRolesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getUserDataonId", {
+      .post("http://entemadb.entema-software.com/getUserDataonId", {
         userID: id,
       })
       .then((res) => {
@@ -204,7 +204,7 @@ export default function Popup(props) {
 
     if (userPwd === userCpwd) {
       axios
-        .post("http://mssoftware.xyz/UpdateUserData", {
+        .post("http://entemadb.entema-software.com/UpdateUserData", {
           userId: id,
           userName: userName,
           userFname: userFname,

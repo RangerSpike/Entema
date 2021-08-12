@@ -34,7 +34,7 @@ function AddPayment() {
   ];
 
   const getVendorLovData = () => {
-    fetch("http://mssoftware.xyz/getVendorData", {
+    fetch("http://entemadb.entema-software.com/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ function AddPayment() {
 
   const getTimeSheetForVendor = (vendorID) => {
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetDataonVendorId", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetDataonVendorId", {
         venId: vendorID,
       })
       .then((res) => {
@@ -198,7 +198,7 @@ function AddPayment() {
     // e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertVendorPaymentData", {
+      .post("http://entemadb.entema-software.com/insertVendorPaymentData", {
         pmvenname: pmVendorName,
         pmvendispname: vendorDispValue,
         pmvents: pmTimesheet,
@@ -220,7 +220,7 @@ function AddPayment() {
 
   const validatePayments = (value) => {
     axios
-      .post("http://mssoftware.xyz/venPmntValidation", {
+      .post("http://entemadb.entema-software.com/venPmntValidation", {
         pmvenname: pmVendorName,
         pmvents: value,
       })

@@ -46,7 +46,7 @@ function AddManpower() {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertManpowerData", {
+      .post("http://entemadb.entema-software.com/insertManpowerData", {
         mpname: MpName,
         mpiqamaid: MpIqamaId,
         mpcategory: MpCategory,

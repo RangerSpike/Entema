@@ -12,6 +12,7 @@ function AddClients() {
   const [clientemail, setClientemail] = useState();
   const [clientadd, setClientadd] = useState();
   const [createdby, setCreatedby] = useState("Mazhar");
+  const [xyz, setXYZ] = useState();
 
   const handleChangeEvent = (e) => {
     const input = e.target.name;
@@ -34,12 +35,9 @@ function AddClients() {
     //console.log("HELLO currentUser:", currentUser);
   }, []);
 
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // console.log("event : ", event);
-
+  const submitFunction = () => {
     axios
-      .post("http://mssoftware.xyz/insertClientData", {
+      .post("http://entemadb.entema-software.com/insertClientData", {
         clientcpname: clientcpname,
         clientcompname: clientcompname,
         clientphone: clientphone,
@@ -52,13 +50,44 @@ function AddClients() {
         //  setDupData(res.data);
         //console.log("result set in effect: ", res);
       });
+  }
 
-    history.push("/ViewClients");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    testName();
+
+
+    setTimeout(() => {
+      console.log("value of name in submit : ", clientcompname, '-tested value -', xyz);
+      console.log('xyz is ', xyz);
+
+      if (xyz === 0) {
+        submitFunction();
+        history.push("/ViewClients");
+      } else {
+        alert("Client Already Exist");
+        setXYZ(0);
+      }
+    }, 2000);
   };
+
+  const testName = () => {
+    axios
+      .post("http://entemadb.entema-software.com/getClientCmpValidation", {
+        clientCmpName: clientcompname,
+      })
+      .then((res) => {
+        console.log('data in api for validation :', res.data[0]);
+
+        setXYZ(res.data[0].CLIENTSCOUNT);
+        return xyz;
+      });
+  }
 
   const testOnlurr = () => {
     axios
-      .post("http://mssoftware.xyz/getClientCmpValidation", {
+      .post("http://entemadb.entema-software.com/getClientCmpValidation", {
         clientCmpName: clientcompname,
       })
       .then((res) => {
@@ -97,7 +126,7 @@ function AddClients() {
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="clientcompname">Company Name</label>
-                  <input                    
+                  <input
                     type="text"
                     class="form-control is-valid"
                     id="clientcompname"

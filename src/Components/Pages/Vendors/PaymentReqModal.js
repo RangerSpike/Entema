@@ -54,7 +54,7 @@ export default function PopupVPR(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetDataBasedonId", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetDataBasedonId", {
         vtsId: tsId,
       })
       .then((res) => {
@@ -153,7 +153,7 @@ export default function PopupVPR(props) {
 
   const handleSubmit = (e) => {
     axios
-      .post("http://mssoftware.xyz/updateVenTsRequestStatus", {
+      .post("http://entemadb.entema-software.com/updateVenTsRequestStatus", {
         vtsid: tsId,
         reqsts: "Requested",
       })
@@ -164,7 +164,7 @@ export default function PopupVPR(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertVendorPaymentData", {
+      .post("http://entemadb.entema-software.com/insertVendorPaymentData", {
         pmvenname: pmVendorId,
         pmvendispname: pmVendorName,
         pmvents: pmTimesheetId,

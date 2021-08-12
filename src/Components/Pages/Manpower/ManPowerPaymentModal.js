@@ -97,7 +97,7 @@ export default function Popup(props) {
   ];
 
   const getMpLovData = () => {
-    fetch("http://mssoftware.xyz/getManpowerData", {
+    fetch("http://entemadb.entema-software.com/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getManpowerPmntDataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getManpowerPmntDataBasedOnId", {
         mppmid: id,
       })
       .then((res) => {
@@ -136,7 +136,7 @@ export default function Popup(props) {
 
   const getMPtimesheetLovData = (MMPID) => {
     axios
-      .post("http://mssoftware.xyz/getMPtimesheetdataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getMPtimesheetdataBasedOnId", {
         mmtsid: MMPID,
       })
       .then((res) => {
@@ -244,7 +244,7 @@ export default function Popup(props) {
     e.preventDefault();
     //console.log("test submit", pmDisplayvalue);
     axios
-      .post("http://mssoftware.xyz/updateManpowerPaymentData", {
+      .post("http://entemadb.entema-software.com/updateManpowerPaymentData", {
         pmntid: id,
         pmmode: PmManpowerMode,
         mppmbesc: PmManpowerDescription,

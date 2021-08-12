@@ -55,7 +55,7 @@ export default function Popup(props) {
   const [yearLov, setYearLov] = useState([]);
 
   const getYearLovData = () => {
-    fetch("http://mssoftware.xyz/getYearLov", {
+    fetch("http://entemadb.entema-software.com/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export default function Popup(props) {
   };
 
   const getMPLovData = () => {
-    fetch("http://mssoftware.xyz/getManpowerData", {
+    fetch("http://entemadb.entema-software.com/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getMPTSDataonId", {
+      .post("http://entemadb.entema-software.com/getMPTSDataonId", {
         TSID: id,
       })
       .then((res) => {
@@ -170,7 +170,7 @@ export default function Popup(props) {
 
   const onYearChange = (value) => {
     axios
-      .post("http://mssoftware.xyz/getMPTimesheetValidation", {
+      .post("http://entemadb.entema-software.com/getMPTimesheetValidation", {
         pManpower: MpManPower,
         pMonth: MpMonth,
         pYear: value,
@@ -227,7 +227,7 @@ export default function Popup(props) {
     // e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/updateManPTimesheetData", {
+      .post("http://entemadb.entema-software.com/updateManPTimesheetData", {
         mmtsid: id,
         mtsdescription: MpDescription,
         mtsiqama: MpIqamaId,

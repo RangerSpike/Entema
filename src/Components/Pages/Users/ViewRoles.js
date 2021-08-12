@@ -40,7 +40,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getRolesData")
+    fetch("http://entemadb.entema-software.com/getRolesData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -50,12 +50,12 @@ const DataTable = () => {
 
   const removeRole = (rolesid) => {
     axios
-      .post("http://mssoftware.xyz/removeRolesBasedOnId", {
+      .post("http://entemadb.entema-software.com/removeRolesBasedOnId", {
         rolesid: rolesid,
       })
       .then((res) => {
         axios
-          .post("http://mssoftware.xyz/removeRolesActDataBasedOnId", {
+          .post("http://entemadb.entema-software.com/removeRolesActDataBasedOnId", {
             rolesid: rolesid,
           })
           .then((res) => {

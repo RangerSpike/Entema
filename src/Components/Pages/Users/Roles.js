@@ -62,7 +62,7 @@ export default function Roles() {
   const [roleID, setRoleID] = useState();
 
   const getActivitiesLov = () => {
-    fetch("http://mssoftware.xyz/getActivitiesData", {
+    fetch("http://entemadb.entema-software.com/getActivitiesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@ export default function Roles() {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertRolesData", {
+      .post("http://entemadb.entema-software.com/insertRolesData", {
         rlId: roleID,
         rlname: RoRolesName,
         rlenddate: RoEndDate,

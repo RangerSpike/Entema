@@ -71,7 +71,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getPOData")
+    fetch("http://entemadb.entema-software.com/getPOData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -101,7 +101,7 @@ const DataTable = () => {
     // console.log(myID);
     setAnchorEl(null);
     axios
-      .post("http://mssoftware.xyz/updatePoStatus", {
+      .post("http://entemadb.entema-software.com/updatePoStatus", {
         POID: myID,
         posts: "Approved",
       })
@@ -121,7 +121,7 @@ const DataTable = () => {
     // console.log(myID);
     setAnchorEl(null);
     axios
-      .post("http://mssoftware.xyz/updatePoStatus", {
+      .post("http://entemadb.entema-software.com/updatePoStatus", {
         POID: myID,
         posts: "Not Approved",
       })
@@ -137,12 +137,12 @@ const DataTable = () => {
 
   const removePO = (POId) => {
     axios
-      .post("http://mssoftware.xyz/removePODataonId", {
+      .post("http://entemadb.entema-software.com/removePODataonId", {
         POID: POId,
       })
       .then((res) => {
         axios
-          .post("http://mssoftware.xyz/removePOMulDataonId", {
+          .post("http://entemadb.entema-software.com/removePOMulDataonId", {
             POID: POId,
           })
           .then((res) => {

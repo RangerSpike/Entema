@@ -43,7 +43,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getDeliveryNoteData")
+    fetch("http://entemadb.entema-software.com/getDeliveryNoteData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -54,7 +54,7 @@ const DataTable = () => {
 
   const removeDelTimeSheet = (id) => {
     axios
-      .post("http://mssoftware.xyz/removeDelNoteBasedOnId", {
+      .post("http://entemadb.entema-software.com/removeDelNoteBasedOnId", {
         delId: id,
       })
       .then((res) => {

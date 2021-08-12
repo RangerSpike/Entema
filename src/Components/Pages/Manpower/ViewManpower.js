@@ -42,7 +42,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getManpowerData")
+    fetch("http://entemadb.entema-software.com/getManpowerData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -63,7 +63,7 @@ const DataTable = () => {
 
   const removeManPower = (mpId) => {
     axios
-      .post("http://mssoftware.xyz/removeMPDataonId", {
+      .post("http://entemadb.entema-software.com/removeMPDataonId", {
         MPID: mpId,
       })
       .then((res) => {

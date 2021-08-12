@@ -25,6 +25,7 @@ function Adduser(props) {
 
   const [roleLov, setRoleLov] = useState([]);
   const [mandDact, setMandDact] = useState(false);
+  const [xyz, setXYZ] = useState();
 
   if (props.formAccess === false) {
     setShowForm(false);
@@ -37,7 +38,7 @@ function Adduser(props) {
   ];
 
   const getRoleLovData = () => {
-    fetch("http://mssoftware.xyz/getRolesData", {
+    fetch("http://entemadb.entema-software.com/getRolesData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -96,13 +97,11 @@ function Adduser(props) {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const submitFunction = () => {
     if (userPwd == userCpwd) {
       // alert('Hello');
 
-      Axios.post("http://mssoftware.xyz/insertUserData", {
+      Axios.post("http://entemadb.entema-software.com/insertUserData", {
         userName: userName,
         userFname: userFname,
         userEmail: userEmail,
@@ -116,14 +115,43 @@ function Adduser(props) {
         userDactdate: userDactdate,
       }).then((res) => {
         //  history.push("/");
-      });
-
-      history.push("/Viewuser");
+      });      
     } else if (userPwd != userCpwd) {
       alert("your password are not Identical");
       return false;
     }
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    testName();
+
+    setTimeout(() => {
+
+      if (xyz === 0) {
+        submitFunction();
+        history.push("/Viewuser");
+      } else {
+        alert("User Already Exist");
+        setXYZ(0);
+      }
+      
+    }, 2000)
+
   };
+
+  const testName = () => {
+    Axios
+      .post("http://entemadb.entema-software.com/getUserNameValidation", {
+        userName: userName,
+      })
+      .then((res) => {
+        console.log('data in api for validation :', res.data[0]);
+        setXYZ(res.data[0].USERCOUNT);
+        return xyz;
+      });
+  }
 
   const handleChangeEvent = (e) => {
     // return (e.target.name = e.target.value);
@@ -158,7 +186,7 @@ function Adduser(props) {
 
   const testOnlurr = () => {
     Axios
-      .post("http://mssoftware.xyz/getUserNameValidation", {
+      .post("http://entemadb.entema-software.com/getUserNameValidation", {
         userName: userName,
       })
       .then((res) => {

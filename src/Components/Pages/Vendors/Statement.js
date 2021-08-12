@@ -82,7 +82,7 @@ const Statement = (props) => {
   const paidAmntSts = (vid) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/getPaidReqAmt", {
+      .post("http://entemadb.entema-software.com/getPaidReqAmt", {
         venId: vid,
       })
       .then((res) => {
@@ -102,7 +102,7 @@ const Statement = (props) => {
   const removeTimeSheet = (tsId) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/removeVenTSDataonId", {
+      .post("http://entemadb.entema-software.com/removeVenTSDataonId", {
         TSID: tsId,
       })
       .then((res) => {
@@ -117,7 +117,7 @@ const Statement = (props) => {
   const getVendorData = (vendorID) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/getVendorIDData", {
+      .post("http://entemadb.entema-software.com/getVendorIDData", {
         vendorID: vendorID,
       })
       .then((res) => {
@@ -132,7 +132,7 @@ const Statement = (props) => {
           setVenVat(res.data[0].VENDOR_VAT);
           setVenDOCNO("DOC - " + res.data[0].SEQ_NO);
           setVenADD(res.data[0].VENDOR_ADD);
-          axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+          axios.get("http://entemadb.entema-software.com/getVatDataOnID", {}).then((res) => {
             if (res.data.length > 0) {
               //console.log(res.data);
               if (venVat) {
@@ -195,7 +195,7 @@ const Statement = (props) => {
   const getPOData = (vendorId) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/getPODataForStateOnVenId", {
+      .post("http://entemadb.entema-software.com/getPODataForStateOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -211,7 +211,7 @@ const Statement = (props) => {
   const getTSdata = (vendorId) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/getTSDataBasedOnVenId", {
+      .post("http://entemadb.entema-software.com/getTSDataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -241,7 +241,7 @@ const Statement = (props) => {
   const getVpmdata = (vendorId) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/getVPMDataBasedOnVenId", {
+      .post("http://entemadb.entema-software.com/getVPMDataBasedOnVenId", {
         vendorId: vendorId,
       })
       .then((res) => {
@@ -293,7 +293,7 @@ const Statement = (props) => {
   const removeVendor = (vendorId) => {
     showLoader();
     axios
-      .post("http://mssoftware.xyz/removeVendorDataonId", {
+      .post("http://entemadb.entema-software.com/removeVendorDataonId", {
         vendorID: vendorId,
       })
       .then((res) => {
@@ -358,12 +358,12 @@ const Statement = (props) => {
 
   const removePO = (POId) => {
     axios
-      .post("http://mssoftware.xyz/removePODataonId", {
+      .post("http://entemadb.entema-software.com/removePODataonId", {
         POID: POId,
       })
       .then((res) => {
         axios
-          .post("http://mssoftware.xyz/removePOMulDataonId", {
+          .post("http://entemadb.entema-software.com/removePOMulDataonId", {
             POID: POId,
           })
           .then((res) => {
@@ -375,7 +375,7 @@ const Statement = (props) => {
 
   const removeVenPm = (pmntId) => {
     axios
-      .post("http://mssoftware.xyz/removeVenPmntDataonId", {
+      .post("http://entemadb.entema-software.com/removeVenPmntDataonId", {
         PMID: pmntId,
       })
       .then((res) => {
@@ -390,7 +390,7 @@ const Statement = (props) => {
     // alert("hi there" + value);
 
     axios
-      .post("http://mssoftware.xyz/updateVenPmntRequestStatus", {
+      .post("http://entemadb.entema-software.com/updateVenPmntRequestStatus", {
         pmntSts: "Paid",
         pmntId: value,
       })

@@ -100,7 +100,7 @@ export default function PopupPO(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getPODataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getPODataBasedOnId", {
         poid: id,
       })
       .then((res) => {        
@@ -138,7 +138,7 @@ export default function PopupPO(props) {
       });
 
     axios
-      .post("http://mssoftware.xyz/getMultirowPODataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getMultirowPODataBasedOnId", {
         poid: id,
       })
       .then((res) => {
@@ -235,7 +235,7 @@ export default function PopupPO(props) {
   };
 
   const getVendorLovData = () => {
-    fetch("http://mssoftware.xyz/getVendorData", {
+    fetch("http://entemadb.entema-software.com/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -244,7 +244,7 @@ export default function PopupPO(props) {
       .then((response) => response.json())
       .then((response) => {
         setVendorLov(response);
-        axios.get("http://mssoftware.xyz/getVatDataOnID", {}).then((res) => {
+        axios.get("http://entemadb.entema-software.com/getVatDataOnID", {}).then((res) => {
           if (res.data.length > 0) {
             // console.log(res.data);
             setVatDetails(res.data[0].VAT);
@@ -513,7 +513,7 @@ export default function PopupPO(props) {
 
   const updatePo = ()=>{
     axios
-      .post("http://mssoftware.xyz/updatePoData", {
+      .post("http://entemadb.entema-software.com/updatePoData", {
         poid: id,
         podocno: podocno,
         podate: podate,
@@ -550,7 +550,7 @@ export default function PopupPO(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/removePOMulDataonId", {
+      .post("http://entemadb.entema-software.com/removePOMulDataonId", {
         POID: id,
       })
       .then((res) => {

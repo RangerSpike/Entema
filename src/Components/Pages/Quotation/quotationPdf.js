@@ -63,7 +63,7 @@ export default function PopupPdf(props) {
 
   const getData = () => {
     axios
-      .post("http://mssoftware.xyz/getQOMULDataonID", {
+      .post("http://entemadb.entema-software.com/getQOMULDataonID", {
         QOID: id,
       })
       .then((response) => {
@@ -71,7 +71,7 @@ export default function PopupPdf(props) {
 
         if (response.data.length > 0) {
           setMyDataSet(response.data);
-          console.log("MY DATA SET : ", myDataSet);
+          //console.log("MY DATA SET : ", myDataSet);
           setCqclient(response.data[0].CLIENT_DISP_NAME);
           setCqtypes(response.data[0].QO_TYPE);
           setCqmobileNo(response.data[0].QO_COMP_MOB);
@@ -148,11 +148,7 @@ export default function PopupPdf(props) {
   useEffect(() => {
     isEnabled(cqtypes);
   }, [cqtypes]);
-
-  const onClosepopup = () => {
-    setId(0);
-    setOpenPopup(false);
-  };
+  
 
   const displayTitle = (cqtypes) => {
     if (cqtypes === "Man Power") {
@@ -375,9 +371,9 @@ export default function PopupPdf(props) {
                             <td>{comment.TAB_DESC}</td>
                             <td>{comment.TAB_UNIT}</td>
                             <td>
-                              {comment.TAB_QTY}/{" " + comment.TAB_UNIT}
+                              {comment.TAB_QTY}
                             </td>
-                            <td>{comment.TAB_AMOUNT}</td>
+                            <td>{comment.TAB_AMOUNT}/{" " + comment.TAB_UNIT}</td>
                             <td>
                               {displayData(
                                 cqtypes,
@@ -407,8 +403,7 @@ export default function PopupPdf(props) {
                     Client has to return the same Quotation to Entema Al-shamal
                     by Fax or Email after Confirmation Signature.
                     <h1 className="quotation">Client Acceptance</h1>
-                    <h6 style={{ fontSize: "12px", textAlign: "left" }}>
-                      {cqclient}
+                    <h6 style={{ fontSize: "12px", textAlign: "left" }}>                      
                     </h6>
                     <div className="row">
                       <div className="col-sm-6">

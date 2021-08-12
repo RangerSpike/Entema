@@ -47,7 +47,7 @@ export default function Popup(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getVendorIDData", {
+      .post("http://entemadb.entema-software.com/getVendorIDData", {
         vendorID: id,
       })
       .then((res) => {
@@ -137,7 +137,7 @@ export default function Popup(props) {
     // event.preventDefault();
     // console.log("event : ", event);
     axios
-      .post("http://mssoftware.xyz/updateVendorData", {
+      .post("http://entemadb.entema-software.com/updateVendorData", {
         v_id: id,
         vendorname: vendorname,        
         vendorphone: vendorphone,
@@ -167,7 +167,7 @@ export default function Popup(props) {
   };
 
   const testOnlurr = () => {
-    axios.post("http://mssoftware.xyz/getVenNameValidation", {
+    axios.post("http://entemadb.entema-software.com/getVenNameValidation", {
       venName: vendorname,
     }).then((res) => {
       if (res.data[0].VENDORCOUNT > 0) {

@@ -360,7 +360,7 @@ function Createtimesheet() {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertVenTimesheetData", {
+      .post("http://entemadb.entema-software.com/insertVenTimesheetData", {
         tsvenId: timesheetId,
         tsvendor: tsVendor,
         tsmonth: tsMonth,
@@ -392,7 +392,7 @@ function Createtimesheet() {
 
   const onYearChange = (value) => {
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetValidation", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetValidation", {
         pVendor: tsVendor,
         pMonth: tsMonth,
         pYear: value,
@@ -517,7 +517,7 @@ function Createtimesheet() {
   };
 
   const getVendorLovData = () => {
-    fetch("http://mssoftware.xyz/getVendorData", {
+    fetch("http://entemadb.entema-software.com/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -532,7 +532,7 @@ function Createtimesheet() {
   };
 
   const getYearLovData = () => {
-    fetch("http://mssoftware.xyz/getYearLov", {
+    fetch("http://entemadb.entema-software.com/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",

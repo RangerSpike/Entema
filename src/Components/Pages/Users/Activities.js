@@ -33,7 +33,7 @@ function Activities() {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertActivitiesData", {
+      .post("http://entemadb.entema-software.com/insertActivitiesData", {
         actname: AcActivityName,
         actenddate: AcEndDate,
         actdescription: AcDescription,

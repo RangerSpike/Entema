@@ -47,7 +47,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getQuotData")
+    fetch("http://entemadb.entema-software.com/getQuotData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -67,12 +67,12 @@ const DataTable = () => {
 
   const removeQuotation = (QOId) => {
     axios
-      .post("http://mssoftware.xyz/removeQODataonId", {
+      .post("http://entemadb.entema-software.com/removeQODataonId", {
         QOID: QOId,
       })
       .then((res) => {
         axios
-          .post("http://mssoftware.xyz/removeQOMulDataonId", {
+          .post("http://entemadb.entema-software.com/removeQOMulDataonId", {
             QOID: QOId,
           })
           .then((res) => {});

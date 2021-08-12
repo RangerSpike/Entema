@@ -53,7 +53,7 @@ const DataTable = () => {
     //console.log(myID);
     setAnchorEl(null);
     axios
-      .post("http://mssoftware.xyz/updateVenTsStatus", {
+      .post("http://entemadb.entema-software.com/updateVenTsStatus", {
         vtsid: myID,
         posts: "Approved",
       })
@@ -67,7 +67,7 @@ const DataTable = () => {
     //console.log(myID);
     setAnchorEl(null);
     axios
-      .post("http://mssoftware.xyz/updateVenTsStatus", {
+      .post("http://entemadb.entema-software.com/updateVenTsStatus", {
         vtsid: myID,
         posts: "Not Approved",
       })
@@ -115,7 +115,7 @@ const DataTable = () => {
     //console.log("year : ", tsYear);
 
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetDataonYearMonth", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetDataonYearMonth", {
         venMonth: tsMonth,
         venYear: tsYear,
       })
@@ -133,7 +133,7 @@ const DataTable = () => {
   }, [id]);
   
   const getYearLovData = () => {
-    fetch("http://mssoftware.xyz/getYearLov", {
+    fetch("http://entemadb.entema-software.com/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -158,17 +158,17 @@ const DataTable = () => {
 
   const removeTimeSheet = (tsId) => {
     axios
-      .post("http://mssoftware.xyz/removeVenTSDataonId", {
+      .post("http://entemadb.entema-software.com/removeVenTSDataonId", {
         TSID: tsId,
       })
       .then((res) => {
         axios
-          .post("http://mssoftware.xyz/removeVenTsRGHDataonId", {
+          .post("http://entemadb.entema-software.com/removeVenTsRGHDataonId", {
             TSID: tsId,
           })
           .then((res) => {
             axios
-              .post("http://mssoftware.xyz/removeVenTsOTHDataonId", {
+              .post("http://entemadb.entema-software.com/removeVenTsOTHDataonId", {
                 TSID: tsId,
               })
               .then((res) => {});

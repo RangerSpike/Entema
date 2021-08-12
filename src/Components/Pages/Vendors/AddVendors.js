@@ -21,6 +21,7 @@ function AddVendors() {
   const history = useHistory();
 
   const [seqNo, setSeqNo] = useState();
+  const [xyz, setXYZ] = useState();
   const [vendorname, setVendorname] = useState();
   const [vendorcode, setVendorcode] = useState('VEN-X');
   const [vendorfline, setVendorfline] = useState();
@@ -138,10 +139,10 @@ function AddVendors() {
     // setVendordocno("DOC-" + parseInt(x));
     setSeqNo(parseInt(x));
   };
-  
+
 
   const getMaxID = () => {
-    fetch("/getMaxVendoriId")
+    fetch("http://entemadb.entema-software.com/getMaxVendoriId")
       .then((response) => response.json())
       .then((json) => {
         setVendorMaxID(json[0].maxid);
@@ -206,42 +207,63 @@ function AddVendors() {
     return formatedDate;
   };
 
-
+  const submitFunction = () => {
+    Axios.post("http://entemadb.entema-software.com/insertVendorData", {
+      vendorid: vendorId,
+      vendorname: vendorname,
+      vendorcode: vendorcode,
+      vendorfline: vendorfline,
+      vendoradd: vendoradd,
+      vendorcperson: vendorcperson,
+      vendorphone: vendorphone,
+      vendoremail: vendoremail,
+      vendorbfname: vendorbfname,
+      vendorbankname: vendorbankname,
+      vendorbankacc: vendorbankacc,
+      vendoriban: vendoriban,
+      vendorvat: vendorvat,
+      vendordocno: vendordocno,
+      createdby: localStorage.getItem("userDetails"),
+      vendorstatus: vendorstatus,
+    }).then((res) => {
+      //console.log("result success : ", res);
+    });
+  }
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    testName();
 
-    getMaxID();
-    //console.log("event : ", event);
     setTimeout(() => {
-      Axios.post("/insertVendorData", {
-        vendorid: vendorId,
-        vendorname: vendorname,
-        vendorcode: vendorcode,
-        vendorfline: vendorfline,
-        vendoradd: vendoradd,
-        vendorcperson: vendorcperson,
-        vendorphone: vendorphone,
-        vendoremail: vendoremail,
-        vendorbfname: vendorbfname,
-        vendorbankname: vendorbankname,
-        vendorbankacc: vendorbankacc,
-        vendoriban: vendoriban,
-        vendorvat: vendorvat,
-        vendordocno: vendordocno,
-        createdby: localStorage.getItem("userDetails"),
-        vendorstatus: vendorstatus,
-      }).then((res) => {
-        //console.log("result success : ", res);
-      });
-    }, 1000);
 
-    history.push("/ViewVendors");
+      if (xyz === 0) {
+        submitFunction();
+        history.push("/ViewVendors");
+      } else {
+        alert("Vendor Already Exist");
+        setXYZ(0);
+      }
+
+    }, 2000);    
   };
 
+
+  const testName = () => {
+    Axios
+      .post("http://entemadb.entema-software.com/getVenNameValidation", {
+        venName: vendorname,
+      })
+      .then((res) => {
+        console.log('data in api for validation :', res.data[0]);
+
+        setXYZ(res.data[0].VENDORCOUNT);
+        return xyz;
+      });
+  }
+
   const testOnlurr = () => {
-    Axios.post("http://mssoftware.xyz/getVenNameValidation", {
+    Axios.post("http://entemadb.entema-software.com/getVenNameValidation", {
       venName: vendorname,
     }).then((res) => {
       if (res.data[0].VENDORCOUNT > 0) {

@@ -79,7 +79,7 @@ export default function Popup(props) {
   const [clientLov, setClientLov] = useState([]);
 
   useEffect(() => {
-    fetch("http://mssoftware.xyz/getClientData", {
+    fetch("http://entemadb.entema-software.com/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -209,7 +209,7 @@ export default function Popup(props) {
   };
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getQuotDataBasedOnId", {
+      .post("http://entemadb.entema-software.com/getQuotDataBasedOnId", {
         quotID: id,
       })
       .then((res) => {
@@ -227,7 +227,7 @@ export default function Popup(props) {
           setQuotRefNo("ENT - " + res.data[0].SEQ_NO);
           // console.log("CQ :", cqtypes);
           axios
-            .post("http://mssoftware.xyz/getMultirowQuotDataBasedOnId", {
+            .post("http://entemadb.entema-software.com/getMultirowQuotDataBasedOnId", {
               quotID: id,
             })
             .then((res) => {
@@ -277,7 +277,7 @@ export default function Popup(props) {
 
   const updatedQuot = () => {
     axios
-      .post("http://mssoftware.xyz/UpdateQuotData", {
+      .post("http://entemadb.entema-software.com/UpdateQuotData", {
         qoid: id,
         cqdate: cqdate,
         entFrom: entFrom,
@@ -297,7 +297,7 @@ export default function Popup(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/removeQUOMulDataonId", {
+      .post("http://entemadb.entema-software.com/removeQUOMulDataonId", {
         qoid: id,
       })
       .then((res) => {

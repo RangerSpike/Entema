@@ -149,7 +149,7 @@ export default function PopupTS(props) {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetDataListBasedonId", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetDataListBasedonId", {
         vtsId: id,
       })
       .then((res) => {
@@ -462,17 +462,17 @@ export default function PopupTS(props) {
 
     if (isCalculated) {
       axios
-        .post("http://mssoftware.xyz/removeVenTsRGHDataonId", {
+        .post("http://entemadb.entema-software.com/removeVenTsRGHDataonId", {
           TSID: id,
         })
         .then((res) => {
           axios
-            .post("http://mssoftware.xyz/removeVenTsOTHDataonId", {
+            .post("http://entemadb.entema-software.com/removeVenTsOTHDataonId", {
               TSID: id,
             })
             .then((res) => {});
           axios
-            .post("http://mssoftware.xyz/updateVenTsData", {
+            .post("http://entemadb.entema-software.com/updateVenTsData", {
               tsvenId: id,
               tsid: id,
               tsdescription: tsDescription,
@@ -505,7 +505,7 @@ export default function PopupTS(props) {
 
   const onYearChange = (value) => {
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetValidation", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetValidation", {
         pVendor: tsVendor,
         pMonth: tsMonth,
         pYear: value,
@@ -525,7 +525,7 @@ export default function PopupTS(props) {
   };
 
   const getVendorLovData = () => {
-    fetch("http://mssoftware.xyz/getVendorData", {
+    fetch("http://entemadb.entema-software.com/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -540,7 +540,7 @@ export default function PopupTS(props) {
   };
 
   const getYearLovData = () => {
-    fetch("http://mssoftware.xyz/getYearLov", {
+    fetch("http://entemadb.entema-software.com/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",

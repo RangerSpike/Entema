@@ -53,7 +53,7 @@ export default function PopupVP(props) {
   ];
 
   const getVendorLovData = () => {
-    fetch("http://mssoftware.xyz/getVendorData", {
+    fetch("http://entemadb.entema-software.com/getVendorData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function PopupVP(props) {
 
   const getTimeSheetForVendor = (vendorID) => {
     axios
-      .post("http://mssoftware.xyz/getVenTimesheetDataonVendorId", {
+      .post("http://entemadb.entema-software.com/getVenTimesheetDataonVendorId", {
         venId: vendorID,
       })
       .then((res) => {
@@ -205,7 +205,7 @@ export default function PopupVP(props) {
   };
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getVenPmntDataonId", {
+      .post("http://entemadb.entema-software.com/getVenPmntDataonId", {
         PMID: id,
       })
       .then((res) => {
@@ -227,7 +227,7 @@ export default function PopupVP(props) {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/updateVenPmData", {
+      .post("http://entemadb.entema-software.com/updateVenPmData", {
         vpmid: id,
         pmamount: pmAmount,
         pmpmntmode: pmMode,

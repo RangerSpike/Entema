@@ -57,7 +57,7 @@ const DataTable = () => {
   const getData = () => {
     showLoader();
 
-    fetch("http://mssoftware.xyz/getUserData")
+    fetch("http://entemadb.entema-software.com/getUserData")
       .then((response) => response.json())
       .then((json) => {
         hideLoader();
@@ -79,7 +79,7 @@ const DataTable = () => {
 
   const removeUser = (userId) => {
     axios
-      .post("http://mssoftware.xyz/removeUserDataonId", {
+      .post("http://entemadb.entema-software.com/removeUserDataonId", {
         userID: userId,
       })
       .then((res) => {

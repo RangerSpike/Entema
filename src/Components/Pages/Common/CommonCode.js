@@ -4,7 +4,7 @@ const GetClientData = () => {
 
     const [newData, setNewData] = useState([]);
 
-    fetch("https://mssoftware.xyz/getClientDataForLov", {
+    fetch("http://entemadb.entema-software.com/getClientDataForLov", {
         method : 'Get',
         headers:{
             'Content-Type':'application/json',

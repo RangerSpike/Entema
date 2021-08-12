@@ -44,7 +44,7 @@ function CreateManpower() {
   const [yearLov, setYearLov] = useState([]);
 
   const getYearLovData = () => {
-    fetch("http://mssoftware.xyz/getYearLov", {
+    fetch("http://entemadb.entema-software.com/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function CreateManpower() {
   };
 
   const getMPLovData = () => {
-    fetch("http://mssoftware.xyz/getManpowerData", {
+    fetch("http://entemadb.entema-software.com/getManpowerData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -132,7 +132,7 @@ function CreateManpower() {
 
   const onYearChange = (value) => {
     axios
-      .post("http://mssoftware.xyz/getMPTimesheetValidation", {
+      .post("http://entemadb.entema-software.com/getMPTimesheetValidation", {
         pManpower: MpManPower,
         pMonth: MpMonth,
         pYear: value,
@@ -202,7 +202,7 @@ function CreateManpower() {
     // e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertManPTimesheetData", {
+      .post("http://entemadb.entema-software.com/insertManPTimesheetData", {
         mtsmanpower: MpManPower,
         mtsmonth: MpMonth,
         mtsyear: MpYear,

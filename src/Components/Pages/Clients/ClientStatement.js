@@ -31,12 +31,12 @@ const ClientStatement = (props) => {
 
   const removeQuotation = (QOId) => {
     axios
-      .post("http://mssoftware.xyz/removeQODataonId", {
+      .post("http://entemadb.entema-software.com/removeQODataonId", {
         QOID: QOId,
       })
       .then((res) => {
         axios
-          .post("http://mssoftware.xyz/removeQOMulDataonId", {
+          .post("http://entemadb.entema-software.com/removeQOMulDataonId", {
             QOID: QOId,
           })
           .then((res) => {});
@@ -46,7 +46,7 @@ const ClientStatement = (props) => {
 
   const getQuotationData = (clientId) => {
     axios
-      .post("http://mssoftware.xyz/getQuotDataBasedOnClientId", {
+      .post("http://entemadb.entema-software.com/getQuotDataBasedOnClientId", {
         clientId: clientId,
       })
       .then((res) => {
@@ -59,7 +59,7 @@ const ClientStatement = (props) => {
 
   useEffect(() => {
     axios
-      .post("http://mssoftware.xyz/getClientBasedOnId", {
+      .post("http://entemadb.entema-software.com/getClientBasedOnId", {
         clientID: cid,
       })
       .then((res) => {

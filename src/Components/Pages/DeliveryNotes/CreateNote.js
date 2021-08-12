@@ -21,7 +21,7 @@ function CreateNote() {
   }, []);
 
   const getClientLovData = () => {
-    fetch("http://mssoftware.xyz/getClientData", {
+    fetch("http://entemadb.entema-software.com/getClientData", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ function CreateNote() {
     e.preventDefault();
 
     axios
-      .post("http://mssoftware.xyz/insertDeliveryNoteData", {
+      .post("http://entemadb.entema-software.com/insertDeliveryNoteData", {
         delclient: DnClient,
         deladd: DnAddress,
         delshipadd: DnShippingAddress,

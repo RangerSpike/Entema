@@ -50,7 +50,7 @@ const DataTable = () => {
     ////console.log(myID);
     setAnchorEl(null);
     axios
-      .post("http://mssoftware.xyz/updateMptsStatus", {
+      .post("http://entemadb.entema-software.com/updateMptsStatus", {
         MPtsID: myID,
         mptssts: "Approved",
       })
@@ -70,7 +70,7 @@ const DataTable = () => {
     ////console.log(myID);
     setAnchorEl(null);
     axios
-      .post("http://mssoftware.xyz/updateMptsStatus", {
+      .post("http://entemadb.entema-software.com/updateMptsStatus", {
         MPtsID: myID,
         mptssts: "Not Approved",
       })
@@ -113,7 +113,7 @@ const DataTable = () => {
   ];
 
   const getYearLovData = () => {
-    fetch("http://mssoftware.xyz/getYearLov", {
+    fetch("http://entemadb.entema-software.com/getYearLov", {
       method: "Get",
       headers: {
         "Content-Type": "application/json",
@@ -186,7 +186,7 @@ const DataTable = () => {
     // ////console.log("year : ", tsYear);
 
     axios
-      .post("http://mssoftware.xyz/getMPTimesheetDataonYearMonth", {
+      .post("http://entemadb.entema-software.com/getMPTimesheetDataonYearMonth", {
         venMonth: tsMonth,
         venYear: tsYear,
       })
@@ -203,7 +203,7 @@ const DataTable = () => {
 
   const removeMPTimeSheet = (tsId) => {
     axios
-      .post("http://mssoftware.xyz/removeMPTSDataonId", {
+      .post("http://entemadb.entema-software.com/removeMPTSDataonId", {
         TSID: tsId,
       })
       .then((res) => {
