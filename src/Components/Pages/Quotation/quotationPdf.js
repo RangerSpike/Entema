@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupPdf(props) {
-  const { setId, id, openPopup, setOpenPopup } = props;
+  const {refresh,setRefresh, setId, id, openPopup, setOpenPopup } = props;
   // console.log(id);
 
   const classes = useStyles();
@@ -61,7 +61,10 @@ export default function PopupPdf(props) {
 
   let str;
 
-  const getData = () => {
+  const getData = () => {};
+
+  useEffect(() => {
+    getData();
     axios
       .post("http://entemadb.entema-software.com/getQOMULDataonID", {
         QOID: id,
@@ -91,11 +94,7 @@ export default function PopupPdf(props) {
           );
         }
       });
-  };
-
-  useEffect(() => {
-    getData();
-  }, [id]);
+  }, [id,refresh]);
 
   const formatChange = (wDate, crtdDate) => {
     let wrkDate = new Date(wDate);
@@ -148,7 +147,6 @@ export default function PopupPdf(props) {
   useEffect(() => {
     isEnabled(cqtypes);
   }, [cqtypes]);
-  
 
   const displayTitle = (cqtypes) => {
     if (cqtypes === "Man Power") {
@@ -167,6 +165,7 @@ export default function PopupPdf(props) {
   };
 
   const onClosePopup = () => {
+    setRefresh(!refresh);
     setId(0);
     setOpenPopup(false);
   };
@@ -370,10 +369,10 @@ export default function PopupPdf(props) {
                             </th>
                             <td>{comment.TAB_DESC}</td>
                             <td>{comment.TAB_UNIT}</td>
+                            <td>{comment.TAB_QTY}</td>
                             <td>
-                              {comment.TAB_QTY}
+                              {comment.TAB_AMOUNT}/{" " + comment.TAB_UNIT}
                             </td>
-                            <td>{comment.TAB_AMOUNT}/{" " + comment.TAB_UNIT}</td>
                             <td>
                               {displayData(
                                 cqtypes,
@@ -392,7 +391,11 @@ export default function PopupPdf(props) {
                 <div className="col-sm-12">
                   <div className="dash-terms">
                     <h1>Terms &amp; Conditions:</h1>
-                    <textarea style={{border:"0px" ,width:"850px"}} rows="13" value={termCond}/>
+                    <textarea
+                      style={{ border: "0px", width: "850px" }}
+                      rows="13"
+                      value={termCond}
+                    />
                   </div>
                 </div>
               </div>
@@ -403,8 +406,7 @@ export default function PopupPdf(props) {
                     Client has to return the same Quotation to Entema Al-shamal
                     by Fax or Email after Confirmation Signature.
                     <h1 className="quotation">Client Acceptance</h1>
-                    <h6 style={{ fontSize: "12px", textAlign: "left" }}>                      
-                    </h6>
+                    <h6 style={{ fontSize: "12px", textAlign: "left" }}></h6>
                     <div className="row">
                       <div className="col-sm-6">
                         <div className="bot-cl2">

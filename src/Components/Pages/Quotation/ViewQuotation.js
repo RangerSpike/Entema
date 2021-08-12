@@ -21,6 +21,7 @@ const DataTable = () => {
   const [id, setId] = useState("");
   const [openpdfPopup, setOpenpdfPopup] = useState(false);
   const [pdfId, setPdfId] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
   const openInPopup = (item) => {
     setOpenPopup(true);
@@ -28,6 +29,7 @@ const DataTable = () => {
   };
 
   const openPdfPopup = (item) => {
+    setRefresh(!refresh);
     setOpenpdfPopup(true);
     setPdfId(item);
   };
@@ -185,6 +187,8 @@ const DataTable = () => {
                 setOpenPopup={setOpenPopup}
               ></Popup>
               <PopupPdf
+                setRefresh={setRefresh}
+                refresh={refresh}
                 setId={setId}
                 id={pdfId}
                 openPopup={openpdfPopup}

@@ -227,9 +227,12 @@ export default function Popup(props) {
           setQuotRefNo("ENT - " + res.data[0].SEQ_NO);
           // console.log("CQ :", cqtypes);
           axios
-            .post("http://entemadb.entema-software.com/getMultirowQuotDataBasedOnId", {
-              quotID: id,
-            })
+            .post(
+              "http://entemadb.entema-software.com/getMultirowQuotDataBasedOnId",
+              {
+                quotID: id,
+              }
+            )
             .then((res) => {
               newData = res.data;
 
@@ -301,9 +304,9 @@ export default function Popup(props) {
         qoid: id,
       })
       .then((res) => {
-        setTimeout(()=>{
+        setTimeout(() => {
           updatedQuot();
-        },1000)
+        }, 1000);
       });
 
     setOpenPopup(false);
@@ -333,8 +336,8 @@ export default function Popup(props) {
   };
 
   const onCloseOpup = () => {
-    setOpenPopup(false);
     setId(0);
+    setOpenPopup(false);
     setCqtypes();
     //xSts = false
   };
