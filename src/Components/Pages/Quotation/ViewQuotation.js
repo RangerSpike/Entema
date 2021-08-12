@@ -29,9 +29,9 @@ const DataTable = () => {
   };
 
   const openPdfPopup = (item) => {
-    setRefresh(!refresh);
     setOpenpdfPopup(true);
     setPdfId(item);
+    setRefresh(!refresh);
   };
 
   const ITEMS_PER_PAGE = 10;

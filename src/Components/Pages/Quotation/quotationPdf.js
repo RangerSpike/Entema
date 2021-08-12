@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupPdf(props) {
-  const {refresh,setRefresh, setId, id, openPopup, setOpenPopup } = props;
+  const { refresh, setRefresh, setId, id, openPopup, setOpenPopup } = props;
   // console.log(id);
 
   const classes = useStyles();
@@ -64,7 +64,6 @@ export default function PopupPdf(props) {
   const getData = () => {};
 
   useEffect(() => {
-    getData();
     axios
       .post("http://entemadb.entema-software.com/getQOMULDataonID", {
         QOID: id,
@@ -94,7 +93,7 @@ export default function PopupPdf(props) {
           );
         }
       });
-  }, [id,refresh]);
+  }, [id, refresh]);
 
   const formatChange = (wDate, crtdDate) => {
     let wrkDate = new Date(wDate);
